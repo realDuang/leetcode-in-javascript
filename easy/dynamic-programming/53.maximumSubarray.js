@@ -20,6 +20,8 @@ var maxSubArray = function(nums) {
 };
 // @lc code=end
 
+// 状态转移方程：dp[i] = max(dp[i-1] + nums[i], nums[i])
+
 // 原始动态规划解法，由于本题不需要回溯子序列索引，因此不需要记录每一步的最大值
 
 // var maxSubArray = function(nums) {
