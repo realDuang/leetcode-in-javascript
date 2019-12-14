@@ -15,7 +15,7 @@ var wordBreak = function(s, wordDict) {
   dp[0] = true;
   for (let i = 1; i <= s.length; i++) {
     for (let word of wordDict) {
-      if (word.length <= i) {
+      if (i >= word.length) {
         const fragment = s.substring(i - word.length, i);
         if (fragment === word && dp[i - word.length]) {
           dp[i] = true;
@@ -27,10 +27,10 @@ var wordBreak = function(s, wordDict) {
 };
 // @lc code=end
 
-console.log(wordBreak('catsandog', ['cats', 'dog', 'sand', 'and', 'cat', ]));
+console.log(wordBreak('catsandog', ['cats', 'dog', 'sand', 'and', 'cat', 'an']));
 
-// 状态转移方程：dp[n] = dp[n - word.length] && 子序列 == word
-// 一道动态规划问题，我们可以从后往前倒推。
-// 对于词典中的每一个词word，想办法找出dp[n]与dp[n-word.length]的关系。
-// 1. 若n-word.length<0，则一定是无解的
-// 2. 若截取子序列能在字典中被找到，并且dp[n-word.length]有解，则该子序列有解，解为：dp[n-word.length]的解加上当前子序列
+// 一道动态规划问题，我们可以从后往前倒推。建立dp数组，dp[i]表示s.substring(i)子串是否能被字典完全匹配。对于字典中的每一个词word，想办法找出dp[i]与dp[i-word.length]的关系。
+// 1. 若i < word.length，则一定是无解的
+// 2. 若截取子序列尾部能匹配字典中的单词，并且dp[n-word.length]有解，则该子序列有解，解为：dp[n-word.length]的解加上当前匹配单词
+// 特殊的，当s为空时，任何情况下都匹配，即dp[0]=true
+// 状态转移方程：dp[i] = dp[i - word.length] && s.substring(i - word.length, i) === word

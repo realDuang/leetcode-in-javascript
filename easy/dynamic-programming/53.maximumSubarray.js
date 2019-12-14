@@ -37,4 +37,28 @@ var maxSubArray = function(nums) {
 //   return sum;
 // };
 
+// 观察dp数组可知，dp[i]仅与dp[i-1]相关，因此完全可以用一个变量替代dp数组，从而节省空间复杂度。（下面的解顺便求了最大子序列）
+
+// var maxSubArray = function(nums) {
+//   let dp = nums[0];
+//   let res = nums[0];
+//   let tempArr = [nums[0]];
+//   let resArr = [nums[0]];
+//   for (let i = 1; i < nums.length; i++) {
+//     if (nums[i] < dp + nums[i]) {
+//       dp = nums[i] + dp;
+//       tempArr.push(nums[i]);
+//     } else {
+//       dp = nums[i];
+//       tempArr = [nums[i]];
+//     }
+//     if (res < dp) {
+//       res = dp;
+//       resArr = [...tempArr];
+//     }
+//   }
+//   console.log(resArr);
+//   return res;
+// };
+
 console.log(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4]));
