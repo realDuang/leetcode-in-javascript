@@ -1,0 +1,32 @@
+{
+  "name": "leetcode-archive",
+  "version": "1.0.0",
+  "description": "使用js的leetcode题解仓库",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "vuepress": "^1.3.0"
+  },
+  "devDependencies": {
+    "vuepress-plugin-auto-sidebar": "^1.2.1"
+  },
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kelekexiao123/leetcode-archive.git"
+  },
+  "keywords": [
+    "leetcode"
+  ],
+  "author": "kelekexiao123",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kelekexiao123/leetcode-archive/issues"
+  },
+  "homepage": "https://github.com/kelekexiao123/leetcode-archive#readme"
+}
