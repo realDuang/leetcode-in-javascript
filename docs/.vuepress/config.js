@@ -1,6 +1,6 @@
 const sortFn = key => (a, b) => {
-  const numberA = Number(a[key].split('[')[1].split(']')[0]);
-  const numberB = Number(b[key].split('[')[1].split(']')[0]);
+  const numberA = Number(a[key].split('.')[0]);
+  const numberB = Number(b[key].split('.')[0]);
   return numberA - numberB;
 };
 
