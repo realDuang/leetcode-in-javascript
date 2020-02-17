@@ -1,5 +1,11 @@
+const sortFn = key => (a, b) => {
+  const numberA = Number(a[key].split('.')[0]);
+  const numberB = Number(b[key].split('.')[0]);
+  return numberA - numberB;
+};
+
 module.exports = {
-  base: '/leetcode-archive/', //站点的基础路径
+  base: '/leetcode-archive/',
   title: 'Leetcode-in-JS',
   description: '使用JS的leetcode题解仓库',
   themeConfig: {
@@ -9,6 +15,7 @@ module.exports = {
   },
   plugins: {
     'vuepress-plugin-auto-sidebar': {
+      sort: sortFn,
       titleMap: {
         blog: '📖 题库列表',
       },
