@@ -36,9 +36,43 @@ function findMedian(nums1, i, nums2, j, K) {
 }
 // @lc code=end
 
-console.log(findMedianSortedArrays([1, 4, 7, 21], [2, 6, 15, 16, 19, 27]));
+// console.log(findMedianSortedArrays([1, 4, 7, 21], [2, 6, 15, 16, 19, 27]));
 
-// 这道题如果不算时间复杂度的话其实是一个非常简单的题目，有序数组合并后求中位数即可，但是时间限制在O(log(m+n))之内了，处理起来就比较麻烦了。
+// 这道题如果不算时间复杂度的话其实是一个非常简单的题目，有序数组合并后求中位数即可。
+
+// var findMedianSortedArrays = function(nums1, nums2) {
+//   const len1 = nums1.length;
+//   const len2 = nums2.length;
+
+//   const nums = [];
+//   let i = 0;
+//   let j = 0;
+//   let cnt = 0;
+//   while (cnt < len1 + len2) {
+//     if (i === len1) {
+//       while (j < len2) {
+//         nums[cnt++] = nums2[j++];
+//       }
+//       break;
+//     }
+//     if (j === len2) {
+//       while (i < len1) {
+//         nums[cnt++] = nums1[i++];
+//       }
+//       break;
+//     }
+//     if (nums1[i] < nums2[j]) {
+//       nums[cnt++] = nums1[i++];
+//     } else {
+//       nums[cnt++] = nums2[j++];
+//     }
+//   }
+//   const left = Math.floor((len1 + len2 + 1) / 2) - 1;
+//   const right = Math.floor((len1 + len2 + 2) / 2) - 1;
+//   return (nums[left] + nums[right]) / 2;
+// };
+
+// 但是时间限制在O(log(m+n))之内了，处理起来就比较麻烦了。
 // 首先看这个log级的时间复杂度，很容易就想到用二分的思想处理。关键是对谁二分比较合适，这里其实需要对每次取得的中位数 K 二分
 // 这里取中位数K有一个小技巧：对任意一个数x，无论x的奇偶性，中位数都为： ((x+1)/2 + (x+2)/2) / 2
 // 之后来观察一下，我们需要在两个数组中找到第K/2个数，之后比较两数组大小。若arr1不存在第K/2个数，或arr1[K/2] < arr2[K/2]，那么不管arr1中的数字是多少，当前这两个数组混合后的中位数一定在arr2中不在arr1中(即使数组1的数字全部大于数组2)，因此我们能淘汰掉arr1的前K/2个数字(即起始位置后移K/2)。之后将 K - K/2，进入下一次递归。
@@ -72,3 +106,5 @@ console.log(findMedianSortedArrays([1, 4, 7, 21], [2, 6, 15, 16, 19, 27]));
 // }
 
 // 更好地，我们可以用两个变量记录坐标，即原地算法来解，可以节省复制数组的时间与空间消耗。
+
+console.log(findMedianSortedArrays([], [2, 3, 6, 9, 11]));
