@@ -7,6 +7,7 @@ module.exports = {
   extends: 'alloy',
   rules: {
     'no-var': 0,
-    'max-params': 0
+    'max-params': 0,
+    'no-irregular-whitespace': 0
   }
 };
