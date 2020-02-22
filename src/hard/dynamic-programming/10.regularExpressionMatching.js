@@ -30,6 +30,7 @@ var isMatch = function(s, p) {
       }
     }
   }
+  console.log(dp);
   return dp[s.length][p.length];
 };
 // @lc code=end
@@ -42,5 +43,22 @@ var isMatch = function(s, p) {
 // dp[i][j] = dp[i][j-2] 当dp[j-1] === "*" && *前面的字符没有被匹配过
 // 2）在*前面的字符被匹配过，那么就考虑s前一个字符是否被p前 两 个字符匹配了(即相等或.)(因为p前一个字符为*)，即：
 // dp[i][j] = dp[i-1][j] 当dp[j-1] === "*" && *前面的字符被匹配过 && (s[i-1] === p[j-2] || p[j-1] === '.')
+
+// var isMatch = function(s, p) {
+//   const dp = new Array(s.length + 1).fill(0).map(x => new Array(p.length + 1).fill(false));
+//   dp[0][0] = true;
+//   for (let i = 0; i <= s.length; i++) {
+//     for (let j = 1; j <= p.length; j++) {
+//       if (j >= 2 && p[j - 1] === '*') {
+//         const isNoneMatch = dp[i][j - 2];
+//         const isOnceMatch = i > 0 && (p[j - 2] === '.' || s[i - 1] === p[j - 2]) && dp[i - 1][j];
+//         dp[i][j] = isNoneMatch || isOnceMatch;
+//       } else {
+//         dp[i][j] = i > 0 && (p[j - 1] === '.' || s[i - 1] === p[j - 1]) && dp[i - 1][j - 1];
+//       }
+//     }
+//   }
+//   return dp[s.length][p.length];
+// };
 
 console.log(isMatch('ab', '.*'));
