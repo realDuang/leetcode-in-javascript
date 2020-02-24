@@ -8,6 +8,7 @@ module.exports = {
   rules: {
     'no-var': 0,
     'max-params': 0,
-    'no-irregular-whitespace': 0
+    'no-irregular-whitespace': 0,
+    'no-param-reassign': 0
   }
 };
