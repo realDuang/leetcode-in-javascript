@@ -38,3 +38,16 @@ console.log(uniquePaths(7, 3));
 // return dp[m - 1][n - 1];
 
 // 由于每一格的取值只与上方与左方有关，因此我们可以化简为一维数组节省空间。一维数组存储对每一行遍历时上一行的数据，另外建一个变量pre存储遍历行时左边一格的数据，更新时指针右移，此时将pre于一维数组对应值更新即可。
+
+// var uniquePaths = function(m, n) {
+//   const smaller = (m < n ? m : n) - 1;
+//   const bigger = (m > n ? m : n) - 1;
+
+//   let dividend = 1;
+//   let divisor = 1;
+//   for (let i = 1; i <= smaller; i++) {
+//     dividend *= bigger + i;
+//     divisor *= i;
+//   }
+//   return dividend / divisor;
+// };
