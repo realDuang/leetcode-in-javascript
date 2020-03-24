@@ -1,3 +1,3 @@
 # leetcode-archive
 
-自己的leetcode题解仓库存档
+使用JavaScript的leetcode题解仓库存档
