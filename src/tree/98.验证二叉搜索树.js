@@ -89,3 +89,21 @@ c.left = d;
 c.right = e;
 
 console.log(isValidBST(a));
+
+// 若是普通遍历树的话需要注意，对于树的比较不能仅比较当前节点与左右子的大小关系，还应该注意与所有祖先节点的大小关系。因此，这里合适的做法是确立该节点取值的上下界，这样才能确定搜索树的正确性。
+
+// 若该节点为父节点的左子节点，则取值范围上界更新为父节点的值，若为右子节点，则下界更新为父节点的值。
+
+// var isValidBST = function (root) {
+//   return helper(root, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER);
+// };
+
+// function helper(root, min, max) {
+//   if (!root) return true;
+
+//   if (root.val <= min || root.val >= max) return false;
+
+//   return helper(root.left, min, root.val) && helper(root.right, root.val, max);
+// }
+
+// 另外，我们也可以用中序遍历来解题。我们容易看出来，二叉搜索树的中序遍历结果实际上就是一个从小到大的排序数组。因此，我们只需要比较当前值是否比前一个数大即可。

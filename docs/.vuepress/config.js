@@ -26,7 +26,7 @@ function changeTitleInBar(sidebar, titleMap) {
 }
 
 const titleMap = {
-  Blog: '📖 题库列表',
+  List: '📖 题库列表',
   Home: '首页',
   Array: '数组',
   Backtracking: '回溯法',
@@ -39,7 +39,7 @@ const titleMap = {
   'Hash Table': '哈希表',
   Heap: '堆',
   'Linked List': '链表',
-  Math: '数论',
+  Math: '数学',
   Stack: '栈',
   String: '字符串',
   Tree: '树',
@@ -53,7 +53,6 @@ if (Array.isArray(barConfig.sidebar)) {
 } else {
   // 若存在nav，sidebar返回Object
   Object.entries(barConfig.sidebar).forEach(([key, value]) => {
-    console.log(key, value);
     customSidebar[key] = changeTitleInBar(value, titleMap);
   });
 }
