@@ -35,21 +35,21 @@
  */
 var generateParenthesis = function(n) {
   const res = [];
-  helper('', n, n, res);
+  backtrack('', n, n);
   return res;
-};
 
-function helper(str, left, right, res) {
-  if (left < 0 || right < 0 || left > right) return;
-  if (left === 0) {
-    str += ')'.repeat(right);
-    res.push(str);
-    return;
+  function backtrack(str, left, right) {
+    if (left < 0 || right < 0 || left > right) return;
+    if (left === 0) {
+      str += ')'.repeat(right);
+      res.push(str);
+      return;
+    }
+
+    backtrack(str + '(', left - 1, right);
+    backtrack(str + ')', left, right - 1);
   }
-
-  helper(str + '(', left - 1, right, res);
-  helper(str + ')', left, right - 1, res);
-}
+};
 // @lc code=end
 
 console.log(generateParenthesis(3));
