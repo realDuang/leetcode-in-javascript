@@ -45,13 +45,13 @@ var permute = function(nums) {
       res.push(path);
       return;
     }
-    rest.forEach(num => {
-      // 若选择该数，剩余可选数减除该数，路径增加该数
-      backtrack(
-        rest.filter(ele => ele !== num),
-        [...path, num]
-      );
-    });
+    for (let i = 0; i < rest.length; i++) {
+      // 若选择该元素，剩余可选数减除该元素，路径增加该元素
+      const num = rest.splice(i, 1)[0];
+      backtrack(rest, [...path, num]);
+      // 否则恢复该元素后，进行其他分支递归
+      rest.splice(i, 0, num);
+    }
   }
 };
 
