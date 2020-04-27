@@ -39,9 +39,9 @@
  * @return {ListNode}
  */
 var swapPairs = function(head) {
-  const dude = new ListNode(null);
-  dude.next = head;
-  let pre = dude;
+  const dummy = new ListNode(null);
+  dummy.next = head;
+  let pre = dummy;
   while (pre && pre.next && pre.next.next) {
     let cur = pre.next;
     let next = cur.next;
@@ -50,9 +50,8 @@ var swapPairs = function(head) {
     next.next = cur;
 
     pre = cur;
-    // console.log(dude.next);
   }
-  return dude.next;
+  return dummy.next;
 };
 // @lc code=end
 
