@@ -40,6 +40,7 @@ const titleMap = {
   Heap: '堆',
   'Linked List': '链表',
   Math: '数学',
+  'Sliding Window': '滑动窗口',
   Stack: '栈',
   String: '字符串',
   Tree: '树',
