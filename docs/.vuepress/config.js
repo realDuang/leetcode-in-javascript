@@ -59,11 +59,11 @@ if (Array.isArray(barConfig.sidebar)) {
 }
 
 module.exports = {
-  base: '/leetcode-archive/',
-  title: 'Leetcode-in-JS',
-  description: '使用JS的leetcode题解仓库',
+  base: '/leetcode-in-javascript/',
+  title: 'Leetcode-in-JavaScript',
+  description: '使用 JavaScript 的 Leetcode 题解仓库',
   themeConfig: {
-    repo: 'https://github.com/kelekexiao123/leetcode-archive',
+    repo: 'https://github.com/duang-repo/leetcode-in-javascript',
     repoLabel: 'GitHub',
     nav: [{ text: 'Home', link: '/' }, ...barConfig.nav],
     sidebar: customSidebar

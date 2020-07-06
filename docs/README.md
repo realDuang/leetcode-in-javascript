@@ -1,7 +1,7 @@
 ---
 home: true 
 actionText: 进入题库 →
-actionLink: /list/dynamic-programming/5.longestPalindromicSubstring
+actionLink: /list/hash-table/1.twoSum.html
 
-footer: MIT LICENSE | Copyright © 2019-present by kelekexiao123
+footer: MIT LICENSE | Copyright © 2019-present by Duang
 ---
