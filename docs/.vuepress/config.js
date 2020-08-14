@@ -32,7 +32,8 @@ const titleMap = {
   Backtracking: '回溯法',
   'Binary Search': '二分查找',
   'Bit Manipulation': '位运算',
-  'Depth First-Search': '深度优先查找',
+  'Breadth First-Search': '广度优先搜索',
+  'Depth First-Search': '深度优先搜索',
   'Divide and-Conquer': '分治法',
   'Dynamic Programming': '动态规划',
   Greedy: '贪心法',
@@ -63,7 +64,7 @@ module.exports = {
   title: 'Leetcode-in-JavaScript',
   description: '使用 JavaScript 的 Leetcode 题解仓库',
   themeConfig: {
-    repo: 'https://github.com/duang-repo/leetcode-in-javascript',
+    repo: 'https://github.com/realduang/leetcode-in-javascript',
     repoLabel: 'GitHub',
     nav: [{ text: 'Home', link: '/' }, ...barConfig.nav],
     sidebar: customSidebar
