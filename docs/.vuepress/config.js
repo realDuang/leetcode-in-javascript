@@ -42,6 +42,7 @@ const titleMap = {
   'Linked List': '链表',
   Math: '数学',
   'Sliding Window': '滑动窗口',
+  Sort: '排序',
   Stack: '栈',
   String: '字符串',
   Tree: '树',
