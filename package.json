@@ -1,5 +1,5 @@
 {
-  "name": "leetcode-archive",
+  "name": "leetcode-in-javascript",
   "version": "1.0.0",
   "description": "使用js的leetcode题解仓库",
   "directories": {
@@ -21,15 +21,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kelekexiao123/leetcode-archive.git"
+    "url": "git+https://github.com/realDuang/leetcode-in-javascript.git"
   },
   "keywords": [
     "leetcode"
   ],
-  "author": "kelekexiao123",
+  "author": "Duang",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kelekexiao123/leetcode-archive/issues"
+    "url": "https://github.com/realDuang/leetcode-in-javascript/issues"
   },
-  "homepage": "https://github.com/kelekexiao123/leetcode-archive#readme"
+  "homepage": "https://github.com/realDuang/leetcode-in-javascript#readme"
 }
