@@ -134,5 +134,4 @@ function preorderTraversal(root: TreeNode | null): number[] {
 
 const root = [1, null, 2, 3, 4, 5];
 const res = preorderTraversal(deserialize(root));
-console.log(deserialize(root));
 console.log(res);
