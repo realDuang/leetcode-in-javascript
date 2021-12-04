@@ -46,6 +46,7 @@ const titleMap = {
   Stack: '栈',
   String: '字符串',
   Tree: '树',
+  Trie: '查找树',
   'Two Pointers': '双指针',
   Unknown: '未分类'
 };
