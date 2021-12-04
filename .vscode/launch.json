@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "ts debug",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/${relativeFile}",
+            "runtimeArgs": [
+                "--nolazy",
+                "-r",
+                "ts-node/register"
+            ],
+            "sourceMaps": true,
+            "cwd": "${workspaceRoot}",
+            "protocol": "inspector",
+            "console": "externalTerminal",
+            "internalConsoleOptions": "neverOpen"
+        }    
+    ]
+}

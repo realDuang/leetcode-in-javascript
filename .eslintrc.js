@@ -4,7 +4,10 @@ module.exports = {
     browser: true,
     es6: true
   },
-  extends: 'alloy',
+  extends: [
+    'alloy',
+    'alloy-typescript'
+  ],
   rules: {
     'no-var': 0,
     'no-unused-vars': 0,
