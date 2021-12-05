@@ -27,6 +27,7 @@ function changeTitleInBar(sidebar, titleMap) {
 
 const titleMap = {
   List: '📖 题库列表',
+  Topic: '📖 专题集',
   Home: '首页',
   Array: '数组',
   Backtracking: '回溯法',
@@ -48,8 +49,7 @@ const titleMap = {
   Tree: '树',
   Trie: '查找树',
   'Two Pointers': '双指针',
-  Unknown: '未分类',
-  Topic: '专题集'
+  Unknown: '未分类'
 };
 
 let customSidebar = {};
