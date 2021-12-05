@@ -48,7 +48,8 @@ const titleMap = {
   Tree: '树',
   Trie: '查找树',
   'Two Pointers': '双指针',
-  Unknown: '未分类'
+  Unknown: '未分类',
+  Topic: '专题集'
 };
 
 let customSidebar = {};
