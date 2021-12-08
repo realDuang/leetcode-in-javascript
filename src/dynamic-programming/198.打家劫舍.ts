@@ -53,9 +53,13 @@ function rob(nums: number[]): number {
   const len = nums.length;
   if (len === 1) return nums[0];
 
-  let interval = nums[0];
-  let prev = Math.max(nums[0], nums[1]);
-  for (let i = 2; i < len; i++) {
+  let interval = 0;
+  let prev = nums[0];
+  // 从第二间房开始判断，当前房间是否抢：
+  // 不抢，结果等于抢邻房间时的最大值 + 0；
+  // 抢，结果等于隔间房间的最大值 + 当前房间金额
+  // 状态转移方程：Sn = Math.max(Sn-1, Sn-2 + nums[n])
+  for (let i = 1; i < len; i++) {
     const curr = Math.max(interval + nums[i], prev);
     interval = prev;
     prev = curr;
