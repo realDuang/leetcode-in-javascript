@@ -97,10 +97,12 @@ function search(nums: number[], target: number): number {
     const mid = Math.floor((left + right) / 2);
 
     // 搜索范围的重新确立
-    if (nums[mid] >= target) {
+    if (nums[mid] > target) {
       right = mid - 1;
     } else if (nums[mid] < target) {
       left = mid + 1;
+    } else if (nums[mid] === target) {
+       right = mid - 1;
     }
   }
   if (left < nums.length && nums[left] === target) {
@@ -127,7 +129,9 @@ function search(nums: number[], target: number): number {
     // 搜索范围的重新确立
     if (nums[mid] > target) {
       right = mid - 1;
-    } else if (nums[mid] <= target) {
+    } else if (nums[mid] < target) {
+      left = mid + 1;
+    } else if (nums[mid] === target) {
       left = mid + 1;
     }
   }
