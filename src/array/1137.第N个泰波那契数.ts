@@ -66,4 +66,7 @@ function tribonacci(n: number): number {
 }
 // @lc code=end
 
-console.log(tribonacci(25));
+(() => {
+  const n = 25;
+  console.log(tribonacci(n));
+})();
