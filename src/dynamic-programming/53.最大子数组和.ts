@@ -57,49 +57,17 @@
  */
 
 // @lc code=start
-// function maxSubArray(nums: number[]): number {
-//   let dp = nums[0];
-//   let res = nums[0];
-
-//   for (let i = 1; i < nums.length; i++) {
-//     dp = Math.max(nums[i], dp + nums[i]);
-//     res = Math.max(res, dp);
-//   }
-
-//   return res;
-// }
-
 function maxSubArray(nums: number[]): number {
-  const len = nums.length;
-  const dp = Array(len).fill(Number.MIN_SAFE_INTEGER);
-  dp[0] = nums[0];
-
-  let arr: number[] = [nums[0]];
-  let resArr: number[] = [nums[0]];
+  let dp = nums[0];
   let res = nums[0];
 
-  // 状态转移方程：Sn = Math.max(nums[n], Sn-1 + nums[n])
-  for (let i = 1; i < len; i++) {
-    if (dp[i - 1] < 0) {
-      dp[i] = nums[i];
-      arr = [nums[i]];
-    } else {
-      dp[i] = dp[i - 1] + nums[i];
-      arr.push(nums[i]);
-    }
-
-    if (dp[i] > res) {
-      // 此时更新子序列
-      res = dp[i];
-      resArr = [...arr];
-    }
+  for (let i = 1; i < nums.length; i++) {
+    dp = Math.max(nums[i], dp + nums[i]);
+    res = Math.max(res, dp);
   }
 
-  console.log(resArr);
   return res;
 }
-
-
 // @lc code=end
 
 (() => {
@@ -119,5 +87,35 @@ function maxSubArray(nums: number[]): number {
 //     res = Math.max(res, dp[i]);
 //   }
 
+//   return res;
+// }
+
+// function maxSubArray(nums: number[]): number {
+//   const len = nums.length;
+//   const dp = Array(len).fill(Number.MIN_SAFE_INTEGER);
+//   dp[0] = nums[0];
+
+//   let arr: number[] = [nums[0]];
+//   let resArr: number[] = [nums[0]];
+//   let res = nums[0];
+
+//   // 状态转移方程：Sn = Math.max(nums[n], Sn-1 + nums[n])
+//   for (let i = 1; i < len; i++) {
+//     if (dp[i - 1] < 0) {
+//       dp[i] = nums[i];
+//       arr = [nums[i]];
+//     } else {
+//       dp[i] = dp[i - 1] + nums[i];
+//       arr.push(nums[i]);
+//     }
+
+//     if (dp[i] > res) {
+//       // 此时更新子序列
+//       res = dp[i];
+//       resArr = [...arr];
+//     }
+//   }
+
+//   console.log(resArr);
 //   return res;
 // }
