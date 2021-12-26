@@ -97,6 +97,9 @@ class ListNode {
  */
 
 function detectCycle(head: ListNode | null): ListNode | null {
+  // 若链表数量小于等于1，则不可能存在环
+  if (!head || !head.next) return null;
+
   let quick = head;
   let slow = head;
   while (quick && quick.next) {
