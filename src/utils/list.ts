@@ -47,3 +47,25 @@ export function deserialize<T>(data: string | Array<T>, loopPosition?: number): 
 
   return head.next;
 }
+
+export function getNode<T>(root: ListNode<T>, index: number): ListNode<T> {
+  let curr = root;
+  while (curr && index > 0) {
+    curr = curr.next;
+    index -= 1;
+  }
+  return curr;
+}
+
+export function hasCycle<T>(head: ListNode<T> | null): boolean {
+  let quick = head;
+  let slow = head;
+  while (quick && quick.next) {
+    quick = quick.next.next;
+    slow = slow.next;
+    if (slow === quick) {
+      return true;
+    }
+  }
+  return false;
+}
