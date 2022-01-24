@@ -14,7 +14,7 @@ BFS 的算法框架大致如下：
 
 ```ts
 const queue = [root];
-let floor = 1;
+let step = 1;
 
 const visited: Record<node, boolean> = {}
 
@@ -23,21 +23,70 @@ while(queue.length > 0) {
   while(len--) {
     const node = queue.pop();
     // 若找到节点，则返回当前层级，亦或是其他符合要求的输出
-    if(node 符合要求） return floor;
-
-    // 将当前节点设置为已访问，防止重复遍历
-    visited[node] = true;
-    /*
-      在此处对该节点进行其他判断与逻辑处理
-    */
+    if(node 符合要求) return step;
 
     // 将子节点入队，等待下一轮遍历
-    if(node.left && !visited[node.left]) queue.unshift(node.left)
-    if(node.right&& !visited[node.right]) queue.unshift(node.right)
+    if(node.left && !visited[node.left]) {
+      // 将当前节点设置为已访问，防止重复遍历
+      visited[node.right] = true;
+      queue.unshift(node.left);
+    }
+    if(node.right&& !visited[node.right]) {
+      // 将当前节点设置为已访问，防止重复遍历
+      visited[node.right] = true;
+      queue.unshift(node.right);
+    }
   }
   // 遍历完一层，计数器+1
-  floor += 1;
+  step += 1;
 }
+// 说明此时无可达路径
+return -1;
+```
+
+对于二维矩阵的广度优先搜索，本质上是一个多叉树的`BFS`。
+
+我们可以维护一个方向数组（根据题目要求，可以为二向、四向或是八向），表示每一次可选子节点的个数，也即多叉树的叉数。
+
+每次搜索完当前节点，需要将子节点入队时，根据方向，分别入队所有子结果。
+
+```ts
+const queue = [root];
+let step = 1;
+
+const visited: Record<node, boolean> = {}
+
+// 定义一个方向数组，这里以四向为例
+const directions = [
+  [0, 1],
+  [0, -1],
+  [1, 0],
+  [-1, 0]
+];
+
+while(queue.length > 0) {
+  let len = queue.length;
+  while(len--) {
+    const [x, y] = queue.pop();
+    // 若找到节点，则返回当前层级，亦或是其他符合要求的输出
+    if(x, y 符合要求) return step;
+
+    // 将子节点入队，等待下一轮遍历
+    for (const [directX, directY] of directions) {
+      const curr = [x + directX, y + directY];
+
+      // 异常情况剪枝
+      if(visited[curr] || curr 越界 || curr 不满足要求) continue;
+
+      visited[curr] = true;
+      queue.unshift(curr);
+    }
+  }
+  // 遍历完一层，计数器+1
+  step += 1;
+}
+// 说明此时无可达路径
+return -1;
 ```
 
 我们可以注意到，`BFS`算法最佳的使用场景是：求出通往某节点的最短路径。
