@@ -37,6 +37,7 @@ const titleMap = {
   'Depth First-Search': '深度优先搜索',
   'Divide and-Conquer': '分治法',
   'Dynamic Programming': '动态规划',
+  Graph: '图',
   Greedy: '贪心法',
   'Hash Table': '哈希表',
   Heap: '堆',
