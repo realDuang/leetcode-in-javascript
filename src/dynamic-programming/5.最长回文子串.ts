@@ -63,6 +63,7 @@ function longestPalindrome(s: string): string {
   return res;
 
   function longestSubpalindrome(left: number, right: number) {
+    // 防止越界
     while (left >= 0 && right < len && s[left] === s[right]) {
       left -= 1;
       right += 1;
