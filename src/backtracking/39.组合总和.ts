@@ -60,24 +60,30 @@
 
 // @lc code=start
 function combinationSum(candidates: number[], target: number): number[][] {
-  candidates.sort((a, b) => a - b);
   const res: number[][] = [];
-  backtrack(0, [], target);
+  let currSum: number = 0;
+  backtrack([], 0);
   return res;
 
-  function backtrack(start: number, path: number[], rest: number) {
-    if (rest === 0) {
+  function backtrack(path: number[], start: number) {
+    // 满足要求，输出
+    if (currSum === target) {
       res.push([...path]);
+      return;
+    }
+    // 当前和已经大于 target，则直接剪枝
+    if (currSum > target) {
+      return;
     }
 
-    // 由于已排序，每一次取值都不会比path内中所有元素小，从而避免重复组合的问题
     for (let i = start; i < candidates.length; i++) {
-      // 如果剩余值比当前选择小，则跳过
-      if (rest < candidates[i]) {
-        break;
-      }
+      // 做选择
+      currSum += candidates[i];
       path.push(candidates[i]);
-      backtrack(i, path, rest - candidates[i]);
+      // 回溯
+      backtrack(path, i);
+      // 撤销选择
+      currSum -= candidates[i];
       path.pop();
     }
   }

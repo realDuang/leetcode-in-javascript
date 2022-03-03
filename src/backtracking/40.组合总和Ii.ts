@@ -59,27 +59,32 @@
 function combinationSum2(candidates: number[], target: number): number[][] {
   candidates.sort((a, b) => a - b);
   const res: number[][] = [];
-  backtrack(0, [], target);
+  let currSum = 0;
+  backtrack([], 0);
   return res;
 
-  function backtrack(start: number, path: number[], rest: number) {
-    if (rest === 0) {
+  function backtrack(path: number[], start: number) {
+    if (currSum === target) {
       res.push([...path]);
       return;
     }
 
-    // 由于已排序，每一次取值都不会比path内中所有元素小，从而避免重复组合的问题
+    if (currSum > target) {
+      return;
+    }
+
     for (let i = start; i < candidates.length; i++) {
-      // 如果剩余值比当前选择小，则跳过
-      if (rest < candidates[i]) {
-        break;
+      if (i > start && candidates[i] === candidates[i - 1]) {
+        continue;
       }
 
-      // 判定当前层级中的选择是否之前以被选过，如果相同则跳过重复元素选择
-      if (i > start && candidates[i] === candidates[i - 1]) continue;
-
+      // 做选择
       path.push(candidates[i]);
-      backtrack(i + 1, path, rest - candidates[i]);
+      currSum += candidates[i];
+      // 回溯
+      backtrack(path, i + 1);
+      // 撤销选择
+      currSum -= candidates[i];
       path.pop();
     }
   }

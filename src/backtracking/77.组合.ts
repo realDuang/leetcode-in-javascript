@@ -54,18 +54,18 @@
 function combine(n: number, k: number): number[][] {
   const res: number[][] = [];
   const path: number[] = [];
-  backtrack(n);
+  backtrack(1);
   return res;
 
-  function backtrack(end: number) {
+  function backtrack(start: number) {
     if (path.length === k) {
       res.push([...path]);
       return;
     }
 
-    for (let i = end; i >= 1; i--) {
+    for (let i = start; i <= n; i++) {
       path.push(i);
-      backtrack(i - 1);
+      backtrack(i + 1);
       path.pop();
     }
   }

@@ -6,11 +6,11 @@
  * https://leetcode-cn.com/problems/permutations/description/
  *
  * algorithms
- * Medium (78.50%)
- * Likes:    1800
+ * Medium (78.45%)
+ * Likes:    1741
  * Dislikes: 0
- * Total Accepted:    526.4K
- * Total Submissions: 670.5K
+ * Total Accepted:    495.8K
+ * Total Submissions: 632K
  * Testcase Example:  '[1,2,3]'
  *
  * 给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。
