@@ -54,26 +54,23 @@ function subsetsWithDup(nums: number[]): number[][] {
   nums.sort((a, b) => a - b);
 
   const res: number[][] = [];
-  backtrack([], 0, []);
+  backtrack([], 0);
   return res;
 
-  function backtrack(path: number[], start: number, visited: boolean[]) {
+  function backtrack(path: number[], start: number) {
     res.push([...path]);
 
     for (let i = start; i < nums.length; i++) {
-      // 如果前一个数字未被选择，则当前数字也不要选择
-      if (i >= 1 && nums[i] === nums[i - 1] && visited[i - 1] === false) {
+      // 如果遇到值相同的情况，只递归第一个值，其余跳过
+      if (i > start && nums[i] === nums[i - 1]) {
         continue;
       }
       // 选择该节点
       path.push(nums[i]);
-      visited[i] = true;
-
-      backtrack(path, i + 1, visited);
-
+      // 回溯
+      backtrack(path, i + 1);
       // 撤销选择
       path.pop();
-      visited[i] = false;
     }
   }
 }
