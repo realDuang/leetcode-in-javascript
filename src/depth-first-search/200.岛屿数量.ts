@@ -63,6 +63,12 @@ function numIslands(grid: string[][]): number {
   let res = 0;
   const height = grid.length;
   const width = grid[0].length;
+  const direction = [
+    [-1, 0],
+    [1, 0],
+    [0, -1],
+    [0, 1]
+  ];
   for (let i = 0; i < height; i++) {
     for (let j = 0; j < width; j++) {
       if (grid[i][j] === '1') {
@@ -83,10 +89,9 @@ function numIslands(grid: string[][]): number {
     grid[i][j] = '0';
 
     // 分别递归其上下左右节点
-    floodFill(i - 1, j);
-    floodFill(i + 1, j);
-    floodFill(i, j - 1);
-    floodFill(i, j + 1);
+    for (const [row, col] of direction) {
+      floodFill(row + i, col + j);
+    }
   }
 }
 // @lc code=end
