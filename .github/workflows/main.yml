@@ -1,0 +1,35 @@
+name: Leetcode Release CI / CD
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    name: Leetcode Continuous Deploy
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - name: Actions Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install and Build 🔧
+        run: |
+          npm ci
+          npm run build
+
+      - name: Deploy to Github Pages 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.3.0
+        with:
+          branch: gh-pages
+          folder: docs/.vuepress/dist
