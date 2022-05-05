@@ -1,10 +1,10 @@
-const getConfig = require('vuepress-bar');
+import getConfig from 'vuepress-bar';
 
 const { nav, sidebar } = getConfig(`${__dirname}/..`, {
   maxLevel: 3
 });
 
-const sortFn = (a, b) => {
+const sortFn = (a: string, b: string) => {
   // ex: 'docs/list/array/15.3sum', 'docs/topic/1.backtrack'
   const pathA = a.split('/');
   const pathB = b.split('/');
@@ -12,27 +12,6 @@ const sortFn = (a, b) => {
   const numberB = Number(pathB[pathB.length - 1].split('.')[0]);
   return numberA - numberB;
 };
-
-function changeTitleInBar(sidebar, titleMap) {
-  if (!Array.isArray(sidebar)) {
-    return sidebar;
-  }
-
-  return sidebar.map(bar => {
-    if (bar.title && titleMap[bar.title]) {
-      bar.title = titleMap[bar.title];
-    }
-
-    if (Array.isArray(bar.children)) {
-      if (bar.children[0] && typeof bar.children[0] === 'string') {
-        bar.children.sort(sortFn);
-      } else {
-        changeTitleInBar(bar.children, titleMap);
-      }
-    }
-    return bar;
-  });
-}
 
 const titleMap = {
   Docs: '题库',
@@ -63,13 +42,34 @@ const titleMap = {
   Unknown: '未分类'
 };
 
+function changeTitleInBar(sidebar) {
+  if (!Array.isArray(sidebar)) {
+    return sidebar;
+  }
+
+  return sidebar.map(bar => {
+    if (bar.title && titleMap[bar.title]) {
+      bar.title = titleMap[bar.title];
+    }
+
+    if (Array.isArray(bar.children)) {
+      if (bar.children[0] && typeof bar.children[0] === 'string') {
+        bar.children.sort(sortFn);
+      } else {
+        changeTitleInBar(bar.children);
+      }
+    }
+    return bar;
+  });
+}
+
 let customSidebar;
 if (Array.isArray(sidebar)) {
-  customSidebar = changeTitleInBar(sidebar, titleMap);
+  customSidebar = changeTitleInBar(sidebar);
 } else {
   // 若存在nav，sidebar返回Object
   Object.entries(sidebar).forEach(([key, value]) => {
-    customSidebar[key] = changeTitleInBar(value, titleMap);
+    customSidebar[key] = changeTitleInBar(value);
   });
 }
 
@@ -80,7 +80,12 @@ module.exports = {
   themeConfig: {
     repo: 'https://github.com/realduang/leetcode-in-javascript',
     repoLabel: 'GitHub',
-    nav: [{ text: '首页', link: '/' }, { text: '📖 题解', link: '/docs/list/array/1.two-sum' }, { text: '📖 专题', link: '/docs/topic/1.backtrack' }, ...nav],
+    nav: [
+      { text: '首页', link: '/' },
+      { text: '📖 题解', link: '/docs/list/array/1.two-sum' },
+      { text: '📖 专题', link: '/docs/topic/1.backtrack' },
+      ...nav
+    ],
     sidebar: sidebar
   }
 };

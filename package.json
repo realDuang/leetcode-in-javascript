@@ -6,7 +6,7 @@
     "doc": "docs"
   },
   "dependencies": {
-    "vuepress": "^1.9.7"
+    "vuepress": "^1.9.2"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.10.0",
