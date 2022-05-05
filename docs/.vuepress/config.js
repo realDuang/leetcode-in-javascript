@@ -1,19 +1,28 @@
+const getConfig = require('vuepress-bar');
+
+const { nav, sidebar } = getConfig(`${__dirname}/..`, {
+  maxLevel: 3
+});
+
 const sortFn = (a, b) => {
-  // ex: 'blog/array/169.majorityElement'
-  const numberA = Number(a.split('/')[2].split('.')[0]);
-  const numberB = Number(b.split('/')[2].split('.')[0]);
+  // ex: 'docs/list/array/15.3sum', 'docs/topic/1.backtrack'
+  const pathA = a.split('/');
+  const pathB = b.split('/');
+  const numberA = Number(pathA[pathA.length - 1].split('.')[0]);
+  const numberB = Number(pathB[pathB.length - 1].split('.')[0]);
   return numberA - numberB;
 };
 
-const getConfig = require('vuepress-bar');
-const barConfig = getConfig(`${__dirname}/..`);
-
 function changeTitleInBar(sidebar, titleMap) {
-  if (!Array.isArray(sidebar)) return sidebar;
+  if (!Array.isArray(sidebar)) {
+    return sidebar;
+  }
+
   return sidebar.map(bar => {
     if (bar.title && titleMap[bar.title]) {
       bar.title = titleMap[bar.title];
     }
+
     if (Array.isArray(bar.children)) {
       if (bar.children[0] && typeof bar.children[0] === 'string') {
         bar.children.sort(sortFn);
@@ -26,9 +35,9 @@ function changeTitleInBar(sidebar, titleMap) {
 }
 
 const titleMap = {
-  List: '📖 题库列表',
-  Topic: '📖 专题集',
-  Home: '首页',
+  Docs: '题库',
+  List: '📖 题解',
+  Topic: '📖 专题',
   Array: '数组',
   Backtracking: '回溯法',
   'Binary Search': '二分查找',
@@ -37,6 +46,7 @@ const titleMap = {
   'Depth First-Search': '深度优先搜索',
   'Divide and-Conquer': '分治法',
   'Dynamic Programming': '动态规划',
+  Design: '设计题',
   Graph: '图',
   Greedy: '贪心法',
   'Hash Table': '哈希表',
@@ -53,12 +63,12 @@ const titleMap = {
   Unknown: '未分类'
 };
 
-let customSidebar = {};
-if (Array.isArray(barConfig.sidebar)) {
-  customSidebar = changeTitleInBar(barConfig.sidebar, titleMap);
+let customSidebar;
+if (Array.isArray(sidebar)) {
+  customSidebar = changeTitleInBar(sidebar, titleMap);
 } else {
   // 若存在nav，sidebar返回Object
-  Object.entries(barConfig.sidebar).forEach(([key, value]) => {
+  Object.entries(sidebar).forEach(([key, value]) => {
     customSidebar[key] = changeTitleInBar(value, titleMap);
   });
 }
@@ -70,7 +80,7 @@ module.exports = {
   themeConfig: {
     repo: 'https://github.com/realduang/leetcode-in-javascript',
     repoLabel: 'GitHub',
-    nav: [{ text: 'Home', link: '/' }, ...barConfig.nav],
-    sidebar: customSidebar
+    nav: [{ text: '首页', link: '/' }, { text: '📖 题解', link: '/docs/list/array/1.two-sum' }, { text: '📖 专题', link: '/docs/topic/1.backtrack' }, ...nav],
+    sidebar: sidebar
   }
 };

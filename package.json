@@ -16,11 +16,11 @@
     "eslint-config-alloy": "^4.4.0",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.4",
-    "vuepress-bar": "^0.2.7"
+    "vuepress-bar": "^0.4.4"
   },
   "scripts": {
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs",
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
