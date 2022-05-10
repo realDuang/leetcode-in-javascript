@@ -1,20 +1,24 @@
-export class TreeNode<T> {
+export class TreeNodeT<T> {
   public val: T;
-  public left: TreeNode<T> | null;
-  public right: TreeNode<T> | null;
-  constructor(val: T, left?: TreeNode<T> | null, right?: TreeNode<T> | null) {
+  public left: TreeNodeT<T> | null;
+  public right: TreeNodeT<T> | null;
+  constructor(val: T, left?: TreeNodeT<T> | null, right?: TreeNodeT<T> | null) {
     this.val = val;
     this.left = left === undefined ? null : left;
     this.right = right === undefined ? null : right;
   }
 }
 
+export class TreeNode extends TreeNodeT<number> {}
+
+export type ArrayElement<T> = T | 'null';
+
 /**
  * Encodes a tree to a single string.
  */
-export function serialize<T>(root: TreeNode<T>): string {
+export function serialize<T>(root: TreeNodeT<T>): string {
   if (!root) return '';
-  const arr = [];
+  const arr: Array<ArrayElement<T>> = [];
   const queue = [root];
   while (queue.length) {
     const node = queue.shift();
@@ -37,7 +41,7 @@ export function serialize<T>(root: TreeNode<T>): string {
 /**
  * Decodes your encoded data to tree.
  */
-export function deserialize<T>(data: string | Array<unknown>): TreeNode<T> {
+export function deserialize<T>(data: string | Array<T>): TreeNodeT<T> {
   let arr = null;
   if (data instanceof Array) {
     if (data.length < 1) return null;
@@ -49,20 +53,21 @@ export function deserialize<T>(data: string | Array<unknown>): TreeNode<T> {
     return null;
   }
 
-  const root = new TreeNode(arr[0]);
+  // 根节点不可能为 'null'
+  const root = new TreeNodeT(arr[0] as T);
   const queue = [root];
   for (let i = 1; i < arr.length; i += 2) {
     const node = queue.shift();
 
-    const leftNumber = arr[i];
+    const leftNumber: ArrayElement<T> = arr[i];
     if (leftNumber !== 'null' && leftNumber !== null) {
-      node.left = new TreeNode(leftNumber);
+      node.left = new TreeNodeT(leftNumber);
       queue.push(node.left);
     }
 
-    const rightNumber = arr[i + 1];
+    const rightNumber: ArrayElement<T> = arr[i + 1];
     if (i + 1 < arr.length && rightNumber !== 'null' && rightNumber !== null) {
-      node.right = new TreeNode(rightNumber);
+      node.right = new TreeNodeT(rightNumber);
       queue.push(node.right);
     }
   }
