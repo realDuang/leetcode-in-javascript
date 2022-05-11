@@ -52,24 +52,25 @@ function minPathSum(grid: number[][]): number {
   const rowLen = grid.length;
   const colLen = grid[0].length;
 
-  const dp: number[][] = Array(rowLen)
-    .fill(0)
-    .map(x => Array(colLen).fill(0));
+  const dp: number[] = Array(colLen).fill(0);
 
-  for (let i = rowLen - 1; i >= 0; i--) {
-    for (let j = colLen - 1; j >= 0; j--) {
-      // base case, 当路径起点为右下角时，最短路径就是和就是自身
-      if (i + 1 === rowLen && j + 1 === colLen) {
-        dp[i][j] = grid[rowLen - 1][colLen - 1];
+  // base case，先初始化好第一行的情况，当路径终点为 grid[0][j] 时，只会有从左侧过来的路径这一种可能
+  dp[0] = grid[0][0];
+  for (let j = 1; j < colLen; j++) {
+    dp[j] = dp[j - 1] + grid[0][j];
+  }
+
+  for (let i = 1; i < rowLen; i++) {
+    for (let j = 0; j < colLen; j++) {
+      // 数组越界，当路径终点为 grid[i][0] 时，只会有从上方下来的路径这一种可能
+      if (j === 0) {
+        dp[j] = dp[j] + grid[i][j];
         continue;
       }
-      // 指针越界，越界值无效
-      const pathSum1 = i + 1 === rowLen ? Number.MAX_VALUE : dp[i + 1][j];
-      const pathSum2 = j + 1 === colLen ? Number.MAX_VALUE : dp[i][j + 1];
-      dp[i][j] = Math.min(pathSum1, pathSum2) + grid[i][j];
+      dp[j] = Math.min(dp[j], dp[j - 1]) + grid[i][j];
     }
   }
-  return dp[0][0];
+  return dp[colLen - 1];
 }
 // @lc code=end
 
