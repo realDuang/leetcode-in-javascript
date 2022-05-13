@@ -81,6 +81,7 @@ function longestCommonSubsequence(text1: string, text2: string): number {
 
   return dp[len1][len2];
 }
+
 // @lc code=end
 
 (() => {
