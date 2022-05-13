@@ -58,6 +58,7 @@
 
 // @lc code=start
 function maxSubArray(nums: number[]): number {
+  // 设 dp[i] 为以 nums[i] 结尾的最大子数组和
   let dp = nums[0];
   let res = nums[0];
 
@@ -69,6 +70,19 @@ function maxSubArray(nums: number[]): number {
   return res;
 }
 // @lc code=end
+
+// function maxSubArray(nums: number[]): number {
+//   // 设 dp[i] 为以 nums[i] 结尾的最大子数组和
+//   const dp: number[] = Array(nums.length).fill(Number.MIN_VALUE);
+//   let res = nums[0];
+//   for (let i = 0; i < nums.length; i++) {
+//     // 当 dp[i - 1] 为负数时，直接不取
+//     dp[i] = Math.max(dp[i - 1] + nums[i], nums[i]);
+//     // 获取从 0 ~ i 的最大子数组和的最大值
+//     res = Math.max(res, dp[i]);
+//   }
+//   return res;
+// }
 
 (() => {
   const nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4];
