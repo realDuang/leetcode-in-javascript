@@ -59,22 +59,21 @@
 
 // @lc code=start
 function wordBreak(s: string, wordDict: string[]): boolean {
-  const dp = Array(s.length + 1).fill(0);
-  dp[0] = 1;
-
+  // 设 dp[i] 为 从 s[0-i] 组成的子串是否可以被字典拼接出来
+  const dp = Array(s.length + 1).fill(false);
+  dp[0] = true;
   for (let i = 1; i <= s.length; i++) {
     for (const word of wordDict) {
-      // 剪枝
-      if (i < word.length) continue;
-
-      const tempWord = s.substring(i - word.length, i);
-      if (tempWord === word && dp[i - word.length]) {
-        dp[i] = 1;
-        break;
+      const len = word.length;
+      if (dp[i] || i < len) {
+        continue;
+      }
+      const tempWord = s.substring(i - len, i);
+      if (dp[i - len] && tempWord === word) {
+        dp[i] = true;
       }
     }
   }
-
   return dp[s.length];
 }
 // @lc code=end
