@@ -76,25 +76,26 @@ class TreeNode {
 
 // @lc code=start
 function constructMaximumBinaryTree(nums: number[]): TreeNode | null {
-  const root = traverse(0, nums.length - 1);
-  return root;
+  return traverse(0, nums.length - 1);
 
-  function traverse(left: number, right: number): TreeNode | null {
-    if (left > right) {
-      return null;
-    }
+  function traverse(left: number, right: number) {
+    if (left > right) return null;
 
-    let mid = left;
+    // 找到当前范围中的最大值
+    let maxIndex = left;
+    let max = nums[left];
     for (let i = left; i <= right; i++) {
-      if (nums[i] > nums[mid]) {
-        mid = i;
+      if (nums[i] > max) {
+        max = nums[i];
+        maxIndex = i;
       }
     }
 
-    const root = new TreeNode(nums[mid]);
-    root.left = traverse(left, mid - 1);
-    root.right = traverse(mid + 1, right);
-    return root;
+    const node = new TreeNode(max);
+    node.left = traverse(left, maxIndex - 1);
+    node.right = traverse(maxIndex + 1, right);
+
+    return node;
   }
 }
 // @lc code=end
