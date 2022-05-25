@@ -57,7 +57,8 @@
 
 // @lc code=start
 function allPathsSourceTarget(graph: number[][]): number[][] {
-  // 入参graph直接就是邻接表了hh
+  // 入参 graph 直接就是邻接表了
+  // 由于说明了此图无环，因此不需要用 visited 数组
 
   // 结果数组
   const res: number[][] = [];
