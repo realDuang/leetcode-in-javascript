@@ -79,8 +79,9 @@ function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
   }
 
   // 求有序数组的中位数
-  const mid = Math.floor(arr.length / 2);
-  return arr.length % 2 === 0 ? (arr[mid - 1] + arr[mid]) / 2 : arr[mid];
+  const left = Math.floor((len1 + len2 + 1) / 2) - 1;
+  const right = Math.floor((len1 + len2 + 2) / 2) - 1;
+  return (arr[left] + arr[right]) / 2;
 }
 // @lc code=end
 
