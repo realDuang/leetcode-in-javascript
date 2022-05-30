@@ -46,7 +46,7 @@
  *
  */
 
-import { deserialize } from '../utils/tree';
+import { deserialize, TreeNode } from '../utils/tree';
 
 // @lc code=start
 /**
@@ -64,44 +64,23 @@ import { deserialize } from '../utils/tree';
  */
 
 function minDepth(root: TreeNode | null): number {
-  if (root === null) return 0;
+  if (!root) return 0;
 
-  let res = 0;
-  const queue: TreeNode[] = [];
-  queue.unshift(root);
-
+  let depth = 1;
+  const queue = [root];
   while (queue.length > 0) {
-    // 对于每一层，进行一次遍历，入队子节点操作
-    res += 1;
-    let count = queue.length;
-    while (count) {
-      const curr = queue.pop();
-      // 此时为叶子节点，直接返回结果
-      if (!curr.left && !curr.right) {
-        return res;
-      }
-      if (curr.left) {
-        queue.unshift(curr.left);
-      }
-      if (curr.right) {
-        queue.unshift(curr.right);
-      }
-      count -= 1;
+    let len = queue.length;
+    while (len--) {
+      const node = queue.pop();
+      if (!node.left && !node.right) return depth;
+      if (node.left) queue.unshift(node.left);
+      if (node.right) queue.unshift(node.right);
     }
+    depth += 1;
   }
+  return depth;
 }
 // @lc code=end
-
-class TreeNode {
-  val: number;
-  left: TreeNode | null;
-  right: TreeNode | null;
-  constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
-    this.val = val === undefined ? 0 : val;
-    this.left = left === undefined ? null : left;
-    this.right = right === undefined ? null : right;
-  }
-}
 
 (() => {
   const root = deserialize<number>([2, null, 3, null, 4, null, 5, null, 6]);
