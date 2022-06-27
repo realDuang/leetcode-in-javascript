@@ -83,7 +83,7 @@ module.exports = {
     nav: [
       { text: '首页', link: '/' },
       { text: '📖 题解', link: '/docs/list/array/1.two-sum' },
-      { text: '📖 专题', link: '/docs/topic/1.backtrack' },
+      { text: '📖 专题', link: '/docs/topic/0.introduction' },
       ...nav
     ],
     sidebar: sidebar
