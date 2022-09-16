@@ -74,7 +74,7 @@ if (Array.isArray(sidebar)) {
 }
 
 module.exports = {
-  base: '/leetcode-in-javascript/',
+  base: '.',
   title: 'Leetcode-in-JavaScript',
   description: '使用 JavaScript 的 Leetcode 题解仓库',
   themeConfig: {
