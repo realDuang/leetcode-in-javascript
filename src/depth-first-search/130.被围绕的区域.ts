@@ -53,15 +53,24 @@
 
 // @lc code=start
 /**
- Do not return anything, modify board in-place instead.
+  Do not return anything, modify board in-place instead.
  */
 function solve(board: string[][]): void {
   const width = board[0].length;
   const height = board.length;
+
+  const direction = [
+    [-1, 0],
+    [1, 0],
+    [0, -1],
+    [0, 1]
+  ];
+
   const visited: boolean[][] = Array(height)
     .fill(0)
     .map(x => Array(width).fill(false));
 
+  // 将边界和与其相连的O标记为已访问，不淹没其状态
   for (let i = 0; i < height; i++) {
     dfs(i, 0, false);
     dfs(i, width - 1, false);
@@ -71,6 +80,7 @@ function solve(board: string[][]): void {
     dfs(height - 1, j, false);
   }
 
+  // 对内部，对未访问过的O进行淹没
   for (let i = 1; i < height - 1; i++) {
     for (let j = 1; j < width - 1; j++) {
       if (!visited[i][j] && board[i][j] === 'O') {
@@ -79,17 +89,19 @@ function solve(board: string[][]): void {
     }
   }
 
-  function dfs(i: number, j: number, needFill: boolean) {
-    if (i < 0 || i >= height || j < 0 || j > width) return;
-    if (visited[i][j] || board[i][j] === 'X') return;
+  function dfs(row: number, col: number, needFill: boolean) {
+    if (row < 0 || col < 0 || row >= height || col >= width) return;
 
-    visited[i][j] = true;
-    if (needFill) board[i][j] = 'X';
+    if (visited[row][col] || board[row][col] === 'X') return;
 
-    dfs(i - 1, j, needFill);
-    dfs(i + 1, j, needFill);
-    dfs(i, j - 1, needFill);
-    dfs(i, j + 1, needFill);
+    visited[row][col] = true;
+    if (needFill) {
+      board[row][col] = 'X';
+    }
+
+    for (const [i, j] of direction) {
+      dfs(row + i, col + j, needFill);
+    }
   }
 }
 // @lc code=end
@@ -104,3 +116,41 @@ function solve(board: string[][]): void {
   solve(board);
   console.log(board);
 })();
+
+// function solve(board: string[][]): void {
+//   const width = board[0].length;
+//   const height = board.length;
+//   const visited: boolean[][] = Array(height)
+//     .fill(0)
+//     .map(x => Array(width).fill(false));
+
+//   for (let i = 0; i < height; i++) {
+//     dfs(i, 0, false);
+//     dfs(i, width - 1, false);
+//   }
+//   for (let j = 0; j < width; j++) {
+//     dfs(0, j, false);
+//     dfs(height - 1, j, false);
+//   }
+
+//   for (let i = 1; i < height - 1; i++) {
+//     for (let j = 1; j < width - 1; j++) {
+//       if (!visited[i][j] && board[i][j] === 'O') {
+//         dfs(i, j, true);
+//       }
+//     }
+//   }
+
+//   function dfs(i: number, j: number, needFill: boolean) {
+//     if (i < 0 || i >= height || j < 0 || j > width) return;
+//     if (visited[i][j] || board[i][j] === 'X') return;
+
+//     visited[i][j] = true;
+//     if (needFill) board[i][j] = 'X';
+
+//     dfs(i - 1, j, needFill);
+//     dfs(i + 1, j, needFill);
+//     dfs(i, j - 1, needFill);
+//     dfs(i, j + 1, needFill);
+//   }
+// }
