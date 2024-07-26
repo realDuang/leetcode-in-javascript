@@ -63,36 +63,41 @@
 
 // @lc code=start
 function nextGreaterElement(nums1: number[], nums2: number[]): number[] {
-  const greater = nge(nums2);
-  // 转换为映射，增加查询效率
-  const greaterMap: Record<string, number> = {};
+  // 单调栈算法，返回一个数组res，res[i] 表示 nums[i] 对应的下一个更大元素，如果后面没有更大的则返回-1。
+  function calculateGreaterElement(nums: number[]) {
+    const len = nums.length;
+    const res: number[] = [];
+    // 单调栈，时刻维护栈是递增状态的
+    const stack: number[] = [];
+
+    // 倒序向单调栈中放入，是为了能正序出栈
+    for (let i = len - 1; i >= 0; i--) {
+      // 栈顶元素小于等于当前元素，则把栈中所有的小元素剔除掉，并在最后将当前元素入栈，从而保证栈的单调性
+      while (stack.length > 0 && stack[stack.length - 1] <= nums[i]) {
+        stack.pop();
+      }
+
+      // res[i] 表示 nums[i] 后面第一个更大的元素。
+      // 此时的栈顶元素即为下一个更大元素
+      // 如果栈空了就说明后面没有更大的了，返回 -1
+      res[i] = stack.length === 0 ? -1 : stack[stack.length - 1];
+      // 最后将当前元素入栈，从而保证栈的单调性
+      stack.push(nums[i]);
+    }
+
+    return res;
+  }
+
+  const greater = calculateGreaterElement(nums2);
+
+  // 生成 下一个更大元素的映射 map
+  const greaterMap: Record<number, number> = {};
   for (let i = 0; i < nums2.length; i++) {
     greaterMap[nums2[i]] = greater[i];
   }
 
-  const res = [];
-  for (let i = 0; i < nums1.length; i++) {
-    res.push(greaterMap[nums1[i]] ?? -1);
-  }
+  const res: number[] = nums1.map(num => greaterMap[num]);
   return res;
-
-  // 单调栈算法，返回数组中每一个元素的下一个更大元素
-  function nge(nums: number[]) {
-    const res: number[] = [];
-    const stack: number[] = [];
-    // 注意，这里一定要倒序遍历，从尾部开始做单调栈
-    for (let i = nums.length - 1; i >= 0; i--) {
-      // 去除掉栈顶上小于等于当前数值的元素
-      while (stack.length !== 0 && stack[stack.length - 1] <= nums[i]) {
-        stack.pop();
-      }
-      // 此时的栈顶元素即为下一个更大元素
-      res[i] = stack.length === 0 ? -1 : stack[stack.length - 1];
-      // 最后将当前元素入栈，用于下一元素的比对
-      stack.push(nums[i]);
-    }
-    return res;
-  }
 }
 // @lc code=end
 
