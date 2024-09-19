@@ -66,16 +66,14 @@ function searchRange(nums: number[], target: number): number[] {
   let right = nums.length - 1;
   while (left <= right) {
     const mid = Math.floor((left + right) / 2);
-    if (nums[mid] < target) {
+    if (nums[mid] === target) {
+      res[0] = mid;
+      right = mid - 1;
+    } else if (nums[mid] < target) {
       left = mid + 1;
     } else {
       right = mid - 1;
     }
-  }
-  if (left < nums.length && nums[left] === target) {
-    res[0] = left;
-  } else {
-    res[0] = -1;
   }
 
   // 求右边界
@@ -83,16 +81,14 @@ function searchRange(nums: number[], target: number): number[] {
   right = nums.length - 1;
   while (left <= right) {
     const mid = Math.floor((left + right) / 2);
-    if (nums[mid] > target) {
+    if (nums[mid] === target) {
+      res[1] = mid;
+      left = mid + 1;
+    } else if (nums[mid] > target) {
       right = mid - 1;
     } else {
       left = mid + 1;
     }
-  }
-  if (right >= 0 && nums[right] === target) {
-    res[1] = right;
-  } else {
-    res[1] = -1;
   }
 
   return res;
