@@ -64,56 +64,120 @@
 // @lc code=start
 function networkDelayTime(times: number[][], n: number, k: number): number {
   // 构建加权邻接图
-  const graph: { to: number; weight: number }[][] = Array(n + 1)
-    .fill(0)
-    .map(x => Array());
-  times.forEach(edge => {
-    const [from, to, weight] = edge;
-    graph[from].push({ to: to, weight: weight });
-  });
+  const graph: IGraph = Array(n)
+    .fill(null)
+    .map(() => [] as IGraphNode[]);
+  for (const [from, to, weight] of times) {
+    graph[from - 1].push({ to: to - 1, weight: weight });
+  }
 
   // 计算k到每个节点的加权距离
-  const distances: number[] = dijkstra(k);
+  const distances: Array<number> = dijkstra(graph, k - 1, n);
   // 从距离中取最大值，保证所有节点都收到信号
   const res = Math.max(...distances);
   // 若存在不可达节点，则返回 -1
-  return res === Number.MAX_VALUE ? -1 : res;
+  return res === Infinity ? -1 : res;
+}
 
-  function dijkstra(start: number): number[] {
-    const minDists: number[] = Array(n + 1).fill(Number.MAX_VALUE);
-    // 去除无意义的节点距离
-    minDists[0] = -1;
-    // 起点距离自己的最短距离是0
-    minDists[start] = 0;
+type IGraph = Array<Array<IGraphNode>>;
+type IGraphNode = { to: number; weight: number };
+type IPriorityQueue = Array<{ id: number; distToStart: number }>;
 
-    const queue = [{ curId: start, curToStartDist: 0 }];
+function dijkstra(graph: IGraph, start: number, vexNum: number): Array<number> {
+  const distTo: number[] = new Array(vexNum).fill(Infinity);
 
-    while (queue.length > 0) {
-      const { curId, curToStartDist } = queue.shift();
-      // 如果当前节点距离起点已经大于最短路径了，剪枝
-      if (curToStartDist > minDists[curId]) {
-        continue;
-      }
+  // 起点距离自己的最短距离是0
+  distTo[start] = 0;
 
-      // 遍历所有邻接节点，以期望获取更小距离
-      for (const { to, weight } of graph[curId]) {
-        // 判断从当前节点到相邻节点的这条加权路径是否更短
-        const newDistance = minDists[curId] + weight;
-        if (newDistance < minDists[to]) {
-          //  如果更短，更新相邻节点的最短路径
-          // 由于该路径是可行的，将该路径信息加入到队列中等待下次递归
-          minDists[to] = newDistance;
-          queue.push({
-            curId: to,
-            curToStartDist: newDistance
-          });
-        }
+  // 这里可以通过最小堆优化，但是由于最小堆的实现比较复杂，这里使用数组模拟
+  // const queue = new MinPriorityQueue();
+  const queue: IPriorityQueue = [];
+  queue.push({
+    id: start,
+    distToStart: 0
+  });
+
+  while (queue.length > 0) {
+    const { id, distToStart } = queue.shift();
+    // 如果当前节点距离起点已经大于最短路径了，剪枝
+    if (distToStart > distTo[id]) {
+      continue;
+    }
+
+    // 遍历所有邻接节点，以期望获取更小距离
+    const neighbors = graph[id];
+    for (const { to, weight } of neighbors) {
+      // 判断从当前节点到相邻节点的这条加权路径是否更短
+      const newDistance = distTo[id] + weight;
+      if (newDistance < distTo[to]) {
+        //  如果更短，更新相邻节点的最短路径
+        // 由于该路径是可行的，将该路径信息加入到队列中等待下次递归
+        distTo[to] = newDistance;
+        queue.push({
+          id: to,
+          distToStart: newDistance
+        });
+        // console.log(`${start} -> ${to}: ${newDistance}`);
       }
     }
-    return minDists;
+  }
+
+  return distTo;
+}
+
+// @lc code=end
+
+class MinPriorityQueue {
+  private heap: IPriorityQueue = [];
+
+  push(node: { id: number; distToStart: number }) {
+    this.heap.push(node);
+    this.swim(this.heap.length - 1);
+  }
+
+  shift() {
+    if (this.heap.length === 0) {
+      return null;
+    }
+    this.swap(0, this.heap.length - 1);
+    const res = this.heap.pop();
+    this.sink(0);
+    return res;
+  }
+
+  get length() {
+    return this.heap.length;
+  }
+
+  private swim(index: number) {
+    while (index > 0) {
+      const parent = Math.floor((index - 1) / 2);
+      if (this.heap[parent].distToStart <= this.heap[index].distToStart) {
+        break;
+      }
+      this.swap(parent, index);
+      index = parent;
+    }
+  }
+
+  private sink(index: number) {
+    while (index * 2 + 1 < this.heap.length) {
+      let child = index * 2 + 1;
+      if (child + 1 < this.heap.length && this.heap[child + 1].distToStart < this.heap[child].distToStart) {
+        child++;
+      }
+      if (this.heap[index].distToStart <= this.heap[child].distToStart) {
+        break;
+      }
+      this.swap(index, child);
+      index = child;
+    }
+  }
+
+  private swap(i: number, j: number) {
+    [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]];
   }
 }
-// @lc code=end
 
 (() => {
   const times = [
