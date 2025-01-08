@@ -80,6 +80,21 @@ function minDepth(root: TreeNode | null): number {
   }
   return depth;
 }
+
+// function minDepth(root: TreeNode | null): number {
+//   if (!root) return 0;
+
+//   function getMinDepth(node: TreeNode, depth: number): number {
+//     if (!node.left && !node.right) return depth;
+
+//     if (!node.left) return getMinDepth(node.right, depth + 1);
+//     if (!node.right) return getMinDepth(node.left, depth + 1);
+
+//     return Math.min(getMinDepth(node.left, depth + 1), getMinDepth(node.right, depth + 1));
+//   }
+
+//   return getMinDepth(root, 1);
+// }
 // @lc code=end
 
 (() => {
