@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [18.x]
 
     steps:
       - name: Actions Checkout 🛎️
@@ -23,13 +23,17 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install and Build 🔧
-        run: |
-          npm ci
-          npm run build
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies 🔧
+        run: pnpm install
+
+      - name: Build project 🔧
+        run: pnpm build
 
       - name: Deploy to Github Pages 🚀
-        uses: JamesIves/github-pages-deploy-action@v4.3.0
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: docs/.vuepress/dist
