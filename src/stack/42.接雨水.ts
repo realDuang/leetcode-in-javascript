@@ -53,20 +53,18 @@ function trap(height: number[]): number {
   // 维护一个单调递减栈（非增栈）
   const stack: number[] = [];
   for (let i = 0; i < height.length; i++) {
-    const curr = height[i];
-    // 当前位置比栈顶位置更高时，说明栈顶位置可以接雨水，求的是以栈顶位置为最低点时能存水的面积
-    while (stack.length > 0 && curr >= height[stack[stack.length - 1]]) {
-      const index = stack.pop() as number;
-    
-      // 如果此时栈为空，说明没有左边界，无法接雨水，直接break
-      if (stack.length === 0) {
-        break;
-      }
-      // 栈中存在的值即为本次接水的左边界
+    // 当前位置比栈顶位置更高时，说明栈顶位置 curr 可以接雨水，求的是以 curr 为最低点时离左右最近的高点能存水的面积
+    while (stack.length > 0 && height[i] >= height[stack[stack.length - 1]]) {
+      const curr = stack.pop() as number;
+
+      // 如果此时栈为空，说明没有左边界，无法接雨水，直接 break
+      if (stack.length === 0) break;
+
+      // 栈中当前的栈顶值即为本次接水的左边界，当前遍历位置 i 为右边界
       const left = stack[stack.length - 1];
 
-      const w = i - left - 1;
-      const h = Math.min(curr, height[left]) - height[index];
+      const w = i - 1 - left;
+      const h = Math.min(height[left], height[i]) - height[curr];
       res += w * h;
     }
 
@@ -79,5 +77,33 @@ function trap(height: number[]): number {
 
 (() => {
   const height = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1];
+  // const height = [4, 2, 0, 3, 2, 5];
   console.log(trap(height));
 })();
+
+// function trap(height: number[]): number {
+//   // 找到在每个位置的左右最高点，从而求出当前位置的灌水面积为：min(leftH, rightH) - currentH
+//   const leftMax = Array(height.length).fill(-1);
+//   const rightMax = Array(height.length).fill(-1);
+//   let max = -1;
+//   for (let i = 0; i < height.length; i++) {
+//     leftMax[i] = max;
+//     if (height[i] > max) max = height[i];
+//   }
+//   max = -1;
+//   for (let i = height.length - 1; i >= 0; i--) {
+//     rightMax[i] = max;
+//     if (height[i] > max) max = height[i];
+//   }
+//   // console.log(leftMax, rightMax);
+
+//   let result = 0;
+//   for (let i = 0; i < height.length; i++) {
+//     const rain = Math.min(leftMax[i], rightMax[i]) - height[i];
+//     if (rain > 0) {
+//       result += rain;
+//     }
+//   }
+
+//   return result;
+// }
