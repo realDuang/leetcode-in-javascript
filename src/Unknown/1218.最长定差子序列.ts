@@ -56,12 +56,21 @@
 
 // @lc code=start
 function longestSubsequence(arr: number[], difference: number): number {
-  let res = 0;
-  const dp = Array(arr.length + 1).fill(0);
+  let res = 1;
+  const hash: Record<string, number> = {};
+
   for (let i = 0; i < arr.length; i++) {
-    dp[i + 1] = dp[i] + arr[i];
+    const curr = arr[i];
+    const next = curr + difference;
+
+    if (hash[curr]) {
+      hash[next] = hash[next] ? Math.max(hash[next], hash[curr] + 1) : hash[curr] + 1;
+      res = Math.max(hash[next], res);
+    } else {
+      hash[next] = 1;
+    }
+    // console.log(hash);
   }
-  console.log(dp)
   return res;
 }
 // @lc code=end
@@ -69,8 +78,8 @@ function longestSubsequence(arr: number[], difference: number): number {
 (() => {
   const arr = [1, 5, 7, 8, 5, 3, 4, 2, 1],
     difference = -2;
-  // console.log(longestSubsequence([1, 2, 3, 4], 1));
-  // console.log(longestSubsequence([1, 3, 5, 7], 1));
+  console.log(longestSubsequence([1, 2, 3, 4], 1));
+  console.log(longestSubsequence([1, 3, 5, 7], 1));
   console.log(longestSubsequence(arr, difference));
 })();
 
