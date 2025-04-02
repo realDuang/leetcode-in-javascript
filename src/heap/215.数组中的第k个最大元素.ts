@@ -47,103 +47,132 @@
 
 // @lc code=start
 function findKthLargest(nums: number[], k: number): number {
-  // 建堆，构建一个大顶堆
-  const heap = new Heap(false);
-  for (const num of nums) {
-    heap.push(num);
-  }
+  // 建堆，构建一个大小为 k 的小顶堆
+  const heap = buildMinHeap(nums, k);
 
-  // 弹出前 k-1 大的元素
-  for (let i = 0; i < k - 1; i++) {
-    heap.pop();
-  }
-
-  // 堆顶就是第 k 大的元素
+  // 因为是小顶堆，因此堆顶就是第 k 大的元素
   return heap.peek();
 }
 
-class Heap {
-  private heap: number[] = [];
+function buildMinHeap(nums: number[], k: number) {
+  const heap = new Heap(true);
 
-  constructor(private isMinHeap = true) {}
+  for (let i = 0; i < nums.length; i++) {
+    const num = nums[i];
+    // 如果堆还没填满，则直接堆进去
+    if (i < k) {
+      heap.push(num);
+    } else {
+      // 如果当前元素比堆顶(即最小值)还要小，则直接丢弃
+      // 否则剔除掉当前的最小值(堆顶)，将当前值设为堆顶，并开始下沉
+      if (heap.peek() < num) {
+        heap.update(0, num);
+        heap.heapifyDown();
+      }
+    }
+  }
+  return heap;
+}
+
+class Heap {
+  private heap: number[];
+  private isMinHeap: boolean;
+
+  constructor(isMinHeap = true) {
+    this.heap = [];
+    this.isMinHeap = isMinHeap;
+  }
+
+  get size(): number {
+    return this.heap.length;
+  }
 
   push(val: number) {
+    // 推入到堆尾部，并开始上浮
     this.heap.push(val);
     this.heapifyUp();
   }
 
   pop(): number {
-    const top = this.heap[0];
-    this.heap[0] = this.heap.pop();
+    if (this.size <= 0) return null;
+
+    // 记录堆顶值
+    const top = this.peek();
+    // 交换堆顶和堆尾，之后弹出堆尾元素(即原来的的堆顶)
+    this.swap(0, this.heap.length - 1);
+    this.heap.pop();
+
+    // 做堆下沉操作
     this.heapifyDown();
     return top;
+  }
+
+  update(i: number, val: number) {
+    this.heap[i] = val;
   }
 
   peek(): number {
     return this.heap[0];
   }
 
-  // 堆上浮排序，从尾部插入的叶子节点开始，与父节点比较。
+  // 堆上浮排序，从尾部插入的元素开始， 依次与父节点比较。
   // 如果小于(大于)父节点则交换，并递归计算直到根节点。
-  // 如果大于(小于)等于父节点则停止，此时已经完成堆化。
-  private heapifyUp() {
-    let index = this.heap.length - 1;
-    while (index > 0) {
-      const parentIndex = Math.floor((index - 1) / 2);
-
-      if (
-        (this.isMinHeap && this.heap[index] >= this.heap[parentIndex]) ||
-        (!this.isMinHeap && this.heap[index] <= this.heap[parentIndex])
-      )
-        break;
-
-      this.swap(parentIndex, index);
-      index = parentIndex;
+  heapifyUp() {
+    const { heap, getParent } = this;
+    let i = heap.length - 1;
+    // 当前不为根节点，且当前元素小于(大于)父元素，则交换
+    while (i > 0 && this.compare(heap[i], heap[getParent(i)])) {
+      const parentIndex = getParent(i);
+      this.swap(parentIndex, i);
+      i = parentIndex;
     }
   }
 
   // 堆下沉排序，从根节点开始，与左右子节点比较。
   // 如果小于(大于)左右子节点中的任意一个，则交换那个较小(大)的子节点，并递归计算直到叶子节点停止。
-  // 如果大于(小于)等于左右子节点则停止，此时已完成堆化。
-  private heapifyDown() {
-    let index = 0;
+  heapifyDown() {
+    const { heap } = this;
+    let i = 0;
     // 如果当前节点存在子节点（非叶子节点）
-    while (index * 2 + 1 < this.heap.length) {
-      let childL = index * 2 + 1;
-      let childR = index * 2 + 2;
-      let swapChildIndex = childL;
+    while (i * 2 + 1 < heap.length) {
+      let left = i * 2 + 1;
+      let right = i * 2 + 2;
       // 如果左右子节点都存在，则选择左右子节点中较小(大)的一个
-      if (childR < this.heap.length) {
-        if (
-          (this.isMinHeap && this.heap[childR] < this.heap[childL]) ||
-          (!this.isMinHeap && this.heap[childR] > this.heap[childL])
-        ) {
-          swapChildIndex = childR;
-        }
+      let child = left;
+      if (right < heap.length && this.compare(heap[right], heap[left])) {
+        child = right;
       }
 
-      if (
-        (this.isMinHeap && this.heap[index] <= this.heap[swapChildIndex]) ||
-        (!this.isMinHeap && this.heap[index] >= this.heap[swapChildIndex])
-      )
-        break;
+      // 如果当前节点比左右子节点都小(大)，则表示完成堆化，退出
+      if (this.compare(heap[i], heap[child])) {
+        return;
+      }
 
-      this.swap(index, swapChildIndex);
-      index = swapChildIndex;
+      // 交换并递归
+      this.swap(i, child);
+      i = child;
     }
   }
 
+  private getParent(i: number) {
+    return ((i - 1) / 2) | 0;
+  }
+
+  private compare(a: number, b: number): boolean {
+    if (this.isMinHeap) {
+      return a - b < 0;
+    }
+    return a - b > 0;
+  }
+
   private swap(i: number, j: number) {
-    const temp = this.heap[i];
-    this.heap[i] = this.heap[j];
-    this.heap[j] = temp;
+    [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]];
   }
 }
 
 // @lc code=end
 
 (() => {
-  const nums = [3, 2, 3, 1, 2, 4, 5, 5, 6];
-  const k = 4;
-  console.log(findKthLargest(nums, k));
+  console.log(findKthLargest([3, 2, 1, 5, 6, 4], 2));
+  console.log(findKthLargest([3, 2, 3, 1, 2, 4, 5, 5, 6], 4));
 })();
