@@ -11,9 +11,6 @@
   "directories": {
     "doc": "docs"
   },
-  "dependencies": {
-    "vuepress": "^1.9.10"
-  },
   "devDependencies": {
     "@eslint/js": "^9.38.0",
     "@types/node": "^24.5.2",
@@ -22,13 +19,14 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.1",
-    "vuepress-bar": "^0.4.4"
+    "vitepress": "^1.6.3"
   },
   "scripts": {
-    "dev": "vuepress dev docs",
-    "build": "vuepress build docs",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "lint": "eslint \"src/**/*.{js,ts}\" \"docs/.vuepress/config.ts\"",
+    "lint": "eslint \"src/**/*.{js,ts}\" \"docs/.vitepress/config.mts\" \"docs/.vitepress/sidebar.ts\"",
     "lint:fix": "pnpm lint --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",

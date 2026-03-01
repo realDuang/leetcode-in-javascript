@@ -3,37 +3,38 @@ name: Leetcode Release CI / CD
 on:
   push:
     branches:
-      - master
+      - main
+
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: true
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     name: Leetcode Continuous Deploy
 
-    strategy:
-      matrix:
-        node-version: [18.x]
-
     steps:
       - name: Actions Checkout 🛎️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Install pnpm
-        run: npm install -g pnpm@8
+          node-version: 20
+          cache: pnpm
 
       - name: Install dependencies 🔧
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Build project 🔧
-        run: pnpm build
+        run: pnpm docs:build
 
       - name: Deploy to Github Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: docs/.vuepress/dist
+          folder: docs/.vitepress/dist

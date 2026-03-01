@@ -3,7 +3,7 @@ import tseslint from 'typescript-eslint';
 
 export default [
   {
-    ignores: ['dist/**', 'node_modules/**', 'docs/.vuepress/dist/**']
+    ignores: ['dist/**', 'node_modules/**', 'docs/.vuepress/dist/**', 'docs/.vitepress/dist/**', 'docs/.vitepress/cache/**']
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
