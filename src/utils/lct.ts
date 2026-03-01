@@ -422,13 +422,9 @@ class LCT {
           }
           const expectedOrTester =
             exp == null && !options?.callOutput?.[i]
-              ? ((v: unknown) => v == null)
+              ? (v: unknown) => v == null
               : this.buildAutoExpected(exp, options?.callOutput?.[i]);
-          if (
-            this.runOne('call', method, args, expectedOrTester, () =>
-              Reflect.apply(fn, instance, args)
-            )
-          ) {
+          if (this.runOne('call', method, args, expectedOrTester, () => Reflect.apply(fn, instance, args))) {
             passed++;
           } else {
             failed++;
