@@ -6,4 +6,3 @@ coverage/
 *.log
 pnpm-debug.log*
 .idea/
-.vscode/

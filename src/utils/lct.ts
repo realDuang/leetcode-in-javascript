@@ -7,6 +7,21 @@ type AnyFunc = (...args: any[]) => any;
 type AnyConstructor = new (...args: any[]) => any;
 
 type ExpectedOrTester<T> = T | ((actual: T) => boolean);
+// Use `any` for transform input to allow direct passing of narrower functions like Tree.deserialize.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type TransformFn = (value: any) => unknown;
+type TransformList = Array<TransformFn | undefined>;
+
+type AutoFuncOptions = {
+  input?: TransformList;
+  output?: TransformFn;
+};
+
+type AutoClassOptions = {
+  ctorInput?: TransformList;
+  callInput?: Partial<Record<number, TransformList>>;
+  callOutput?: Partial<Record<number, TransformFn>>;
+};
 
 /**
  * LCT (LeetCode Test) — lightweight test runner for algorithm problems.
@@ -35,6 +50,28 @@ class LCT {
 
   private printSummary(passed: number, failed: number): void {
     console.log(`\n── Summary: ${passed} passed, ${failed} failed ──\n`);
+  }
+
+  private isDeepEqual(a: unknown, b: unknown): boolean {
+    try {
+      assert.deepStrictEqual(a, b);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  private applyTransforms(values: ReadonlyArray<unknown>, transforms?: TransformList): unknown[] {
+    if (!transforms) return [...values];
+    return values.map((value, idx) => {
+      const transform = transforms[idx];
+      return transform ? transform(value) : value;
+    });
+  }
+
+  private buildAutoExpected(expected: unknown, outputTransform?: TransformFn): ExpectedOrTester<unknown> {
+    if (!outputTransform) return expected;
+    return (actual: unknown) => this.isDeepEqual(outputTransform(actual), expected);
   }
 
   private runOne(
@@ -228,7 +265,7 @@ class LCT {
         }
         this.printSummary(passed, failed);
       },
-      auto: () => {
+      auto: (options?: AutoFuncOptions) => {
         const examples = this.parseFuncExamples();
         if (examples.length === 0) {
           console.log('⚠️ No examples found in comment block');
@@ -237,7 +274,13 @@ class LCT {
         let passed = 0;
         let failed = 0;
         for (const [i, [input, expected]] of examples.entries()) {
-          if (this.runOne('case', i, input, expected, () => Reflect.apply(solution, undefined, input))) {
+          const transformedInput = this.applyTransforms(input, options?.input);
+          const expectedOrTester = this.buildAutoExpected(expected, options?.output);
+          if (
+            this.runOne('case', i, transformedInput, expectedOrTester, () =>
+              Reflect.apply(solution, undefined, transformedInput)
+            )
+          ) {
             passed++;
           } else {
             failed++;
@@ -275,7 +318,7 @@ class LCT {
         }
         this.printSummary(passed, failed);
       },
-      auto: () => {
+      auto: (options?: AutoFuncOptions) => {
         const examples = this.parseFuncExamples();
         if (examples.length === 0) {
           console.log('⚠️ No examples found in comment block');
@@ -284,9 +327,10 @@ class LCT {
         let passed = 0;
         let failed = 0;
         for (const [i, [input, expected]] of examples.entries()) {
-          const args = [...input];
+          const args = this.applyTransforms(input, options?.input);
+          const expectedOrTester = this.buildAutoExpected(expected, options?.output);
           if (
-            this.runOne('case', i, args, expected, () => {
+            this.runOne('case', i, args, expectedOrTester, () => {
               Reflect.apply(solution, undefined, args);
               return args[0];
             })
@@ -351,7 +395,7 @@ class LCT {
         }
         this.printSummary(passed, failed);
       },
-      auto: () => {
+      auto: (options?: AutoClassOptions) => {
         const example = this.parseClsExample();
         if (!example) {
           console.log('⚠️ No class example found in comment block');
@@ -361,13 +405,14 @@ class LCT {
         if (methods.length !== inputs.length || methods.length !== expected.length) {
           throw new Error('LCT.cls: methods, inputs, expected must have the same length');
         }
-        const instance = Reflect.construct(ctor, inputs[0], ctor);
-        console.log(`${this.tag('new', methods[0])} args: ${this.formatValue(inputs[0])}`);
+        const ctorArgs = this.applyTransforms(inputs[0], options?.ctorInput);
+        const instance = Reflect.construct(ctor, ctorArgs, ctor);
+        console.log(`${this.tag('new', methods[0])} args: ${this.formatValue(ctorArgs)}`);
         let passed = 0;
         let failed = 0;
         for (let i = 1; i < methods.length; i++) {
           const method = methods[i];
-          const args = inputs[i];
+          const args = this.applyTransforms(inputs[i], options?.callInput?.[i]);
           const exp = expected[i];
           const fn = instance[method];
           if (typeof fn !== 'function') {
@@ -375,8 +420,12 @@ class LCT {
             failed++;
             continue;
           }
+          const expectedOrTester =
+            exp == null && !options?.callOutput?.[i]
+              ? ((v: unknown) => v == null)
+              : this.buildAutoExpected(exp, options?.callOutput?.[i]);
           if (
-            this.runOne('call', method, args, exp == null ? (v: unknown) => v == null : exp, () =>
+            this.runOne('call', method, args, expectedOrTester, () =>
               Reflect.apply(fn, instance, args)
             )
           ) {

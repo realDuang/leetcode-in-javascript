@@ -2,20 +2,26 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "ts debug",
+            "name": "Debug Current TS File",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceFolder}/${relativeFile}",
+            "program": "${file}",
             "runtimeArgs": [
                 "--nolazy",
                 "-r",
                 "ts-node/register"
             ],
             "sourceMaps": true,
-            "cwd": "${workspaceRoot}",
-            "protocol": "inspector",
-            "console": "externalTerminal",
-            "internalConsoleOptions": "neverOpen"
-        }    
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "skipFiles": [
+                "<node_internals>/**",
+                "node_modules/**"
+            ],
+            "resolveSourceMapLocations": [
+                "${workspaceFolder}/**",
+                "!**/node_modules/**"
+            ]
+        }
     ]
 }
