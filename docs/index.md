@@ -37,33 +37,33 @@ footer: false
 
 以下 15 篇专题覆盖了 LeetCode 最核心的算法知识体系，建议按顺序阅读：
 
-| # | 专题 | 关键内容 |
-|---|------|----------|
-| 0 | [前言](/docs/topic/0.introduction) | 写给工程师的算法学习观 |
-| 1 | [重新认识递归](/docs/topic/1.recursive) | 递归的本质、思维方式与代码模板 |
-| 2 | [二叉树遍历算法](/docs/topic/2.tree) | 前/中/后序遍历框架 |
-| 3 | [二叉搜索树](/docs/topic/3.binary-search-tree) | BST 的性质利用、增删查改框架 |
-| 4 | [排序算法](/docs/topic/4.sort) | 经典排序算法对比与实现 |
-| 5 | [双指针问题](/docs/topic/5.two-pointers) | 快慢指针、左右指针、滑动窗口 |
-| 6 | [二分搜索专题](/docs/topic/6.binary-search) | 统一二分搜索框架 |
-| 7 | [回溯问题](/docs/topic/7.backtrack) | 排列/组合/子集的通用回溯框架 |
-| 8 | [深度优先搜索](/docs/topic/8.depth-first-search) | 岛屿问题、连通分量的 DFS 通解 |
-| 9 | [广度优先搜索](/docs/topic/9.breadth-first-search) | 最短路径、层序遍历的 BFS 框架 |
-| 10 | [动态规划 - 推导](/docs/topic/10.dynamic-programming-normal) | 状态定义 → 转移方程 → 边界处理 |
-| 11 | [动态规划 - 背包](/docs/topic/11.dynamic-programming-backpack) | 0-1 背包、完全背包的通用框架 |
-| 12 | [动态规划 - 子序列](/docs/topic/12.dynamic-programming-subsequence) | LCS、LIS 等经典子序列 DP 模型 |
-| 13 | [图遍历算法](/docs/topic/13.graph) | 图的表示、遍历、环检测与拓扑排序 |
-| 14 | [单调栈算法](/docs/topic/14.monotonic-stack) | 下一个更大元素、柱状图的通解 |
+| #   | 专题                                                                | 关键内容                         |
+| --- | ------------------------------------------------------------------- | -------------------------------- |
+| 0   | [前言](/docs/topic/0.introduction)                                  | 写给工程师的算法学习观           |
+| 1   | [重新认识递归](/docs/topic/1.recursive)                             | 递归的本质、思维方式与代码模板   |
+| 2   | [二叉树遍历算法](/docs/topic/2.tree)                                | 前/中/后序遍历框架               |
+| 3   | [二叉搜索树](/docs/topic/3.binary-search-tree)                      | BST 的性质利用、增删查改框架     |
+| 4   | [排序算法](/docs/topic/4.sort)                                      | 经典排序算法对比与实现           |
+| 5   | [双指针问题](/docs/topic/5.two-pointers)                            | 快慢指针、左右指针、滑动窗口     |
+| 6   | [二分搜索专题](/docs/topic/6.binary-search)                         | 统一二分搜索框架                 |
+| 7   | [回溯问题](/docs/topic/7.backtrack)                                 | 排列/组合/子集的通用回溯框架     |
+| 8   | [深度优先搜索](/docs/topic/8.depth-first-search)                    | 岛屿问题、连通分量的 DFS 通解    |
+| 9   | [广度优先搜索](/docs/topic/9.breadth-first-search)                  | 最短路径、层序遍历的 BFS 框架    |
+| 10  | [动态规划 - 推导](/docs/topic/10.dynamic-programming-normal)        | 状态定义 → 转移方程 → 边界处理   |
+| 11  | [动态规划 - 背包](/docs/topic/11.dynamic-programming-backpack)      | 0-1 背包、完全背包的通用框架     |
+| 12  | [动态规划 - 子序列](/docs/topic/12.dynamic-programming-subsequence) | LCS、LIS 等经典子序列 DP 模型    |
+| 13  | [图遍历算法](/docs/topic/13.graph)                                  | 图的表示、遍历、环检测与拓扑排序 |
+| 14  | [单调栈算法](/docs/topic/14.monotonic-stack)                        | 下一个更大元素、柱状图的通解     |
 
 ## 📂 题解分类
 
 所有题解按算法/数据结构分为 **22 个类别**：
 
-| 分类 | 题数 | 分类 | 题数 | 分类 | 题数 |
-|------|------|------|------|------|------|
-| 动态规划 | 71 | 栈 | 12 | 贪心 | 9 |
-| 二叉树 | 38 | BFS | 11 | 字符串 | 8 |
-| 双指针 | 22 | 哈希表 | 11 | 图 | 6 |
-| 回溯 | 20 | 滑动窗口 | 10 | 堆 | 4 |
-| 数组 | 19 | 数学 | 14 | 其他 | 13 |
-| 二分查找 | 18 | DFS | 13 | 链表 | 14 |
+| 分类     | 题数 | 分类     | 题数 | 分类   | 题数 |
+| -------- | ---- | -------- | ---- | ------ | ---- |
+| 动态规划 | 71   | 栈       | 12   | 贪心   | 9    |
+| 二叉树   | 38   | BFS      | 11   | 字符串 | 8    |
+| 双指针   | 22   | 哈希表   | 11   | 图     | 6    |
+| 回溯     | 20   | 滑动窗口 | 10   | 堆     | 4    |
+| 数组     | 19   | 数学     | 14   | 其他   | 13   |
+| 二分查找 | 18   | DFS      | 13   | 链表   | 14   |

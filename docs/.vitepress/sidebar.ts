@@ -61,9 +61,7 @@ function getMarkdownFiles(dir: string): string[] {
 
 function generateSidebarForList(docsRoot: string): DefaultTheme.SidebarItem[] {
   const listDir = join(docsRoot, 'docs', 'list');
-  const categories = readdirSync(listDir).filter(f =>
-    statSync(join(listDir, f)).isDirectory()
-  );
+  const categories = readdirSync(listDir).filter(f => statSync(join(listDir, f)).isDirectory());
 
   return categories.map(cat => {
     const catDir = join(listDir, cat);
