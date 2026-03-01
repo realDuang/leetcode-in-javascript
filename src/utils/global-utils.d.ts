@@ -42,7 +42,10 @@ declare global {
         >
       ): void;
       /** Auto-parse test cases from the file's comment block */
-      auto(): void;
+      auto(options?: {
+        input?: Array<((value: any) => unknown) | undefined>;
+        output?: (actual: unknown) => unknown;
+      }): void;
     };
     /** Test an in-place mutation function: `LCT.inPlace(fn).cases([args, expected], ...)` or `.auto()` */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -53,7 +56,10 @@ declare global {
         ...cases: ReadonlyArray<readonly [Readonly<Parameters<F>>, unknown | ((actual: unknown) => boolean)]>
       ): void;
       /** Auto-parse test cases from the file's comment block */
-      auto(): void;
+      auto(options?: {
+        input?: Array<((value: any) => unknown) | undefined>;
+        output?: (actual: unknown) => unknown;
+      }): void;
     };
     /** Test a class (design problems): `LCT.cls(Ctor).calls(methods, inputs, expected)` or `.auto()` */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -66,7 +72,11 @@ declare global {
         expected: ReadonlyArray<unknown>
       ): void;
       /** Auto-parse test cases from the file's comment block */
-      auto(): void;
+      auto(options?: {
+        ctorInput?: Array<((value: any) => unknown) | undefined>;
+        callInput?: Partial<Record<number, Array<((value: any) => unknown) | undefined>>>;
+        callOutput?: Partial<Record<number, (actual: unknown) => unknown>>;
+      }): void;
     };
   };
 }
