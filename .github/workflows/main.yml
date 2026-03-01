@@ -1,21 +1,25 @@
-name: Leetcode Release CI / CD
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 concurrency:
   group: pages-deploy
   cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-    name: Leetcode Continuous Deploy
+    name: Build
 
     steps:
-      - name: Actions Checkout 🛎️
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup pnpm
@@ -24,17 +28,30 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: package.json
           cache: pnpm
 
-      - name: Install dependencies 🔧
+      - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build project 🔧
+      - name: Build docs
         run: pnpm docs:build
 
-      - name: Deploy to Github Pages 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          branch: gh-pages
-          folder: docs/.vitepress/dist
+          path: docs/.vitepress/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    name: Deploy
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
