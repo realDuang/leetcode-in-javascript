@@ -8,7 +8,8 @@ export default [
       'node_modules/**',
       'docs/.vuepress/dist/**',
       'docs/.vitepress/dist/**',
-      'docs/.vitepress/cache/**'
+      'docs/.vitepress/cache/**',
+      '**/*.d.ts'
     ]
   },
   js.configs.recommended,
