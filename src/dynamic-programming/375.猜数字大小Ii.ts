@@ -93,7 +93,7 @@ function getMoneyAmount(n: number): number {
     //  设起始点为 i
     for (let i = 1; i <= n; i++) {
       // 设结束点为 j, 不能越界
-      let j = i + len - 1;
+      const j = i + len - 1;
       if (j > n) continue;
       // 设每一次猜测数为 k，如果猜对了不增加花费
       // 如果猜错了，花费为左右侧最大值 max(dp[i][k-1], dp[k+1][j]) + k

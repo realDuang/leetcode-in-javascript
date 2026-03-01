@@ -93,7 +93,7 @@ function analyze(s: string): number {
   if (!isNaN(Number(s))) return Number(s);
 
   // 保存
-  let nums: number[] = [];
+  const nums: number[] = [];
 
   // 保存计算数字
   let num = 0;

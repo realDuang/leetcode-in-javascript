@@ -99,7 +99,7 @@ function combinationSum4(nums: number[], target: number): number {
 // }
 
 (() => {
-  let nums = [1, 2, 3],
+  const nums = [1, 2, 3],
     target = 4;
   console.log(combinationSum4(nums, target));
 })();

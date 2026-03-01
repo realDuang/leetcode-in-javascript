@@ -1,6 +1,8 @@
 node_modules
 dist
 docs/.vuepress/dist
+docs/.vitepress/dist
+docs/.vitepress/cache
 docs/docs
 .github
 pnpm-lock.yaml

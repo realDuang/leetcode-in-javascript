@@ -58,7 +58,7 @@
 
 // @lc code=start
 function minCut(s: string): number {
-  let n = s.length;
+  const n = s.length;
 
   // 设 dp[i][j] 表示 s[i]~s[j] 是否为回文
   const isPalindrome = Array(n)
@@ -115,6 +115,6 @@ function minCut(s: string): number {
 // @lc code=end
 
 (() => {
-  let s = 'aab';
+  const s = 'aab';
   console.log(minCut(s));
 })();

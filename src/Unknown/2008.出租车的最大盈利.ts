@@ -92,7 +92,7 @@ function maxTaxiEarnings(n: number, rides: number[][]): number {
 
     // 如果当前接上该乘客
     // 则总费用会变成，接上当前乘客的盈利，加上该乘客下车后接到的第一个乘客（记为 j）的总盈利
-    let j = binarySearch(i + 1, end);
+    const j = binarySearch(i + 1, end);
     const earn = end - start + tip + dfs(j);
     // 在接与不接中取最大值
     const res = Math.max(earn, dfs(i + 1));
@@ -105,7 +105,7 @@ function maxTaxiEarnings(n: number, rides: number[][]): number {
 // @lc code=end
 
 (() => {
-  let n = 20,
+  const n = 20,
     rides = [
       [1, 6, 1],
       [3, 10, 2],

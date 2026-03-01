@@ -67,8 +67,6 @@
  *
  *
  */
-import { deserialize, TreeNode } from '../utils/tree';
-
 // @lc code=start
 /**
  * Definition for a binary tree node.
@@ -96,9 +94,9 @@ function rightSideView(root: TreeNode | null): number[] {
 
     let len = queue.length;
     while (len--) {
-      let node = queue.shift();
-      node.left && queue.push(node.left);
-      node.right && queue.push(node.right);
+      const node = queue.shift();
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
     }
   }
   return res;
@@ -106,6 +104,6 @@ function rightSideView(root: TreeNode | null): number[] {
 // @lc code=end
 
 (() => {
-  console.log(rightSideView(deserialize([1, 2, 3, 4, null, null, null, 5])));
-  console.log(rightSideView(deserialize([1, 2, 3, null, 5, null, 4])));
+  console.log(rightSideView(Tree.deserialize([1, 2, 3, 4, null, null, null, 5])));
+  console.log(rightSideView(Tree.deserialize([1, 2, 3, null, 5, null, 4])));
 })();

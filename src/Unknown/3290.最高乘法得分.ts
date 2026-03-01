@@ -82,7 +82,7 @@ function maxScore(a: number[], b: number[]): number {
 // @lc code=end
 
 (() => {
-  let a = [3, 2, 5, 6],
+  const a = [3, 2, 5, 6],
     b = [2, -6, 4, -5, -3, 2, -7];
   console.log(maxScore(a, b));
 })();

@@ -83,7 +83,7 @@ function groupAnagrams(strs: string[]): string[][] {
 // @lc code=end
 
 (() => {
-  let strs = ['eat', 'tea', 'tan', 'ate', 'nat', 'bat'];
+  const strs = ['eat', 'tea', 'tan', 'ate', 'nat', 'bat'];
   console.log(groupAnagrams(strs));
   console.log(groupAnagrams(['']));
 })();
