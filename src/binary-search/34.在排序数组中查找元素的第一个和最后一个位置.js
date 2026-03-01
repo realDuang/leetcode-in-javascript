@@ -37,7 +37,7 @@
  * @param {number} target
  * @return {number[]}
  */
-var searchRange = function(nums, target) {
+var searchRange = function (nums, target) {
   const res = [-1, -1];
   if (nums.length === 0) return res;
 

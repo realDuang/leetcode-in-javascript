@@ -38,7 +38,7 @@
  * @param {number[][]} triangle
  * @return {number}
  */
-var minimumTotal = function(triangle) {
+var minimumTotal = function (triangle) {
   const len = triangle.length;
   const dp = new Array(len).fill(0).map(x => new Array(len).fill(0));
   dp[len - 1] = triangle[len - 1];

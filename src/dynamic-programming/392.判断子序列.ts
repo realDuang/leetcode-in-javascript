@@ -71,33 +71,32 @@ function isSubsequence(s: string, t: string): boolean {
 }
 // @lc code=end
 
-// function isSubsequence(s: string, t: string): boolean {
-//   const sLen = s.length;
-//   const tLen = t.length;
-//   if (sLen > tLen) return false;
-//   const dp: number[][] = Array(sLen + 1)
-//     .fill(0)
-//     .map(x => Array(tLen + 1).fill(0));
-//   // 字串s为空字符串时，恒成立
-//   for (let j = 0; j <= tLen; j++) {
-//     dp[0][j] = 1;
-//   }
-//   for (let i = 1; i <= sLen; i++) {
-//     for (let j = i; j <= tLen; j++) {
-//       // 如果不包含该字符的t的字串已经成立，则加上当前字符仍然成立
-//       if (dp[i][j - 1]) {
-//         dp[i][j] = 1;
-//       }
-//       // 如果两字符相等，且不包含两字符的各自字串符合条件，则当前情况也成立
-//       else if (s[i - 1] === t[j - 1] && dp[i - 1][j - 1]) {
-//         dp[i][j] = 1;
-//       }
-//     }
-//   }
-//   return !!dp[sLen][tLen];
-// }
-
 (() => {
+  // function isSubsequence(s: string, t: string): boolean {
+  //   const sLen = s.length;
+  //   const tLen = t.length;
+  //   if (sLen > tLen) return false;
+  //   const dp: number[][] = Array(sLen + 1)
+  //     .fill(0)
+  //     .map(x => Array(tLen + 1).fill(0));
+  //   // 字串s为空字符串时，恒成立
+  //   for (let j = 0; j <= tLen; j++) {
+  //     dp[0][j] = 1;
+  //   }
+  //   for (let i = 1; i <= sLen; i++) {
+  //     for (let j = i; j <= tLen; j++) {
+  //       // 如果不包含该字符的t的字串已经成立，则加上当前字符仍然成立
+  //       if (dp[i][j - 1]) {
+  //         dp[i][j] = 1;
+  //       }
+  //       // 如果两字符相等，且不包含两字符的各自字串符合条件，则当前情况也成立
+  //       else if (s[i - 1] === t[j - 1] && dp[i - 1][j - 1]) {
+  //         dp[i][j] = 1;
+  //       }
+  //     }
+  //   }
+  //   return !!dp[sLen][tLen];
+  // }
   const s = 'abc',
     t = 'ahbgdc';
   console.log(isSubsequence(s, t));

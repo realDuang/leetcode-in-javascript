@@ -61,7 +61,7 @@
  * @param {string} p
  * @return {number[]}
  */
-var findAnagrams = function(s, p) {
+var findAnagrams = function (s, p) {
   const map = {};
   for (let i = 0; i < p.length; i++) {
     map[p[i]] = map[p[i]] || 0;

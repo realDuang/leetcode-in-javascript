@@ -63,7 +63,7 @@ function sortArray(nums: number[]): number[] {
   }
 
   function partition(left: number, right: number) {
-    let flag = nums[left];
+    const flag = nums[left];
     let l = left + 1;
     let r = right;
     while (l <= r) {
@@ -96,52 +96,51 @@ function sortArray(nums: number[]): number[] {
 }
 // @lc code=end
 
-// function sortArray(nums: number[]): number[] {
-//   sort(0, nums.length - 1);
-//   return nums;
-
-//   function sort(left: number, right: number) {
-//     if (left === right) {
-//       // 单个元素不用排序
-//       return;
-//     }
-//     const mid = Math.floor((left + right) / 2);
-//     sort(left, mid);
-//     sort(mid + 1, right);
-//     merge(left, mid, right);
-//   }
-
-//   function merge(left: number, mid: number, right: number) {
-//     const temp = [];
-//     let l = left;
-//     let r = mid + 1;
-//     while (l < mid + 1 || r < right + 1) {
-//       if (l === mid + 1) {
-//         // 左侧数组已经全部合并，则将右边剩余数组直接拼接下来
-//         temp.push(nums[r]);
-//         r += 1;
-//       } else if (r === right + 1) {
-//         // 右侧数组已经全部合并，则将左边剩余数组直接拼接下来
-//         temp.push(nums[l]);
-//         l += 1;
-//       } else if (nums[l] > nums[r]) {
-//         // 左右指针两数相比取较小值，并前进指针
-//         temp.push(nums[r]);
-//         r += 1;
-//       } else {
-//         // temp[l] <= temp[r]
-//         temp.push(nums[l]);
-//         l += 1;
-//       }
-//     }
-//     // 原地更新数组
-//     for (let i = left; i <= right; i++) {
-//       nums[i] = temp[i - left];
-//     }
-//   }
-// }
-
 (() => {
+  // function sortArray(nums: number[]): number[] {
+  //   sort(0, nums.length - 1);
+  //   return nums;
+
+  //   function sort(left: number, right: number) {
+  //     if (left === right) {
+  //       // 单个元素不用排序
+  //       return;
+  //     }
+  //     const mid = Math.floor((left + right) / 2);
+  //     sort(left, mid);
+  //     sort(mid + 1, right);
+  //     merge(left, mid, right);
+  //   }
+
+  //   function merge(left: number, mid: number, right: number) {
+  //     const temp = [];
+  //     let l = left;
+  //     let r = mid + 1;
+  //     while (l < mid + 1 || r < right + 1) {
+  //       if (l === mid + 1) {
+  //         // 左侧数组已经全部合并，则将右边剩余数组直接拼接下来
+  //         temp.push(nums[r]);
+  //         r += 1;
+  //       } else if (r === right + 1) {
+  //         // 右侧数组已经全部合并，则将左边剩余数组直接拼接下来
+  //         temp.push(nums[l]);
+  //         l += 1;
+  //       } else if (nums[l] > nums[r]) {
+  //         // 左右指针两数相比取较小值，并前进指针
+  //         temp.push(nums[r]);
+  //         r += 1;
+  //       } else {
+  //         // temp[l] <= temp[r]
+  //         temp.push(nums[l]);
+  //         l += 1;
+  //       }
+  //     }
+  //     // 原地更新数组
+  //     for (let i = left; i <= right; i++) {
+  //       nums[i] = temp[i - left];
+  //     }
+  //   }
+  // }
   const nums = [5, 1, 1, 2, 0, 0];
   console.log(sortArray(nums));
 })();

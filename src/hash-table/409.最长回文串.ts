@@ -57,10 +57,14 @@
 function longestPalindrome(s: string): number {
   const hash: { [key: string]: number } = {};
   for (let i = 0; i < s.length; i++) {
-    hash[s[i]] ? (hash[s[i]] += 1) : (hash[s[i]] = 1);
+    if (hash[s[i]]) {
+      hash[s[i]] += 1;
+    } else {
+      hash[s[i]] = 1;
+    }
   }
   // 每个字符最多可以取 2 的倍数个
-  let res = Object.values(hash).reduce((prev, curr) => prev + Math.floor(curr / 2) * 2, 0);
+  const res = Object.values(hash).reduce((prev, curr) => prev + Math.floor(curr / 2) * 2, 0);
   // 回文串允许在最中间有一个不同的字符
   return res === s.length ? res : res + 1;
 }

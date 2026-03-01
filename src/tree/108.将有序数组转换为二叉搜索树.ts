@@ -48,7 +48,6 @@
  *
  */
 
-import { deserialize, TreeNode } from '../utils/tree';
 // @lc code=start
 /**
  * Definition for a binary tree node.

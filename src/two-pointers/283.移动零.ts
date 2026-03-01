@@ -49,25 +49,26 @@ function moveZeroes(nums: number[]): void {
 // @lc code=end
 
 (() => {
-  const nums = [4, 2, 4, 0, 0, 3, 0, 5, 1, 0];
-  moveZeroes(nums);
-  console.log(nums);
+  LCT.inPlace(moveZeroes).cases(
+    [[[0, 1, 0, 3, 12]], [1, 3, 12, 0, 0]],
+    [[[4, 2, 4, 0, 0, 3, 0, 5, 1, 0]], [4, 2, 4, 3, 5, 1, 0, 0, 0, 0]]
+  );
+
+  // function moveZeroes(nums: number[]): void {
+  //   const len = nums.length;
+  //   let left = 0;
+  //   let right = 0;
+  //   while (left < len && right < len) {
+  //     while (left < len && nums[left] !== 0) left += 1;
+
+  //     right = left + 1;
+  //     while (right < len && nums[right] === 0) right += 1;
+
+  //     if (left >= len || right >= len) break;
+
+  //     const temp = nums[left];
+  //     nums[left] = nums[right];
+  //     nums[right] = temp;
+  //   }
+  // }
 })();
-
-// function moveZeroes(nums: number[]): void {
-//   const len = nums.length;
-//   let left = 0;
-//   let right = 0;
-//   while (left < len && right < len) {
-//     while (left < len && nums[left] !== 0) left += 1;
-
-//     right = left + 1;
-//     while (right < len && nums[right] === 0) right += 1;
-
-//     if (left >= len || right >= len) break;
-
-//     const temp = nums[left];
-//     nums[left] = nums[right];
-//     nums[right] = temp;
-//   }
-// }

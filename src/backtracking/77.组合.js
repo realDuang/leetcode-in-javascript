@@ -36,7 +36,7 @@
  * @param {number} k
  * @return {number[][]}
  */
-var combine = function(n, k) {
+var combine = function (n, k) {
   const res = [];
   backtrack(k, [], 1);
   return res;

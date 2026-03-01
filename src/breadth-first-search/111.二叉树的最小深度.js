@@ -45,7 +45,7 @@
  * @param {TreeNode} root
  * @return {number}
  */
-var minDepth = function(root) {
+var minDepth = function (root) {
   if (!root) return 0;
 
   let res = 1;

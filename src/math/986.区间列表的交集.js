@@ -48,7 +48,7 @@
  * @param {number[][]} B
  * @return {number[][]}
  */
-var intervalIntersection = function(A, B) {
+var intervalIntersection = function (A, B) {
   if (A.length <= 0 || B.length <= 0) return [];
 
   const res = [];

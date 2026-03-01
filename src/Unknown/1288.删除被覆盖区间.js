@@ -46,7 +46,7 @@
  * @param {number[][]} intervals
  * @return {number}
  */
-var removeCoveredIntervals = function(intervals) {
+var removeCoveredIntervals = function (intervals) {
   // 先排序，接下来就只用判断区间右侧位置与新区间之间的关系
   // 注意，当两区间起始相同时，比较区间以范围较大的优先，即：起点升序排列，终点降序排列
   intervals.sort((a, b) => {

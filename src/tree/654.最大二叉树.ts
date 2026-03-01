@@ -61,19 +61,6 @@
  *
  */
 
-import { serialize } from '../utils/tree';
-
-class TreeNode {
-  val: number;
-  left: TreeNode | null;
-  right: TreeNode | null;
-  constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
-    this.val = val === undefined ? 0 : val;
-    this.left = left === undefined ? null : left;
-    this.right = right === undefined ? null : right;
-  }
-}
-
 // @lc code=start
 function constructMaximumBinaryTree(nums: number[]): TreeNode | null {
   return traverse(0, nums.length - 1);
@@ -103,5 +90,5 @@ function constructMaximumBinaryTree(nums: number[]): TreeNode | null {
 (() => {
   const nums = [3, 2, 1, 6, 0, 5];
   const res = constructMaximumBinaryTree(nums);
-  console.log(serialize(res));
+  console.log(Tree.serialize(res));
 })();

@@ -36,7 +36,7 @@
  * @param {number} val
  * @return {ListNode}
  */
-var removeElements = function(head, val) {
+var removeElements = function (head, val) {
   const dummy = {
     next: head
   };

@@ -49,8 +49,6 @@
  *
  */
 
-import { deserialize, TreeNode } from '../utils/tree';
-
 // @lc code=start
 /**
  * Definition for a binary tree node.
@@ -92,6 +90,6 @@ function levelOrder(root: TreeNode | null): number[][] {
 // @lc code=end
 
 (() => {
-  const root = deserialize<number>([3, 9, 20, 3, null, 15, 7]);
+  const root = Tree.deserialize([3, 9, 20, 3, null, 15, 7]);
   console.log(levelOrder(root));
 })();

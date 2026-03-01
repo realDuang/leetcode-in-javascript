@@ -58,8 +58,6 @@
  *
  */
 
-import { TreeNode, deserialize, serialize } from '../utils/tree';
-
 // @lc code=start
 /**
  * Definition for a binary tree node.
@@ -92,7 +90,7 @@ function bstToGst(root: TreeNode | null): TreeNode | null {
 // @lc code=end
 
 (() => {
-  const tree = deserialize([4, 1, 6, 0, 2, 5, 7, null, null, null, 3, null, null, null, 8]);
+  const tree = Tree.deserialize([4, 1, 6, 0, 2, 5, 7, null, null, null, 3, null, null, null, 8]);
   const convertTreeNode = bstToGst(tree);
-  console.log(serialize(convertTreeNode));
+  console.log(Tree.serialize(convertTreeNode));
 })();

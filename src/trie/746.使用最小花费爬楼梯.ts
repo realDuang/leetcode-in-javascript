@@ -68,5 +68,7 @@ function minCostClimbingStairs(cost: number[]): number {
 }
 // @lc code=end
 
-const cost = [1, 100];
-console.log(minCostClimbingStairs(cost));
+(() => {
+  const cost = [1, 100];
+  console.log(minCostClimbingStairs(cost));
+})();

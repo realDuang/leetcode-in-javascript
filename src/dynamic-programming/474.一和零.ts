@@ -61,7 +61,11 @@ function findMaxForm(strs: string[], m: number, n: number): number {
     let zeroCnt = 0;
     let oneCnt = 0;
     str.split('').forEach(x => {
-      x === '1' ? (oneCnt += 1) : (zeroCnt += 1);
+      if (x === '1') {
+        oneCnt += 1;
+      } else {
+        zeroCnt += 1;
+      }
     });
     return [zeroCnt, oneCnt];
   });

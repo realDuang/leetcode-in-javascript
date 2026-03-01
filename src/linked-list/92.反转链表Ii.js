@@ -39,7 +39,7 @@
  * @param {number} n
  * @return {ListNode}
  */
-var reverseBetween = function(head, m, n) {
+var reverseBetween = function (head, m, n) {
   if (m === n) return head;
   const dummy = new ListNode(null);
   dummy.next = head;

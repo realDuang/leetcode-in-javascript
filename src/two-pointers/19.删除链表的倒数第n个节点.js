@@ -45,7 +45,7 @@
  * @param {number} n
  * @return {ListNode}
  */
-var removeNthFromEnd = function(head, n) {
+var removeNthFromEnd = function (head, n) {
   const nude = new ListNode(null);
   nude.next = head;
 

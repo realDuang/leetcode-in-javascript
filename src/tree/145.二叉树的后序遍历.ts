@@ -29,18 +29,6 @@
  * 进阶: 递归算法很简单，你可以通过迭代算法完成吗？
  *
  */
-import { deserialize } from '../utils/tree';
-
-class TreeNode {
-  val: number;
-  left: TreeNode | null;
-  right: TreeNode | null;
-  constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
-    this.val = val === undefined ? 0 : val;
-    this.left = left === undefined ? null : left;
-    this.right = right === undefined ? null : right;
-  }
-}
 
 // @lc code=start
 /**
@@ -73,8 +61,12 @@ function postorderTraversal(root: TreeNode | null): number[] {
       res.push(node.val);
       prev = stack.pop();
     } else {
-      node.right && stack.push(node.right);
-      node.left && stack.push(node.left);
+      if (node.right) {
+        stack.push(node.right);
+      }
+      if (node.left) {
+        stack.push(node.left);
+      }
     }
   }
 
@@ -82,21 +74,23 @@ function postorderTraversal(root: TreeNode | null): number[] {
 }
 // @lc code=end
 
-// 递归法
-// function postorderTraversal(root: TreeNode | null): number[] {
-//   if (!root) return [];
-//   const res: number[] = [];
-//   helper(root);
-//   return res;
+(() => {
+  // 递归法
+  // function postorderTraversal(root: TreeNode | null): number[] {
+  //   if (!root) return [];
+  //   const res: number[] = [];
+  //   helper(root);
+  //   return res;
 
-//   function helper(node: TreeNode | null) {
-//     if (!node) return;
-//     if (node.left) helper(node.left);
-//     if (node.right) helper(node.right);
-//     res.push(node.val);
-//   }
-// }
+  //   function helper(node: TreeNode | null) {
+  //     if (!node) return;
+  //     if (node.left) helper(node.left);
+  //     if (node.right) helper(node.right);
+  //     res.push(node.val);
+  //   }
+  // }
 
-const root = [1, null, 2, 3, 4, 5];
-const res = postorderTraversal(deserialize(root));
-console.log(res);
+  const root = [1, null, 2, 3, 4, 5];
+  const res = postorderTraversal(Tree.deserialize(root));
+  console.log(res);
+})();

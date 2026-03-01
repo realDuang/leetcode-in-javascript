@@ -63,7 +63,7 @@
  * @param {string} S
  * @return {number}
  */
-var scoreOfParentheses = function(S) {
+var scoreOfParentheses = function (S) {
   let res = 0;
   const stack = [];
   for (let ele of S) {

@@ -51,7 +51,7 @@
  * @param {number[]} nums
  * @return {boolean}
  */
-var canPartition = function(nums) {
+var canPartition = function (nums) {
   const sum = nums.reduce((prev, x) => prev + x);
   if (sum % 2 !== 0) return false;
 

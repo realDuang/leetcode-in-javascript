@@ -53,7 +53,7 @@
  * @param {TreeNode} root
  * @return {string}
  */
-var serialize = function(root) {
+var serialize = function (root) {
   if (!root) return '';
   const arr = [];
   const queue = [root];
@@ -81,7 +81,7 @@ var serialize = function(root) {
  * @param {string} data
  * @return {TreeNode}
  */
-var deserialize = function(data) {
+var deserialize = function (data) {
   if (data === '') return null;
   const arr = JSON.parse(data);
   const root = new TreeNode(arr[0]);

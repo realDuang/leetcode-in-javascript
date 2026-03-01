@@ -90,25 +90,24 @@ function lengthOfLIS(nums: number[]): number {
 }
 // @lc code=end
 
-// function lengthOfLIS(nums: number[]): number {
-//   const len = nums.length;
-//   const dp = Array(len).fill(1);
-//   let max = 1;
-//   // Sn = (Sn-1, An)为递增子序列 ? Sn-1 + 1 : Sn-1
-//   for (let i = 1; i < len; i++) {
-//     for (let j = 0; j < i; j++) {
-//       // 此时可以凑出递增子序列
-//       if (nums[i] > nums[j]) {
-//         // 选出 以nums[i]结尾的 最大递增子序列长度
-//         dp[i] = Math.max(dp[i], dp[j] + 1);
-//       }
-//     }
-//     max = Math.max(max, dp[i]);
-//   }
-//   return max;
-// }
-
 (() => {
+  // function lengthOfLIS(nums: number[]): number {
+  //   const len = nums.length;
+  //   const dp = Array(len).fill(1);
+  //   let max = 1;
+  //   // Sn = (Sn-1, An)为递增子序列 ? Sn-1 + 1 : Sn-1
+  //   for (let i = 1; i < len; i++) {
+  //     for (let j = 0; j < i; j++) {
+  //       // 此时可以凑出递增子序列
+  //       if (nums[i] > nums[j]) {
+  //         // 选出 以nums[i]结尾的 最大递增子序列长度
+  //         dp[i] = Math.max(dp[i], dp[j] + 1);
+  //       }
+  //     }
+  //     max = Math.max(max, dp[i]);
+  //   }
+  //   return max;
+  // }
   const nums = [1, 3, 6, 7, 9, 4, 10, 5, 6];
   console.log(lengthOfLIS(nums));
 })();

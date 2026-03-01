@@ -47,7 +47,7 @@
  * @param {number[][]} intervals
  * @return {number[][]}
  */
-var merge = function(intervals) {
+var merge = function (intervals) {
   if (intervals.length <= 0) return [];
 
   // 先按起始位置排序，这样左侧位置就可以不做判断了

@@ -46,7 +46,7 @@
  * @param {number} x
  * @return {boolean}
  */
-var isPalindrome = function(x) {
+var isPalindrome = function (x) {
   if (x < 0) return false;
   // 判断能相除能取x首位的除数
   let divisor = 1;

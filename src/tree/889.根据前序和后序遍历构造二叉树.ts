@@ -52,8 +52,6 @@
  *
  */
 
-import { TreeNode, deserialize, serialize } from '../utils/tree';
-
 // @lc code=start
 /**
  * Definition for a binary tree node.
@@ -98,5 +96,5 @@ function constructFromPrePost(preorder: number[], postorder: number[]): TreeNode
   const preorder = [1, 2, 4, 5, 3, 6, 7],
     postorder = [4, 5, 2, 6, 7, 3, 1];
   const tree = constructFromPrePost(preorder, postorder);
-  console.log(serialize(tree));
+  console.log(Tree.serialize(tree));
 })();

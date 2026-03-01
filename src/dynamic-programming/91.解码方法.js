@@ -44,7 +44,7 @@
  * @param {string} s
  * @return {number}
  */
-var numDecodings = function(s) {
+var numDecodings = function (s) {
   if (!s || s.length <= 0) return 0;
   const dp = new Array(s.length + 1).fill(0);
   dp[0] = 1;

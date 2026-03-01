@@ -44,7 +44,7 @@
  * @param {string} s
  * @return {number}
  */
-var lengthOfLongestSubstring = function(s) {
+var lengthOfLongestSubstring = function (s) {
   const len = s.length;
   let res = 0;
   let hash = {};

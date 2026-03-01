@@ -41,7 +41,7 @@
  * @param {number[]} nums2
  * @return {number[]}
  */
-var intersection = function(nums1, nums2) {
+var intersection = function (nums1, nums2) {
   const set2 = new Set(nums2);
   return Array.from(new Set(nums1.filter(ele => set2.has(ele))));
 };

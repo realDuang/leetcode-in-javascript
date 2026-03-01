@@ -14,35 +14,35 @@
  * Testcase Example:  '[1,3,null,null,2]'
  *
  * 给你二叉搜索树的根节点 root ，该树中的两个节点被错误地交换。请在不改变其结构的情况下，恢复这棵树。
- * 
+ *
  * 进阶：使用 O(n) 空间复杂度的解法很容易实现。你能想出一个只使用常数空间的解决方案吗？
- * 
- * 
- * 
+ *
+ *
+ *
  * 示例 1：
- * 
- * 
+ *
+ *
  * 输入：root = [1,3,null,null,2]
  * 输出：[3,1,null,null,2]
  * 解释：3 不能是 1 左孩子，因为 3 > 1 。交换 1 和 3 使二叉搜索树有效。
- * 
- * 
+ *
+ *
  * 示例 2：
- * 
- * 
+ *
+ *
  * 输入：root = [3,1,4,null,null,2]
  * 输出：[2,1,4,null,null,3]
  * 解释：2 不能在 3 的右子树中，因为 2 < 3 。交换 2 和 3 使二叉搜索树有效。
- * 
- * 
- * 
+ *
+ *
+ *
  * 提示：
- * 
- * 
+ *
+ *
  * 树上节点的数目在范围 [2, 1000] 内
- * -2^31 
- * 
- * 
+ * -2^31
+ *
+ *
  */
 
 // @lc code=start
@@ -58,26 +58,26 @@
  * @param {TreeNode} root
  * @return {void} Do not return anything, modify root in-place instead.
  */
-var recoverTree = function(root) {
+var recoverTree = function (root) {
   let prev = null;
   let first = null;
   let second = null;
-  if(!root) return null;
-  helper(root, null)
-  
+  if (!root) return null;
+  helper(root, null);
+
   const temp = first.val;
   first.val = second.val;
   second.val = temp;
   return root;
 
   function helper(node) {
-    if(!node) return;
+    if (!node) return;
     helper(node.left);
-    if(!prev) {
+    if (!prev) {
       prev = node;
     } else {
-      if(node.val < prev.val) {
-        if(!first) first = prev;
+      if (node.val < prev.val) {
+        if (!first) first = prev;
         second = node;
       }
       prev = node;
@@ -86,7 +86,6 @@ var recoverTree = function(root) {
   }
 };
 // @lc code=end
-
 
 function TreeNode(val) {
   this.val = val;
@@ -99,10 +98,10 @@ function TreeNode(val) {
  * @param {string} data
  * @return {TreeNode}
  */
-var deserialize = function(data) {
+var deserialize = function (data) {
   let arr = null;
-  if( data instanceof Array) {
-    if(data.length < 1) return null;
+  if (data instanceof Array) {
+    if (data.length < 1) return null;
     arr = data;
   } else if (typeof data === 'string') {
     if (data === '') return null;
@@ -123,9 +122,7 @@ var deserialize = function(data) {
     }
 
     const rightNumber = arr[i + 1];
-    if (i + 1 < arr.length 
-      && rightNumber !== 'null' 
-      && rightNumber !== null) {
+    if (i + 1 < arr.length && rightNumber !== 'null' && rightNumber !== null) {
       node.right = new TreeNode(rightNumber);
       queue.push(node.right);
     }
@@ -133,5 +130,5 @@ var deserialize = function(data) {
   return root;
 };
 
-console.log(deserialize([1,3,null,null,2]));
-console.log(recoverTree(deserialize([1,3,null,null,2])));
+console.log(deserialize([1, 3, null, null, 2]));
+console.log(recoverTree(deserialize([1, 3, null, null, 2])));

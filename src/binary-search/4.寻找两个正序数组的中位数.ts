@@ -90,42 +90,44 @@ function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
 }
 // @lc code=end
 
-const nums1 = [1, 3, 4, 9],
-  nums2 = [2, 5, 6, 7, 8];
-console.log(findMedianSortedArrays(nums1, nums2));
+(() => {
+  const nums1 = [1, 3, 4, 9],
+    nums2 = [2, 5, 6, 7, 8];
+  console.log(findMedianSortedArrays(nums1, nums2));
 
-// function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
-//   let p1 = 0;
-//   let p2 = 0;
-//   let p = 0;
-//   const len1 = nums1.length;
-//   const len2 = nums2.length;
-//   const len = len1 + len2;
-//   const nums: number[] = [];
-//   while (p1 < len1 && p2 < len2) {
-//     if (nums1[p1] < nums2[p2]) {
-//       nums[p] = nums1[p1];
-//       p1 += 1;
-//     } else {
-//       nums[p] = nums2[p2];
-//       p2 += 1;
-//     }
-//     p += 1;
-//   }
-//   while (p1 < len1) {
-//     nums[p] = nums1[p1];
-//     p1 += 1;
-//     p += 1;
-//   }
-//   while (p2 < len2) {
-//     nums[p] = nums2[p2];
-//     p2 += 1;
-//     p += 1;
-//   }
+  // function findMedianSortedArrays(nums1: number[], nums2: number[]): number {
+  //   let p1 = 0;
+  //   let p2 = 0;
+  //   let p = 0;
+  //   const len1 = nums1.length;
+  //   const len2 = nums2.length;
+  //   const len = len1 + len2;
+  //   const nums: number[] = [];
+  //   while (p1 < len1 && p2 < len2) {
+  //     if (nums1[p1] < nums2[p2]) {
+  //       nums[p] = nums1[p1];
+  //       p1 += 1;
+  //     } else {
+  //       nums[p] = nums2[p2];
+  //       p2 += 1;
+  //     }
+  //     p += 1;
+  //   }
+  //   while (p1 < len1) {
+  //     nums[p] = nums1[p1];
+  //     p1 += 1;
+  //     p += 1;
+  //   }
+  //   while (p2 < len2) {
+  //     nums[p] = nums2[p2];
+  //     p2 += 1;
+  //     p += 1;
+  //   }
 
-//   const mid = Math.floor(len / 2);
-//   if (len % 2 === 0) {
-//     return (nums[mid - 1] + nums[mid]) / 2;
-//   }
-//   return nums[mid];
-// }
+  //   const mid = Math.floor(len / 2);
+  //   if (len % 2 === 0) {
+  //     return (nums[mid - 1] + nums[mid]) / 2;
+  //   }
+  //   return nums[mid];
+  // }
+})();

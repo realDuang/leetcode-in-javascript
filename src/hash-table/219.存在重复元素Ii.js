@@ -41,7 +41,7 @@
  * @param {number} k
  * @return {boolean}
  */
-var containsNearbyDuplicate = function(nums, k) {
+var containsNearbyDuplicate = function (nums, k) {
   const hash = {};
   for (let i = 0; i < nums.length; i++) {
     if (hash[nums[i]] !== undefined && i - hash[nums[i]] <= k) {

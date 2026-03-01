@@ -56,8 +56,6 @@
  *
  */
 
-import { deserialize, TreeNode } from '../utils/tree';
-
 // @lc code=start
 /**
  * Definition for a binary tree node.
@@ -94,7 +92,7 @@ function pathSum(root: TreeNode | null, targetSum: number): number[][] {
 // @lc code=end
 
 (() => {
-  const root = deserialize([5, 4, 8, 11, null, 13, 4, 7, 2, null, null, 5, 1]);
+  const root = Tree.deserialize([5, 4, 8, 11, null, 13, 4, 7, 2, null, null, 5, 1]);
   const targetSum = 22;
   console.log(pathSum(root, targetSum));
 })();

@@ -68,7 +68,7 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
-var detectCycle = function(head) {
+var detectCycle = function (head) {
   let slow = head;
   let fast = head;
   while (fast && fast.next) {

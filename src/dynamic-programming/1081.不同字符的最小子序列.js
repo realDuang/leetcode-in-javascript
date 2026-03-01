@@ -61,7 +61,7 @@
  * @param {string} text
  * @return {string}
  */
-var smallestSubsequence = function(text) {
+var smallestSubsequence = function (text) {
   const stack = [];
   // 用于去重的 hashMap
   const hasChMap = {};

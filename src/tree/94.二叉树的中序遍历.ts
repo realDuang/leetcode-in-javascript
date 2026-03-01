@@ -66,7 +66,6 @@
  * 进阶: 递归算法很简单，你可以通过迭代算法完成吗？
  *
  */
-import { deserialize } from '../utils/tree';
 
 class TreeNode {
   val: number;
@@ -118,21 +117,23 @@ function inorderTraversal(root: TreeNode | null): number[] {
 }
 // @lc code=end
 
-// 递归法
-// function inorderTraversal(root: TreeNode | null): number[] {
-//   if (!root) return [];
-//   const res: number[] = [];
-//   helper(root);
-//   return res;
+(() => {
+  // 递归法
+  // function inorderTraversal(root: TreeNode | null): number[] {
+  //   if (!root) return [];
+  //   const res: number[] = [];
+  //   helper(root);
+  //   return res;
 
-//   function helper(node: TreeNode | null) {
-//     if (!node) return;
-//     if (node.left) helper(node.left);
-//     res.push(node.val);
-//     if (node.right) helper(node.right);
-//   }
-// }
+  //   function helper(node: TreeNode | null) {
+  //     if (!node) return;
+  //     if (node.left) helper(node.left);
+  //     res.push(node.val);
+  //     if (node.right) helper(node.right);
+  //   }
+  // }
 
-const root = [3, 1, 6, 4, 5, null, null, 2, null, 7];
-const res = inorderTraversal(deserialize(root));
-console.log(res);
+  const root = [3, 1, 6, 4, 5, null, null, 2, null, 7];
+  const res = inorderTraversal(Tree.deserialize(root));
+  console.log(res);
+})();

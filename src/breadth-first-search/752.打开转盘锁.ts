@@ -83,7 +83,7 @@ function openLock(deadends: string[], target: string): number {
     hash[deadends[i]] = 1;
   }
   // 若起点deadend了，则直接无解
-  if(hash['0000']) return -1;
+  if (hash['0000']) return -1;
 
   const queue: string[] = ['0000'];
   hash['0000'] = 1;

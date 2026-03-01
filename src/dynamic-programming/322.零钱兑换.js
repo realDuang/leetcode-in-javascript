@@ -39,7 +39,7 @@
  * @return {number}
  */
 // 状态转移方程：对每一种硬币coin：dp[i] = min(dp[i], dp[i - coin] + 1)
-var coinChange = function(coins, amount) {
+var coinChange = function (coins, amount) {
   const dp = new Array(amount + 1).fill(Number.MAX_SAFE_INTEGER);
   dp[0] = 0;
 
@@ -112,7 +112,7 @@ var coinChange = function(coins, amount) {
 //     dfs(coins, index + 1, rest, newCount);
 //   }
 // }
-var coinChange = function(coins, amount) {
+var coinChange = function (coins, amount) {
   // 初始化dp二维数组与第一行、第一列的值
   const dp = new Array(coins.length).fill(0).map(x => new Array(amount + 1).fill(amount + 1));
   // amount=0时，硬币个数总为0

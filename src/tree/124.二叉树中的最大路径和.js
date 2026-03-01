@@ -57,7 +57,7 @@
  * @param {TreeNode} root
  * @return {number}
  */
-var maxPathSum = function(root) {
+var maxPathSum = function (root) {
   let res = -Number.MAX_VALUE;
   traverse(root);
   return res;
@@ -91,7 +91,7 @@ function TreeNode(val, left, right) {
  * @param {string} data
  * @return {TreeNode}
  */
-var deserialize = function(data) {
+var deserialize = function (data) {
   if (data === '') return null;
   const arr = JSON.parse(data);
   const root = new TreeNode(arr[0]);

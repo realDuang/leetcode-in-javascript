@@ -96,11 +96,10 @@ function numDecodings(s: string): number {
 }
 // @lc code=end
 
-// 状态转移方程：
-// dp[n] = (s[n] > 0 ? dp[n-1] : 0)
-//          + (10 <= s[n-1]s[n] <= 26 ? dp[n-2] : 0)
-
 (() => {
+  // 状态转移方程：
+  // dp[n] = (s[n] > 0 ? dp[n-1] : 0)
+  //          + (10 <= s[n-1]s[n] <= 26 ? dp[n-2] : 0)
   const s = '226';
   console.log(numDecodings(s));
 })();

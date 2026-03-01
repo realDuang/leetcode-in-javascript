@@ -43,7 +43,7 @@
  * @param {number[]} nums2
  * @return {number}
  */
-var findMedianSortedArrays = function(nums1, nums2) {
+var findMedianSortedArrays = function (nums1, nums2) {
   const len1 = nums1.length;
   const len2 = nums2.length;
   const left = Math.floor((len1 + len2 + 1) / 2);

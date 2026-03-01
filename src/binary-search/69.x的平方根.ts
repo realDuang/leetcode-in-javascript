@@ -69,5 +69,7 @@ function mySqrt(x: number): number {
 }
 // @lc code=end
 
-const x = 82;
-console.log(mySqrt(x));
+(() => {
+  const x = 82;
+  console.log(mySqrt(x));
+})();

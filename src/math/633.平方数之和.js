@@ -39,7 +39,7 @@
  * @param {number} c
  * @return {boolean}
  */
-var judgeSquareSum = function(c) {
+var judgeSquareSum = function (c) {
   let lp = 0;
   let rp = Math.floor(Math.sqrt(c));
   while (lp <= rp) {

@@ -102,7 +102,7 @@ function numEnclaves(grid: number[][]): number {
     [1, 0, 1, 0, 0],
     [0, 1, 1, 0, 0],
     [0, 0, 0, 1, 0],
-    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0]
   ];
   console.log(numEnclaves(grid));
 })();

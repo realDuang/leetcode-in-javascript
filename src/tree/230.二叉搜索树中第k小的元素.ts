@@ -49,8 +49,6 @@
  *
  */
 
-import { deserialize, TreeNode } from '../utils/tree';
-
 // @lc code=start
 /**
  * Definition for a binary tree node.
@@ -87,7 +85,7 @@ function kthSmallest(root: TreeNode | null, k: number): number {
 // @lc code=end
 
 (() => {
-  const root: TreeNode = deserialize([5, 3, 6, 2, 4, null, null, 1]);
+  const root: TreeNode = Tree.deserialize([5, 3, 6, 2, 4, null, null, 1]);
   const k = 3;
   console.log(kthSmallest(root, k));
 })();

@@ -108,7 +108,7 @@ function slidingPuzzle(board: number[][]): number {
         return step;
       }
       // 找到数字为0的索引
-      let index = curr.split('').findIndex(ch => ch === '0');
+      const index = curr.split('').findIndex(ch => ch === '0');
 
       for (const neighborIndex of neighbors[index]) {
         const swaped = swap(neighborIndex, index, curr);

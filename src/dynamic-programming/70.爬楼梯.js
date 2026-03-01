@@ -44,7 +44,7 @@
  * @param {number} n
  * @return {number}
  */
-var climbStairs = function(n) {
+var climbStairs = function (n) {
   let dp1 = 1;
   let dp2 = 1;
   while (--n) {

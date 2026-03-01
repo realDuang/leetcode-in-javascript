@@ -77,10 +77,12 @@ function leastInterval(tasks: string[], n: number): number {
 }
 // @lc code=end
 
-// const tasks = ['A', 'C', 'A', 'B', 'D', 'B'];
-// const n = 1;
+(() => {
+  // const tasks = ['A', 'C', 'A', 'B', 'D', 'B'];
+  // const n = 1;
 
-const tasks = ['A', 'A', 'A', 'A', 'A', 'A', 'B', 'C', 'D', 'E', 'F', 'G'],
-  n = 2;
+  const tasks = ['A', 'A', 'A', 'A', 'A', 'A', 'B', 'C', 'D', 'E', 'F', 'G'],
+    n = 2;
 
-console.log(leastInterval(tasks, n));
+  console.log(leastInterval(tasks, n));
+})();

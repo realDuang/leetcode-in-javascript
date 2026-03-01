@@ -53,7 +53,7 @@
  * @param {number} numRows
  * @return {string}
  */
-var convert = function(s, numRows) {
+var convert = function (s, numRows) {
   if (numRows < 2) return s;
   const res = new Array(numRows).fill('');
   let cnt = 1;

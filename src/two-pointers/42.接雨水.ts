@@ -73,27 +73,26 @@ function trap(height: number[]): number {
 }
 // @lc code=end
 
-// function trap(height: number[]): number {
-//     let res = 0;
-//     for (let i = 0; i < height.length; i++) {
-//         let lMax = 0;
-//         let rMax = 0;
-//         for (let l = 0; l < i; l++) {
-//             if (height[l] > lMax) {
-//                 lMax = height[l];
-//             }
-//         }
-//         for (let r = i + 1; r < height.length; r++) {
-//             if (height[r] > rMax) {
-//                 rMax = height[r];
-//             }
-//         }
-//         res += Math.max(Math.min(lMax, rMax) - height[i], 0);
-//     }
-//     return res;
-// };
-
 (() => {
+  // function trap(height: number[]): number {
+  //     let res = 0;
+  //     for (let i = 0; i < height.length; i++) {
+  //         let lMax = 0;
+  //         let rMax = 0;
+  //         for (let l = 0; l < i; l++) {
+  //             if (height[l] > lMax) {
+  //                 lMax = height[l];
+  //             }
+  //         }
+  //         for (let r = i + 1; r < height.length; r++) {
+  //             if (height[r] > rMax) {
+  //                 rMax = height[r];
+  //             }
+  //         }
+  //         res += Math.max(Math.min(lMax, rMax) - height[i], 0);
+  //     }
+  //     return res;
+  // };
   const height = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1];
   console.log(trap(height));
 })();

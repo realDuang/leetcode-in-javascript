@@ -13,7 +13,7 @@ const sortFn = (a: string, b: string) => {
   return numberA - numberB;
 };
 
-const titleMap = {
+const titleMap: Record<string, string> = {
   Docs: '题库',
   List: '📖 题解',
   Topic: '📖 专题',
@@ -67,6 +67,7 @@ let customSidebar;
 if (Array.isArray(sidebar)) {
   customSidebar = changeTitleInBar(sidebar);
 } else {
+  customSidebar = {};
   // 若存在nav，sidebar返回Object
   Object.entries(sidebar).forEach(([key, value]) => {
     customSidebar[key] = changeTitleInBar(value);
@@ -86,6 +87,6 @@ module.exports = {
       { text: '📖 专题', link: '/docs/topic/0.introduction' },
       ...nav
     ],
-    sidebar: sidebar
+    sidebar: customSidebar
   }
 };

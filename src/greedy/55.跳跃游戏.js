@@ -40,7 +40,7 @@
  * @param {number[]} nums
  * @return {boolean}
  */
-var canJump = function(nums) {
+var canJump = function (nums) {
   let furthest = 0;
   for (let i = 0; i < nums.length; i++) {
     if (i > furthest) return false;

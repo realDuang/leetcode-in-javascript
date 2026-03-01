@@ -46,8 +46,6 @@
  *
  */
 
-import { deserialize, TreeNode } from '../utils/tree';
-
 // @lc code=start
 /**
  * Definition for a binary tree node.
@@ -98,6 +96,6 @@ function minDepth(root: TreeNode | null): number {
 // @lc code=end
 
 (() => {
-  const root = deserialize<number>([2, null, 3, null, 4, null, 5, null, 6]);
+  const root = Tree.deserialize([2, null, 3, null, 4, null, 5, null, 6]);
   console.log(minDepth(root));
 })();

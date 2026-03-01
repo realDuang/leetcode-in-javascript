@@ -54,4 +54,6 @@ function climbStairs(n: number): number {
 }
 // @lc code=end
 
-console.log(climbStairs(6));
+(() => {
+  console.log(climbStairs(6));
+})();

@@ -70,7 +70,7 @@
  * @param {number} N
  * @return {number}
  */
-var superEggDrop = function(K, N) {
+var superEggDrop = function (K, N) {
   if (N < 1) return 0;
   if (N === 1) return 1;
   if (K === 1) return N;

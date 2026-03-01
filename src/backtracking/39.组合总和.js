@@ -63,7 +63,7 @@
  * @param {number} target
  * @return {number[][]}
  */
-var combinationSum = function(candidates, target) {
+var combinationSum = function (candidates, target) {
   const res = [];
   candidates.sort((a, b) => a - b);
   backtrack(0, target, []);

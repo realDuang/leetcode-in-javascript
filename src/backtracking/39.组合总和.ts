@@ -61,7 +61,7 @@
 // @lc code=start
 function combinationSum(candidates: number[], target: number): number[][] {
   const res: number[][] = [];
-  let currSum: number = 0;
+  let currSum = 0;
   backtrack([], 0);
   return res;
 

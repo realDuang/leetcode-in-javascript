@@ -63,6 +63,8 @@
  *
  */
 
+declare function guess(num: number): -1 | 0 | 1;
+
 // @lc code=start
 /**
  * Forward declaration of guess API.
@@ -73,32 +75,43 @@
  * var guess = function(num) {}
  */
 
-function guessNumber(n: number): number {
-  let l = 0;
-  let r = n;
+function createSolver(guessApi: (num: number) => -1 | 0 | 1): (n: number) => number {
+  return (n: number): number => {
+    let l = 1;
+    let r = n;
 
-  while (l <= r) {
-    const mid = Math.floor(l + (r - l) / 2);
+    while (l <= r) {
+      const mid = Math.floor(l + (r - l) / 2);
 
-    const res = guess(mid);
-    if (res === 0) {
-      return mid;
-    } else if (res === 1) {
-      l = mid + 1;
-    } else {
-      r = mid - 1;
+      const res = guessApi(mid);
+      if (res === 0) {
+        return mid;
+      }
+      if (res === 1) {
+        l = mid + 1;
+      } else {
+        r = mid - 1;
+      }
     }
-  }
 
-  return -1;
+    return -1;
+  };
+}
+
+function guessNumber(n: number): number {
+  return createSolver(guess)(n);
 }
 // @lc code=end
 
-function guess(num: number): -1 | 0 | 1 {
-  const pick = 6;
-  return num === pick ? 0 : num < pick ? 1 : -1;
-}
-
 (() => {
-  console.log(guessNumber(10));
+  const guessNumberLocal = (n: number, pick: number): number => {
+    const mockGuess = (num: number): -1 | 0 | 1 => {
+      if (num === pick) return 0;
+      return num < pick ? 1 : -1;
+    };
+
+    return createSolver(mockGuess)(n);
+  };
+
+  LCT.func(guessNumberLocal).auto();
 })();

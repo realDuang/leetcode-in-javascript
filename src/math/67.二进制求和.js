@@ -47,7 +47,7 @@
  * @param {string} b
  * @return {string}
  */
-var addBinary = function(a, b) {
+var addBinary = function (a, b) {
   let i = a.length - 1;
   let j = b.length - 1;
   if (i < j) a = '0'.repeat(j - i) + a;

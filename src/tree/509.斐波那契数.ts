@@ -74,4 +74,6 @@ function fib(n: number): number {
 }
 // @lc code=end
 
-console.log(fib(6));
+(() => {
+  console.log(fib(6));
+})();

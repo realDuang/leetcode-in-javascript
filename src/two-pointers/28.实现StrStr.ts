@@ -106,27 +106,26 @@ function strStr(haystack: string, needle: string): number {
 }
 // @lc code=end
 
-// function strStr(haystack: string, needle: string): number {
-//   let start = 0;
-//   let p = 0;
-//   let i = 0;
-//   while (i < haystack.length) {
-//     if (haystack[i] !== needle[p]) {
-//       start += 1;
-//       p = 0;
-//       i = start;
-//     } else {
-//       p += 1;
-//       i += 1;
-//     }
-//     if (p === needle.length) {
-//       return start;
-//     }
-//   }
-//   return -1;
-// }
-
 (() => {
+  // function strStr(haystack: string, needle: string): number {
+  //   let start = 0;
+  //   let p = 0;
+  //   let i = 0;
+  //   while (i < haystack.length) {
+  //     if (haystack[i] !== needle[p]) {
+  //       start += 1;
+  //       p = 0;
+  //       i = start;
+  //     } else {
+  //       p += 1;
+  //       i += 1;
+  //     }
+  //     if (p === needle.length) {
+  //       return start;
+  //     }
+  //   }
+  //   return -1;
+  // }
   const haystack = 'mississippi',
     needle = 'issip';
   console.log(strStr(haystack, needle));

@@ -35,7 +35,7 @@
  * @param {string} t
  * @return {string}
  */
-var minWindow = function(s, t) {
+var minWindow = function (s, t) {
   if (s === t) return s;
 
   // 生成需求字符个数hash表

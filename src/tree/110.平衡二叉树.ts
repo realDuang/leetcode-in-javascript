@@ -55,8 +55,6 @@
  *
  */
 
-import { TreeNode, deserialize } from '../utils/tree';
-
 // @lc code=start
 /**
  * Definition for a binary tree node.
@@ -94,5 +92,5 @@ function isBalanced(root: TreeNode | null): boolean {
 
 (() => {
   const root: number[] = [3, 9, 20, null, null, 15, 7];
-  console.log(isBalanced(deserialize(root)));
+  console.log(isBalanced(Tree.deserialize(root)));
 })();

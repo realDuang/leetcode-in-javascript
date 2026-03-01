@@ -47,7 +47,7 @@
  * @param {number} n
  * @return {string[][]}
  */
-var solveNQueens = function(n) {
+var solveNQueens = function (n) {
   const res = [];
   const map = Array(n)
     .fill('')

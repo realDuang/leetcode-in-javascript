@@ -51,19 +51,6 @@
  *
  */
 
-import { deserialize } from '../utils/tree';
-
-class TreeNode {
-  val: number;
-  left: TreeNode | null;
-  right: TreeNode | null;
-  constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
-    this.val = val === undefined ? 0 : val;
-    this.left = left === undefined ? null : left;
-    this.right = right === undefined ? null : right;
-  }
-}
-
 // @lc code=start
 /**
  * Definition for a binary tree node.
@@ -87,7 +74,9 @@ function isSameTree(p: TreeNode | null, q: TreeNode | null): boolean {
 }
 // @lc code=end
 
-const p = [1, null, 2, 3, null, 4, 5];
-const q = [1, null, 2, 3, 4, null, 5];
-const res = isSameTree(deserialize(p), deserialize(q));
-console.log(res);
+(() => {
+  const p = [1, null, 2, 3, null, 4, 5];
+  const q = [1, null, 2, 3, 4, null, 5];
+  const res = isSameTree(Tree.deserialize(p), Tree.deserialize(q));
+  console.log(res);
+})();

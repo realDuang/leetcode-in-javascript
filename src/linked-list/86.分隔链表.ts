@@ -79,16 +79,8 @@ function partition(head: ListNode | null, x: number): ListNode | null {
 }
 // @lc code=end
 
-import { serialize, deserialize } from '../utils/list';
-class ListNode {
-  val: number;
-  next: ListNode | null;
-  constructor(val?: number, next?: ListNode | null) {
-    this.val = val === undefined ? 0 : val;
-    this.next = next === undefined ? null : next;
-  }
-}
-
-const head = deserialize([1, 4, 3, 2, 5, 2]);
-const x = 3;
-console.log(serialize(partition(head, x)));
+(() => {
+  const head = List.deserialize([1, 4, 3, 2, 5, 2]);
+  const x = 3;
+  console.log(List.serialize(partition(head, x)));
+})();

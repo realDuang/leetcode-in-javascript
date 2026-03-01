@@ -48,8 +48,6 @@
  *
  */
 
-import { TreeNode, deserialize, serialize } from '../utils/tree';
-
 // @lc code=start
 /**
  * Definition for a binary tree node.
@@ -92,5 +90,5 @@ function buildTree(preorder: number[], inorder: number[]): TreeNode | null {
   const preorder = [1, 2, 5, 4, 6, 7, 3, 8, 9],
     inorder = [5, 2, 6, 4, 7, 1, 8, 3, 9];
   const tree = buildTree(preorder, inorder);
-  console.log(serialize(tree));
+  console.log(Tree.serialize(tree));
 })();

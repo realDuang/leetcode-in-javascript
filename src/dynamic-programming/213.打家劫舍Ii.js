@@ -39,7 +39,7 @@
  * @param {number[]} nums
  * @return {number}
  */
-var rob = function(nums) {
+var rob = function (nums) {
   const len = nums.length;
   if (len === 1) return nums[0];
 

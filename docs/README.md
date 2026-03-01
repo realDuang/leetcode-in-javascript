@@ -1,5 +1,5 @@
 ---
-home: true 
+home: true
 actionText: 进入题库 →
 actionLink: /docs/topic/0.introduction.md
 

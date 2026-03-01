@@ -35,7 +35,7 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
-var permute = function(nums) {
+var permute = function (nums) {
   const res = [];
   backtrack(nums, []);
   return res;

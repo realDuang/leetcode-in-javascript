@@ -90,16 +90,8 @@ function mergeTwoLists(list1: ListNode | null, list2: ListNode | null): ListNode
 }
 // @lc code=end
 
-import { serialize, deserialize } from '../utils/list';
-class ListNode {
-  val: number;
-  next: ListNode | null;
-  constructor(val?: number, next?: ListNode | null) {
-    this.val = val === undefined ? 0 : val;
-    this.next = next === undefined ? null : next;
-  }
-}
-
-const l1 = deserialize([]);
-const l2 = deserialize([0]);
-console.log(serialize(mergeTwoLists(l1, l2)));
+(() => {
+  const l1 = List.deserialize([]);
+  const l2 = List.deserialize([0]);
+  console.log(List.serialize(mergeTwoLists(l1, l2)));
+})();

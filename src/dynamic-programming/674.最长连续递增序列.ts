@@ -65,22 +65,21 @@ function findLengthOfLCIS(nums: number[]): number {
 }
 // @lc code=end
 
-// function findLengthOfLCIS(nums: number[]): number {
-//   if(nums.length <= 0) return 0;
-//   let res = 1;
-//   const dp: number[] = Array(nums.length).fill(1);
-//   for (let i = 1; i < nums.length; i++) {
-//     if (nums[i] > nums[i - 1]) {
-//       dp[i] = dp[i - 1] + 1;
-//       res = Math.max(res, dp[i]);
-//     } else {
-//       dp[i] = 1;
-//     }
-//   }
-//   return res;
-// }
-
 (() => {
+  // function findLengthOfLCIS(nums: number[]): number {
+  //   if(nums.length <= 0) return 0;
+  //   let res = 1;
+  //   const dp: number[] = Array(nums.length).fill(1);
+  //   for (let i = 1; i < nums.length; i++) {
+  //     if (nums[i] > nums[i - 1]) {
+  //       dp[i] = dp[i - 1] + 1;
+  //       res = Math.max(res, dp[i]);
+  //     } else {
+  //       dp[i] = 1;
+  //     }
+  //   }
+  //   return res;
+  // }
   const nums = [1, 3, 5, 4, 7];
   console.log(findLengthOfLCIS(nums));
 })();

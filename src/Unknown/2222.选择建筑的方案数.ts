@@ -100,20 +100,22 @@ function numberOfWays(s: string): number {
 }
 // @lc code=end
 
-const s = '001101';
-console.log(numberOfWays(s));
+(() => {
+  const s = '001101';
+  console.log(numberOfWays(s));
 
-// Over Time Limit
-// function numberOfWays(s: string): number {
-//   let res = 0;
-//   const len = s.length;
-//   for (let i = 0; i < len - 2; i++) {
-//     for (let j = i + 1; j < len - 1; j++) {
-//       if (s[i] === s[j]) continue;
-//       for (let k = j + 1; k < len; k++) {
-//         if (s[j] !== s[k]) res += 1;
-//       }
-//     }
-//   }
-//   return res;
-// }
+  // Over Time Limit
+  // function numberOfWays(s: string): number {
+  //   let res = 0;
+  //   const len = s.length;
+  //   for (let i = 0; i < len - 2; i++) {
+  //     for (let j = i + 1; j < len - 1; j++) {
+  //       if (s[i] === s[j]) continue;
+  //       for (let k = j + 1; k < len; k++) {
+  //         if (s[j] !== s[k]) res += 1;
+  //       }
+  //     }
+  //   }
+  //   return res;
+  // }
+})();

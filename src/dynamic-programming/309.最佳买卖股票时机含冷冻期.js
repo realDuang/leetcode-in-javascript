@@ -36,7 +36,7 @@
  * @return {number}
  */
 
-var maxProfit = function(prices) {
+var maxProfit = function (prices) {
   if (!prices || prices.length <= 1) return 0;
 
   const buy = [-prices[0], Math.max(-prices[0], -prices[1])];

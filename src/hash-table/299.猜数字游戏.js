@@ -47,7 +47,7 @@
  * @param {string} guess
  * @return {string}
  */
-var getHint = function(secret, guess) {
+var getHint = function (secret, guess) {
   let cntA = 0;
   // 建立直接寻址表，secret表中出现的数字+1，guess表中出现的数字-1。-
   const address = new Array(10).fill(0);

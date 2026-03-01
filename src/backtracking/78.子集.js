@@ -39,7 +39,7 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
-var subsets = function(nums) {
+var subsets = function (nums) {
   const res = [];
   backtrack(nums, [], 0);
   return res;

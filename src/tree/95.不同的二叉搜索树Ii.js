@@ -50,7 +50,7 @@
  * @param {number} n
  * @return {TreeNode[]}
  */
-var generateTrees = function(n) {
+var generateTrees = function (n) {
   if (n === 0) return [];
   const res = helper(1, n);
   return res;

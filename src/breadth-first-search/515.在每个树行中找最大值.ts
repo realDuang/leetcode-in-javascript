@@ -45,7 +45,6 @@
  *
  *
  */
-import { deserialize, TreeNode } from '../utils/tree';
 
 // @lc code=start
 /**
@@ -84,6 +83,6 @@ function largestValues(root: TreeNode | null): number[] {
 // @lc code=end
 
 (() => {
-  const root = deserialize<number>([1, 3, 2, 5, 3, null, 9]);
+  const root = Tree.deserialize([1, 3, 2, 5, 3, null, 9]);
   console.log(largestValues(root));
 })();

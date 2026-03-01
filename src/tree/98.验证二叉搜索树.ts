@@ -50,7 +50,6 @@
  *
  *
  */
-import { deserialize, TreeNode } from '../utils/tree';
 // @lc code=start
 /**
  * Definition for a binary tree node.
@@ -82,5 +81,5 @@ function isValidBST(root: TreeNode | null): boolean {
 
 (() => {
   const nums = [5, 1, 4, null, null, 3, 6];
-  console.log(isValidBST(deserialize(nums)));
+  console.log(isValidBST(Tree.deserialize(nums)));
 })();

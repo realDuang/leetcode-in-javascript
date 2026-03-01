@@ -48,8 +48,6 @@
  *
  */
 
-import { deserialize } from '../utils/tree';
-
 // @lc code=start
 /**
  * Definition for a binary tree node.
@@ -87,18 +85,7 @@ function rob(root: TreeNode | null): number {
 }
 // @lc code=end
 
-class TreeNode {
-  val: number;
-  left: TreeNode | null;
-  right: TreeNode | null;
-  constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
-    this.val = val === undefined ? 0 : val;
-    this.left = left === undefined ? null : left;
-    this.right = right === undefined ? null : right;
-  }
-}
-
 (() => {
-  const root = deserialize<number>([3, 2, 3, null, 3, null, 1]);
+  const root = Tree.deserialize([3, 2, 3, null, 3, null, 1]);
   console.log(rob(root));
 })();

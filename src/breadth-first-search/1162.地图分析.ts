@@ -70,7 +70,7 @@ function maxDistance(grid: number[][]): number {
     [0, 1]
   ];
 
-  let res: number = -1;
+  let res = -1;
 
   // 将所有陆地节点入队
   const queue: [row: number, col: number][] = [];
@@ -91,7 +91,7 @@ function maxDistance(grid: number[][]): number {
   while (queue.length > 0) {
     const [x, y] = queue.pop();
 
-    for (let [a, b] of direction) {
+    for (const [a, b] of direction) {
       const newX = x + a;
       const newY = y + b;
 

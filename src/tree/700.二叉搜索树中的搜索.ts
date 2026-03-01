@@ -47,7 +47,6 @@
  *
  *
  */
-import { TreeNode, deserialize, serialize } from '../utils/tree';
 
 // @lc code=start
 /**
@@ -80,8 +79,8 @@ function searchBST(root: TreeNode | null, val: number): TreeNode | null {
 // @lc code=end
 
 (() => {
-  const tree = deserialize([4, 2, 7, 1, 3]);
+  const tree = Tree.deserialize([4, 2, 7, 1, 3]);
   const val = 2;
   const convertTreeNode = searchBST(tree, val);
-  console.log(serialize(convertTreeNode));
+  console.log(Tree.serialize(convertTreeNode));
 })();

@@ -66,4 +66,4 @@ function search(nums: number[], target: number): number {
   const nums = [-1, 0, 3, 5, 9, 12];
   const target = 0;
   console.log(search(nums, target));
-})()
+})();

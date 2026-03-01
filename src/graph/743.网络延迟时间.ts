@@ -127,57 +127,57 @@ function dijkstra(graph: IGraph, start: number, vexNum: number): Array<number> {
 
 // @lc code=end
 
-class MinPriorityQueue {
-  private heap: IPriorityQueue = [];
+// class MinPriorityQueue {
+//   private heap: IPriorityQueue = [];
 
-  push(node: { id: number; distToStart: number }) {
-    this.heap.push(node);
-    this.swim(this.heap.length - 1);
-  }
+//   push(node: { id: number; distToStart: number }) {
+//     this.heap.push(node);
+//     this.swim(this.heap.length - 1);
+//   }
 
-  shift() {
-    if (this.heap.length === 0) {
-      return null;
-    }
-    this.swap(0, this.heap.length - 1);
-    const res = this.heap.pop();
-    this.sink(0);
-    return res;
-  }
+//   shift() {
+//     if (this.heap.length === 0) {
+//       return null;
+//     }
+//     this.swap(0, this.heap.length - 1);
+//     const res = this.heap.pop();
+//     this.sink(0);
+//     return res;
+//   }
 
-  get length() {
-    return this.heap.length;
-  }
+//   get length() {
+//     return this.heap.length;
+//   }
 
-  private swim(index: number) {
-    while (index > 0) {
-      const parent = Math.floor((index - 1) / 2);
-      if (this.heap[parent].distToStart <= this.heap[index].distToStart) {
-        break;
-      }
-      this.swap(parent, index);
-      index = parent;
-    }
-  }
+//   private swim(index: number) {
+//     while (index > 0) {
+//       const parent = Math.floor((index - 1) / 2);
+//       if (this.heap[parent].distToStart <= this.heap[index].distToStart) {
+//         break;
+//       }
+//       this.swap(parent, index);
+//       index = parent;
+//     }
+//   }
 
-  private sink(index: number) {
-    while (index * 2 + 1 < this.heap.length) {
-      let child = index * 2 + 1;
-      if (child + 1 < this.heap.length && this.heap[child + 1].distToStart < this.heap[child].distToStart) {
-        child++;
-      }
-      if (this.heap[index].distToStart <= this.heap[child].distToStart) {
-        break;
-      }
-      this.swap(index, child);
-      index = child;
-    }
-  }
+//   private sink(index: number) {
+//     while (index * 2 + 1 < this.heap.length) {
+//       let child = index * 2 + 1;
+//       if (child + 1 < this.heap.length && this.heap[child + 1].distToStart < this.heap[child].distToStart) {
+//         child++;
+//       }
+//       if (this.heap[index].distToStart <= this.heap[child].distToStart) {
+//         break;
+//       }
+//       this.swap(index, child);
+//       index = child;
+//     }
+//   }
 
-  private swap(i: number, j: number) {
-    [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]];
-  }
-}
+//   private swap(i: number, j: number) {
+//     [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]];
+//   }
+// }
 
 (() => {
   const times = [

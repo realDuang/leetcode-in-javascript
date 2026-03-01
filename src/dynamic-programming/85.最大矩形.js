@@ -33,7 +33,7 @@
  * @param {character[][]} matrix
  * @return {number}
  */
-var maximalRectangle = function(matrix) {
+var maximalRectangle = function (matrix) {
   if (!matrix || matrix.length === 0 || matrix[0].length === 0) return 0;
 
   const rowLen = matrix.length;

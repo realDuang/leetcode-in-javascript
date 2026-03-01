@@ -70,6 +70,7 @@ function longestPalindrome(s: string): string {
 }
 // @lc code=end
 
-const s1 = 'babad',
-  s2 = 'cbbd';
-console.log(longestPalindrome(s1));
+(() => {
+  const s1 = 'babad';
+  console.log(longestPalindrome(s1));
+})();

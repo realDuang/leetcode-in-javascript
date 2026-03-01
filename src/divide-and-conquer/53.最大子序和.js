@@ -33,7 +33,7 @@
  * @param {number[]} nums
  * @return {number}
  */
-var maxSubArray = function(nums) {
+var maxSubArray = function (nums) {
   return SubHelper(nums, 0, nums.length - 1);
 };
 

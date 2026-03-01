@@ -37,10 +37,7 @@
 function reverseWords(s: string): string {
   const words = s.split(' ');
   const reverseWords = words.map(word => {
-    return word
-      .split('')
-      .reverse()
-      .join('');
+    return word.split('').reverse().join('');
   });
   return reverseWords.join(' ');
 }

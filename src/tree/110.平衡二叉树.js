@@ -64,7 +64,7 @@
  * @param {TreeNode} root
  * @return {boolean}
  */
-var isBalanced = function(root) {
+var isBalanced = function (root) {
   return Math.abs(helper(root.left) - helper(root.right)) <= 1;
 };
 

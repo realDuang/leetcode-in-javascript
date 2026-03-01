@@ -82,7 +82,7 @@
  * @param {TreeNode} root
  * @return {TreeNode}
  */
-var convertBST = function(root) {
+var convertBST = function (root) {
   let sum = 0;
   function traverse(root) {
     if (!root) return;
@@ -106,7 +106,7 @@ function TreeNode(val, left, right) {
   this.right = right === undefined ? null : right;
 }
 
-var deserialize = function(arr) {
+var deserialize = function (arr) {
   const root = new TreeNode(arr[0]);
   const queue = [root];
   for (let i = 1; i < arr.length; i += 2) {

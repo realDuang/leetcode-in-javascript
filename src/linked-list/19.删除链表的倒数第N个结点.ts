@@ -86,16 +86,8 @@ function removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {
 }
 // @lc code=end
 
-import { serialize, deserialize } from '../utils/list';
-class ListNode {
-  val: number;
-  next: ListNode | null;
-  constructor(val?: number, next?: ListNode | null) {
-    this.val = val === undefined ? 0 : val;
-    this.next = next === undefined ? null : next;
-  }
-}
-
-const head = deserialize([1, 2, 3, 4, 5]);
-const x = 2;
-console.log(serialize(removeNthFromEnd(head, x)));
+(() => {
+  const head = List.deserialize([1, 2, 3, 4, 5]);
+  const x = 2;
+  console.log(List.serialize(removeNthFromEnd(head, x)));
+})();

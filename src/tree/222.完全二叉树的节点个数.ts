@@ -57,7 +57,6 @@
  * 进阶：遍历树来统计节点是一种时间复杂度为 O(n) 的简单解决方案。你可以设计一个更快的算法吗？
  *
  */
-import { deserialize, TreeNode } from '../utils/tree';
 // @lc code=start
 /**
  * Definition for a binary tree node.
@@ -106,20 +105,19 @@ function countNodes(root: TreeNode | null): number {
 }
 // @lc code=end
 
-// function countNodes(root: TreeNode | null): number {
-//   let res = 0;
-//   traverse(root);
-//   return res;
-
-//   function traverse(node: TreeNode | null) {
-//     if (!node) return;
-//     res += 1;
-//     traverse(node.left);
-//     traverse(node.right);
-//   }
-// }
-
 (() => {
-  const root = deserialize([1, 2, 3, 4, 5, 6]);
+  // function countNodes(root: TreeNode | null): number {
+  //   let res = 0;
+  //   traverse(root);
+  //   return res;
+
+  //   function traverse(node: TreeNode | null) {
+  //     if (!node) return;
+  //     res += 1;
+  //     traverse(node.left);
+  //     traverse(node.right);
+  //   }
+  // }
+  const root = Tree.deserialize([1, 2, 3, 4, 5, 6]);
   console.log(countNodes(root));
 })();

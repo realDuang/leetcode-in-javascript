@@ -70,7 +70,10 @@
 // @lc code=start
 class TopVotedCandidate {
   public timeWin: [number, number][] = [];
-  constructor(persons: number[], private times: number[]) {
+  constructor(
+    persons: number[],
+    private times: number[]
+  ) {
     const board: Map<number, number> = new Map();
     let currMax = 0;
     for (let i = 0; i < persons.length; i++) {

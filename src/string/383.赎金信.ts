@@ -77,4 +77,6 @@ function canConstruct(ransomNote: string, magazine: string): boolean {
 }
 // @lc code=end
 
-canConstruct('abb', 'abb');
+(() => {
+  canConstruct('abb', 'abb');
+})();

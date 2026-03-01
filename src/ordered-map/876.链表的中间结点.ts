@@ -69,15 +69,7 @@ function middleNode(head: ListNode | null): ListNode | null {
 }
 // @lc code=end
 
-import { serialize, deserialize } from '../utils/list';
-class ListNode {
-  val: number;
-  next: ListNode | null;
-  constructor(val?: number, next?: ListNode | null) {
-    this.val = val === undefined ? 0 : val;
-    this.next = next === undefined ? null : next;
-  }
-}
-
-const head = deserialize([1, 2, 3, 4, 5, 6]);
-console.log(serialize(middleNode(head)));
+(() => {
+  const head = List.deserialize([1, 2, 3, 4, 5, 6]);
+  console.log(List.serialize(middleNode(head)));
+})();

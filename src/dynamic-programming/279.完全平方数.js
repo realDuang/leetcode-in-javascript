@@ -34,7 +34,7 @@
  * @param {number} n
  * @return {number}
  */
-var numSquares = function(n) {
+var numSquares = function (n) {
   if (n <= 0) return 0;
   // 四平方和定理提高算法效率，不知道该定理可以不加这两行
   while (n % 4 === 0) n /= 4;

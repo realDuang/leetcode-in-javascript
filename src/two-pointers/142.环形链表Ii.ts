@@ -72,17 +72,6 @@
  *
  */
 
-import { deserialize } from '../utils/list';
-
-class ListNode {
-  val: number;
-  next: ListNode | null;
-  constructor(val?: number, next?: ListNode | null) {
-    this.val = val === undefined ? 0 : val;
-    this.next = next === undefined ? null : next;
-  }
-}
-
 // @lc code=start
 /**
  * Definition for singly-linked list.
@@ -124,6 +113,8 @@ function detectCycle(head: ListNode | null): ListNode | null {
 }
 // @lc code=end
 
-const head = deserialize([3, 2, 0, -4], 1);
+(() => {
+  const head = List.deserialize([3, 2, 0, -4], 1);
 
-console.log(detectCycle(head));
+  console.log(detectCycle(head));
+})();

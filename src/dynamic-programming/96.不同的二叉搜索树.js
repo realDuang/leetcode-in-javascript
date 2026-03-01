@@ -35,7 +35,7 @@
  * @param {number} n
  * @return {number}
  */
-var numTrees = function(n) {
+var numTrees = function (n) {
   if (n === 0 || n === 1) return 1;
   const dp = new Array(n + 1).fill(0);
   dp[0] = 1;

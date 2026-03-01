@@ -75,5 +75,7 @@ function trap(height: number[]): number {
 }
 // @lc code=end
 
-const height = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1];
-console.log(trap(height));
+(() => {
+  const height = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1];
+  console.log(trap(height));
+})();

@@ -42,7 +42,7 @@
  * @param {string} s
  * @return {string}
  */
-var removeDuplicateLetters = function(s) {
+var removeDuplicateLetters = function (s) {
   const stack = [];
   // 用于去重的 hashMap
   const hasChMap = {};

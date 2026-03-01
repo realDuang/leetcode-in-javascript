@@ -43,8 +43,6 @@
  *
  */
 
-import { TreeNode, deserialize } from '../utils/tree';
-
 // @lc code=start
 /**
  * Definition for a binary tree node.
@@ -80,5 +78,5 @@ function binaryTreePaths(root: TreeNode | null): string[] {
 
 (() => {
   const root: number[] = [1, 2, 3, 4, null, 5, 6, null, 7];
-  console.log(binaryTreePaths(deserialize(root)));
+  console.log(binaryTreePaths(Tree.deserialize(root)));
 })();

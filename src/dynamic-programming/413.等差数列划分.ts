@@ -82,36 +82,35 @@ function numberOfArithmeticSlices(nums: number[]): number {
 }
 // @lc code=end
 
-// 状态转移方程：
-// 1. j - i === 2 时，当 nums[j] - nums[j-1] === nums[j-1] - nums[j-2] 时，dp[i][j] = nums[j] - nums[j-1]。
-// 2. 其余情况下，当 nums[j] - nums[j-1] === dp[i][j-1] 时，dp[i][j] = dp[i][j-1]
-
-// function numberOfArithmeticSlices(nums: number[]): number {
-//   let res = 0;
-//   const len = nums.length;
-//   const dp: (number | null)[][] = Array(len)
-//     .fill(0)
-//     .map(x => Array(len).fill(null));
-
-//   for (let i = 0; i < len; i++) {
-//     for (let j = i + 2; j < len; j++) {
-//       if (j - i === 2) {
-//         if (nums[j] - nums[j - 1] === nums[j - 1] - nums[j - 2]) {
-//           dp[i][j] = nums[j] - nums[j - 1];
-//           res += 1;
-//         }
-//       } else {
-//         if (dp[i][j - 1] !== null && nums[j] - nums[j - 1] === dp[i][j - 1]) {
-//           dp[i][j] = dp[i][j - 1];
-//           res += 1;
-//         }
-//       }
-//     }
-//   }
-//   return res;
-// }
-
 (() => {
+  // 状态转移方程：
+  // 1. j - i === 2 时，当 nums[j] - nums[j-1] === nums[j-1] - nums[j-2] 时，dp[i][j] = nums[j] - nums[j-1]。
+  // 2. 其余情况下，当 nums[j] - nums[j-1] === dp[i][j-1] 时，dp[i][j] = dp[i][j-1]
+
+  // function numberOfArithmeticSlices(nums: number[]): number {
+  //   let res = 0;
+  //   const len = nums.length;
+  //   const dp: (number | null)[][] = Array(len)
+  //     .fill(0)
+  //     .map(x => Array(len).fill(null));
+
+  //   for (let i = 0; i < len; i++) {
+  //     for (let j = i + 2; j < len; j++) {
+  //       if (j - i === 2) {
+  //         if (nums[j] - nums[j - 1] === nums[j - 1] - nums[j - 2]) {
+  //           dp[i][j] = nums[j] - nums[j - 1];
+  //           res += 1;
+  //         }
+  //       } else {
+  //         if (dp[i][j - 1] !== null && nums[j] - nums[j - 1] === dp[i][j - 1]) {
+  //           dp[i][j] = dp[i][j - 1];
+  //           res += 1;
+  //         }
+  //       }
+  //     }
+  //   }
+  //   return res;
+  // }
   const nums = [1, 3, 5, 6, 7];
   console.log(numberOfArithmeticSlices(nums));
 })();

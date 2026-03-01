@@ -52,7 +52,7 @@
  * @param {string} s
  * @return {number}
  */
-var longestPalindromeSubseq = function(s) {
+var longestPalindromeSubseq = function (s) {
   const len = s.length;
   if (len <= 0) return 0;
   let res = 1;

@@ -51,7 +51,7 @@
  * @param {string} s2
  * @return {boolean}
  */
-var checkInclusion = function(s1, s2) {
+var checkInclusion = function (s1, s2) {
   const map = {};
   for (let i = 0; i < s1.length; i++) {
     const ch = s1[i];

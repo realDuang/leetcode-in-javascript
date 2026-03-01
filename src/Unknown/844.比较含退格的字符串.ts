@@ -115,26 +115,25 @@ function backspaceCompare(s: string, t: string): boolean {
 }
 // @lc code=end
 
-// function backspaceCompare(s: string, t: string): boolean {
-//   return getBackspaceString(s) === getBackspaceString(t);
-
-//   function getBackspaceString(str: string): string {
-//     const res: string[] = [];
-
-//     let curr = 0;
-//     while (curr < str.length) {
-//       if (str[curr] === '#') {
-//         if (res.length > 0) res.pop();
-//       } else {
-//         res.push(str[curr]);
-//       }
-//       curr += 1;
-//     }
-//     return res.join('');
-//   }
-// }
-
 (() => {
+  // function backspaceCompare(s: string, t: string): boolean {
+  //   return getBackspaceString(s) === getBackspaceString(t);
+
+  //   function getBackspaceString(str: string): string {
+  //     const res: string[] = [];
+
+  //     let curr = 0;
+  //     while (curr < str.length) {
+  //       if (str[curr] === '#') {
+  //         if (res.length > 0) res.pop();
+  //       } else {
+  //         res.push(str[curr]);
+  //       }
+  //       curr += 1;
+  //     }
+  //     return res.join('');
+  //   }
+  // }
   const s = 'y#fo##f',
     t = 'y#f#o##f';
   console.log(backspaceCompare(s, t));

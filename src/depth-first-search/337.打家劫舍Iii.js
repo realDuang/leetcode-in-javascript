@@ -60,7 +60,7 @@
  * @param {TreeNode} root
  * @return {number}
  */
-var rob = function(root) {
+var rob = function (root) {
   const [rob, giveup] = helper(root);
   return Math.max(rob, giveup);
 

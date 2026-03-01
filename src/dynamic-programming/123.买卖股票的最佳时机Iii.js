@@ -49,7 +49,7 @@
  * @param {number[]} prices
  * @return {number}
  */
-var maxProfit = function(prices) {
+var maxProfit = function (prices) {
   if (!prices || prices.length <= 1) return 0;
   const length = prices.length;
   const k = 2;

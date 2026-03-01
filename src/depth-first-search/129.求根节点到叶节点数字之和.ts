@@ -64,8 +64,6 @@
  *
  */
 
-import { deserialize, TreeNode } from '../utils/tree';
-
 // @lc code=start
 /**
  * Definition for a binary tree node.
@@ -101,7 +99,7 @@ function sumNumbers(root: TreeNode | null): number {
 // @lc code=end
 
 (() => {
-  const root = deserialize([4, 9, 0, 5, 1]);
+  const root = Tree.deserialize([4, 9, 0, 5, 1]);
 
   console.log(sumNumbers(root));
 })();

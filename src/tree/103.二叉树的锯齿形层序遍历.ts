@@ -48,7 +48,6 @@
  *
  *
  */
-import { deserialize, TreeNode } from '../utils/tree';
 
 // @lc code=start
 /**
@@ -78,7 +77,11 @@ function zigzagLevelOrder(root: TreeNode | null): number[][] {
       const node = queue.shift();
       if (!node) continue;
 
-      direction ? level.push(node.val) : level.unshift(node.val);
+      if (direction) {
+        level.push(node.val);
+      } else {
+        level.unshift(node.val);
+      }
       queue.push(node.left);
       queue.push(node.right);
     }
@@ -93,6 +96,6 @@ function zigzagLevelOrder(root: TreeNode | null): number[][] {
 // @lc code=end
 
 (() => {
-  const root = deserialize<number>([3, 9, 20, 3, null, 15, 7]);
+  const root = Tree.deserialize([3, 9, 20, 3, null, 15, 7]);
   console.log(zigzagLevelOrder(root));
 })();

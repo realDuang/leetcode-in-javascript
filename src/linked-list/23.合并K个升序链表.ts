@@ -100,20 +100,12 @@ function mergeKLists(lists: Array<ListNode | null>): ListNode | null {
 }
 // @lc code=end
 
-import { serialize, deserialize } from '../utils/list';
-class ListNode {
-  val: number;
-  next: ListNode | null;
-  constructor(val?: number, next?: ListNode | null) {
-    this.val = val === undefined ? 0 : val;
-    this.next = next === undefined ? null : next;
-  }
-}
-
-const lists = [
-  [1, 4, 5],
-  [1, 3, 4],
-  [2, 6]
-];
-const listNodes = lists.map(x => deserialize(x));
-console.log(serialize(mergeKLists(listNodes)));
+(() => {
+  const lists = [
+    [1, 4, 5],
+    [1, 3, 4],
+    [2, 6]
+  ];
+  const listNodes = lists.map(x => List.deserialize(x));
+  console.log(List.serialize(mergeKLists(listNodes)));
+})();

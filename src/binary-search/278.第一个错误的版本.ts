@@ -59,8 +59,8 @@
  * };
  */
 
-const solution = function(isBadVersion: (version: number) => boolean) {
-  return function(n: number): number {
+const solution = function (isBadVersion: (version: number) => boolean) {
+  return function (n: number): number {
     let left = 1;
     let right = n;
     while (left <= right) {

@@ -48,7 +48,6 @@
  *
  *
  */
-import { deserialize, TreeNode } from '../utils/tree';
 
 // @lc code=start
 /**
@@ -90,6 +89,6 @@ function levelOrder(root: TreeNode | null): number[][] {
 // @lc code=end
 
 (() => {
-  const root = deserialize<number>([3, 9, 20, null, null, 15, 7]);
+  const root = Tree.deserialize([3, 9, 20, null, null, 15, 7]);
   console.log(levelOrder(root));
 })();

@@ -81,7 +81,7 @@
  * @param {TreeNode} root
  * @return {TreeNode}
  */
-var bstToGst = function(root) {
+var bstToGst = function (root) {
   let sum = 0;
   function traverse(root) {
     if (!root) return;

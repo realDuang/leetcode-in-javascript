@@ -50,7 +50,7 @@
  * @param {number[]} candies
  * @return {number}
  */
-var distributeCandies = function(candies) {
+var distributeCandies = function (candies) {
   const kinds = new Set(candies).size;
   const num = candies.length / 2;
   return Math.min(kinds, num);

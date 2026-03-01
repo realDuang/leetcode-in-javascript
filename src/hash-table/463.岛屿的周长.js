@@ -44,7 +44,7 @@
  * @param {number[][]} grid
  * @return {number}
  */
-var islandPerimeter = function(grid) {
+var islandPerimeter = function (grid) {
   let res = 0;
   const height = grid.length;
   const width = grid[0].length;

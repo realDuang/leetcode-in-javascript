@@ -1,3 +1,9 @@
 node_modules/
 .DS_Store
 docs/.vuepress/dist/
+dist/
+coverage/
+*.log
+pnpm-debug.log*
+.idea/
+.vscode/

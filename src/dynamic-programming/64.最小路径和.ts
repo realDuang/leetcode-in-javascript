@@ -74,41 +74,40 @@ function minPathSum(grid: number[][]): number {
 }
 // @lc code=end
 
-// function minPathSum(grid: number[][]): number {
-//   const rowLen = grid.length;
-//   const colLen = grid[0].length;
-
-//   const dp: number[][] = Array(rowLen)
-//     .fill(0)
-//     .map(x => Array(colLen).fill(0));
-
-//   const res = backtrack(0, 0);
-//   return res;
-
-//   function backtrack(row: number, col: number): number {
-//     // 越界，返回非法值，由于本题求最小值，因此设置为MAX_VALUE
-//     if (row >= rowLen || col >= colLen) return Number.MAX_VALUE;
-//     // 当前节点值
-//     const val = grid[row][col];
-
-//     // 递归终止条件，当路径起点为右下角时，最短路径就是和就是自身
-//     if (row === rowLen - 1 && col === colLen - 1) return val;
-
-//     // 先查memo，看是否已经计算过
-//     if (dp[row][col] > 0) {
-//       return dp[row][col];
-//     }
-
-//     // 做选择
-//     const sum1 = backtrack(row + 1, col);
-//     const sum2 = backtrack(row, col + 1);
-
-//     dp[row][col] = Math.min(sum1, sum2) + val;
-//     return dp[row][col];
-//   }
-// }
-
 (() => {
+  // function minPathSum(grid: number[][]): number {
+  //   const rowLen = grid.length;
+  //   const colLen = grid[0].length;
+
+  //   const dp: number[][] = Array(rowLen)
+  //     .fill(0)
+  //     .map(x => Array(colLen).fill(0));
+
+  //   const res = backtrack(0, 0);
+  //   return res;
+
+  //   function backtrack(row: number, col: number): number {
+  //     // 越界，返回非法值，由于本题求最小值，因此设置为MAX_VALUE
+  //     if (row >= rowLen || col >= colLen) return Number.MAX_VALUE;
+  //     // 当前节点值
+  //     const val = grid[row][col];
+
+  //     // 递归终止条件，当路径起点为右下角时，最短路径就是和就是自身
+  //     if (row === rowLen - 1 && col === colLen - 1) return val;
+
+  //     // 先查memo，看是否已经计算过
+  //     if (dp[row][col] > 0) {
+  //       return dp[row][col];
+  //     }
+
+  //     // 做选择
+  //     const sum1 = backtrack(row + 1, col);
+  //     const sum2 = backtrack(row, col + 1);
+
+  //     dp[row][col] = Math.min(sum1, sum2) + val;
+  //     return dp[row][col];
+  //   }
+  // }
   const grid = [
     [1, 3, 1],
     [1, 5, 1],

@@ -58,8 +58,6 @@
  *
  */
 
-import { deserialize, TreeNode } from '../utils/tree';
-
 // @lc code=start
 /**
  * Definition for a binary tree node.
@@ -79,10 +77,10 @@ function hasPathSum(root: TreeNode | null, targetSum: number): boolean {
   return helper(root, targetSum);
 
   function helper(node: TreeNode | null, restSum: number): boolean {
-    if(!node) return false;
+    if (!node) return false;
 
     // 叶子节点, 判断剩余和是否等于当前节点值
-    if(!node.left && !node.right) return restSum === node.val;
+    if (!node.left && !node.right) return restSum === node.val;
 
     // 非叶子节点, 递归判断左右子树
     return helper(node.left, restSum - node.val) || helper(node.right, restSum - node.val);
@@ -91,7 +89,7 @@ function hasPathSum(root: TreeNode | null, targetSum: number): boolean {
 // @lc code=end
 
 (() => {
-  const root = deserialize([5, 4, 8, 11, null, 13, 4, 7, 2, null, null, null, 1]);
+  const root = Tree.deserialize([5, 4, 8, 11, null, 13, 4, 7, 2, null, null, null, 1]);
   const targetSum = 22;
   console.log(hasPathSum(root, targetSum));
 })();

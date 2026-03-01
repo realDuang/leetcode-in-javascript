@@ -37,7 +37,7 @@
  * @param {number[]} nums
  * @return {number}
  */
-var lengthOfLIS = function(nums) {
+var lengthOfLIS = function (nums) {
   if (!nums || nums.length <= 0) return 0;
   const dp = new Array(nums.length).fill(1);
   let res = 1;

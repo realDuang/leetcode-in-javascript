@@ -1,12 +1,23 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "target": "esnext",
-        "noImplicitAny": true,
-        "outDir": "./dist",
-        "sourceMap": true
-    },
-    "include": [
-        "src/**/*.ts"
-    ],
+  "ts-node": {
+    "transpileOnly": true,
+    "require": ["./src/utils/tree.ts", "./src/utils/list.ts", "./src/utils/lct.ts"]
+  },
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "types": ["node"],
+    "moduleDetection": "force",
+    "noImplicitAny": true,
+    "strictNullChecks": false,
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "newLine": "lf"
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts"]
 }

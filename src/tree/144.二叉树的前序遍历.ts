@@ -67,19 +67,6 @@
  *
  */
 
-import { deserialize } from '../utils/tree';
-
-class TreeNode {
-  val: number;
-  left: TreeNode | null;
-  right: TreeNode | null;
-  constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
-    this.val = val === undefined ? 0 : val;
-    this.left = left === undefined ? null : left;
-    this.right = right === undefined ? null : right;
-  }
-}
-
 // @lc code=start
 /**
  * Definition for a binary tree node.
@@ -102,36 +89,42 @@ function preorderTraversal(root: TreeNode | null): number[] {
 
   const stack: TreeNode[] = [root];
 
-  while(stack.length > 0) {
+  while (stack.length > 0) {
     const node = stack.pop();
     res.push(node.val);
-    node.right && stack.push(node.right);
-    node.left && stack.push(node.left);
+    if (node.right) {
+      stack.push(node.right);
+    }
+    if (node.left) {
+      stack.push(node.left);
+    }
   }
   return res;
 }
 
 // @lc code=end
 
-// 递归法
+(() => {
+  // 递归法
 
-// function preorderTraversal(root: TreeNode | null): number[] {
-//   if (!root) return [];
+  // function preorderTraversal(root: TreeNode | null): number[] {
+  //   if (!root) return [];
 
-//   const res: Array<number> = [];
-//   helper(root);
+  //   const res: Array<number> = [];
+  //   helper(root);
 
-//   return res;
+  //   return res;
 
-//   function helper(node: TreeNode | null): void {
-//     if (!node) return;
+  //   function helper(node: TreeNode | null): void {
+  //     if (!node) return;
 
-//     res.push(node.val);
-//     helper(node.left);
-//     helper(node.right);
-//   }
-// }
+  //     res.push(node.val);
+  //     helper(node.left);
+  //     helper(node.right);
+  //   }
+  // }
 
-const root = [1, null, 2, 3, 4, 5];
-const res = preorderTraversal(deserialize(root));
-console.log(res);
+  const root = [1, null, 2, 3, 4, 5];
+  const res = preorderTraversal(Tree.deserialize(root));
+  console.log(res);
+})();

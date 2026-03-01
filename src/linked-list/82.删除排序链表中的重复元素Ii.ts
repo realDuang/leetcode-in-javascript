@@ -44,16 +44,6 @@
  *
  *
  */
-import { deserialize, serialize } from '../utils/list';
-
-class ListNode {
-  val: number;
-  next: ListNode | null;
-  constructor(val?: number, next?: ListNode | null) {
-    this.val = val === undefined ? 0 : val;
-    this.next = next === undefined ? null : next;
-  }
-}
 
 // @lc code=start
 /**
@@ -72,7 +62,7 @@ function deleteDuplicates(head: ListNode | null): ListNode | null {
   // 如果链表长度小于等于1，则不可能有重复元素
   if (!head || !head.next) return head;
 
-  let dummy = new ListNode();
+  const dummy = new ListNode();
   dummy.next = head;
 
   let prev = dummy;
@@ -97,6 +87,6 @@ function deleteDuplicates(head: ListNode | null): ListNode | null {
 // @lc code=end
 
 (() => {
-  const head = deserialize([1, 1, 1, 2, 3]);
-  console.log(serialize(deleteDuplicates(head)));
+  const head = List.deserialize([1, 1, 1, 2, 3]);
+  console.log(List.serialize(deleteDuplicates(head)));
 })();

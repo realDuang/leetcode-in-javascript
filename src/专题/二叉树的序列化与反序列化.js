@@ -4,7 +4,7 @@
  * @param {TreeNode} root
  * @return {string}
  */
-var serialize = function(root) {
+var serialize = function (root) {
   if (!root) return '';
   const arr = [];
   const queue = [root];
@@ -32,10 +32,10 @@ var serialize = function(root) {
  * @param {string} data
  * @return {TreeNode}
  */
- var deserialize = function(data) {
+var deserialize = function (data) {
   let arr = null;
-  if( data instanceof Array) {
-    if(data.length < 1) return null;
+  if (data instanceof Array) {
+    if (data.length < 1) return null;
     arr = data;
   } else if (typeof data === 'string') {
     if (data === '') return null;
@@ -56,9 +56,7 @@ var serialize = function(root) {
     }
 
     const rightNumber = arr[i + 1];
-    if (i + 1 < arr.length 
-      && rightNumber !== 'null' 
-      && rightNumber !== null) {
+    if (i + 1 < arr.length && rightNumber !== 'null' && rightNumber !== null) {
       node.right = new TreeNode(rightNumber);
       queue.push(node.right);
     }

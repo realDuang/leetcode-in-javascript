@@ -42,7 +42,7 @@
  * @param {number} target
  * @return {number}
  */
-var search = function(nums, target) {
+var search = function (nums, target) {
   if (!nums || nums.length === 0) return -1;
 
   let left = 0;

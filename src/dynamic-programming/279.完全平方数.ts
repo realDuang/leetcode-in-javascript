@@ -64,30 +64,29 @@ function numSquares(n: number): number {
 }
 // @lc code=end
 
-// function numSquares(n: number): number {
-//   const maxFactor = Math.floor(Math.pow(n, 0.5));
-//   const maxNum = Number.MAX_SAFE_INTEGER;
-
-//   const dp = Array(maxFactor + 1)
-//     .fill(0)
-//     .map(x => Array(n + 1).fill(maxNum));
-
-//   for (let i = 1; i <= maxFactor; i++) {
-//     dp[i][0] = 0;
-//     const square = Math.pow(i, 2);
-
-//     for (let j = 1; j <= n; j++) {
-//       dp[i][j] = dp[i - 1][j];
-//       if (j >= square) {
-//         dp[i][j] = Math.min(dp[i][j], dp[i][j - square] + 1);
-//       }
-//     }
-//   }
-
-//   return dp[maxFactor][n];
-// }
-
 (() => {
+  // function numSquares(n: number): number {
+  //   const maxFactor = Math.floor(Math.pow(n, 0.5));
+  //   const maxNum = Number.MAX_SAFE_INTEGER;
+
+  //   const dp = Array(maxFactor + 1)
+  //     .fill(0)
+  //     .map(x => Array(n + 1).fill(maxNum));
+
+  //   for (let i = 1; i <= maxFactor; i++) {
+  //     dp[i][0] = 0;
+  //     const square = Math.pow(i, 2);
+
+  //     for (let j = 1; j <= n; j++) {
+  //       dp[i][j] = dp[i - 1][j];
+  //       if (j >= square) {
+  //         dp[i][j] = Math.min(dp[i][j], dp[i][j - square] + 1);
+  //       }
+  //     }
+  //   }
+
+  //   return dp[maxFactor][n];
+  // }
   const n = 13;
   console.log(numSquares(n));
 })();

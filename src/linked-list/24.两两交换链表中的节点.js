@@ -38,7 +38,7 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
-var swapPairs = function(head) {
+var swapPairs = function (head) {
   const dummy = new ListNode(null);
   dummy.next = head;
   let pre = dummy;

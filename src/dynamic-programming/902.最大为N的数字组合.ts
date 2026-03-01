@@ -102,6 +102,8 @@ function atMostNGivenDigitSet(digits: string[], n: number): number {
 }
 // @lc code=end
 
-console.log(atMostNGivenDigitSet(['1', '3', '5', '7'], 100)); // 20
-console.log(atMostNGivenDigitSet(['1', '4', '9'], 1000000000)); // 29523
-console.log(atMostNGivenDigitSet(['7'], 8)); // 1
+(() => {
+  console.log(atMostNGivenDigitSet(['1', '3', '5', '7'], 100)); // 20
+  console.log(atMostNGivenDigitSet(['1', '4', '9'], 1000000000)); // 29523
+  console.log(atMostNGivenDigitSet(['7'], 8)); // 1
+})();

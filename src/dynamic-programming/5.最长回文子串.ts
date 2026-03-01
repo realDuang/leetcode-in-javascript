@@ -73,39 +73,38 @@ function longestPalindrome(s: string): string {
 }
 // @lc code=end
 
-// function longestPalindrome(s: string): string {
-//   let res = '';
-//   const len = s.length;
-//   // 二维数组，dp[i][j] 表示 s 中 从 i 到 j 的子串是否为回文串
-//   const dp: number[][] = Array(len)
-//     .fill(0)
-//     .map(x => Array(len).fill(0));
-
-//   // 注意遍历顺序！
-//   // 这里需要用 i 遍历 s，找到以 i 开头的子串是否为回文串，因此 i 的遍历顺序为倒序
-//   for (let i = len - 1; i >= 0; i--) {
-//     for (let j = i; j < len; j++) {
-//       // 1. 当`j - i = 0`时，即表示当前子串为单个字符，那么一定是回文。
-//       // 2. 当`j - i = 1`时，表示当前子串为临近的两个字符，那么只有他们相等时，该子串才为回文。
-//       // 3. 其余情况下，当首尾两个字符相等，且去除了首尾字符后的字符串为回文时，当前子串为回文。
-//       if (i === j) {
-//         dp[i][j] = 1;
-//       } else if (j - i === 1) {
-//         dp[i][j] = s[i] === s[j] ? 1 : 0;
-//       } else {
-//         dp[i][j] = s[i] === s[j] && dp[i + 1][j - 1];
-//       }
-
-//       // 当前子串为回文，且长度大于当前 res 时，更新结果
-//       if (dp[i][j] && j - i + 1 > res.length) {
-//         res = s.substring(i, j + 1);
-//       }
-//     }
-//   }
-//   return res;
-// }
-
 (() => {
+  // function longestPalindrome(s: string): string {
+  //   let res = '';
+  //   const len = s.length;
+  //   // 二维数组，dp[i][j] 表示 s 中 从 i 到 j 的子串是否为回文串
+  //   const dp: number[][] = Array(len)
+  //     .fill(0)
+  //     .map(x => Array(len).fill(0));
+
+  //   // 注意遍历顺序！
+  //   // 这里需要用 i 遍历 s，找到以 i 开头的子串是否为回文串，因此 i 的遍历顺序为倒序
+  //   for (let i = len - 1; i >= 0; i--) {
+  //     for (let j = i; j < len; j++) {
+  //       // 1. 当`j - i = 0`时，即表示当前子串为单个字符，那么一定是回文。
+  //       // 2. 当`j - i = 1`时，表示当前子串为临近的两个字符，那么只有他们相等时，该子串才为回文。
+  //       // 3. 其余情况下，当首尾两个字符相等，且去除了首尾字符后的字符串为回文时，当前子串为回文。
+  //       if (i === j) {
+  //         dp[i][j] = 1;
+  //       } else if (j - i === 1) {
+  //         dp[i][j] = s[i] === s[j] ? 1 : 0;
+  //       } else {
+  //         dp[i][j] = s[i] === s[j] && dp[i + 1][j - 1];
+  //       }
+
+  //       // 当前子串为回文，且长度大于当前 res 时，更新结果
+  //       if (dp[i][j] && j - i + 1 > res.length) {
+  //         res = s.substring(i, j + 1);
+  //       }
+  //     }
+  //   }
+  //   return res;
+  // }
   const s = 'babad';
   console.log(longestPalindrome(s));
 })();

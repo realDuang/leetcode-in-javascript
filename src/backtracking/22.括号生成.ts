@@ -51,8 +51,12 @@ function generateParenthesis(n: number): string[] {
     if (left === n && right === n) {
       res.push(str);
     }
-    left < n && backtrack(str + '(', left + 1, right);
-    right < left && backtrack(str + ')', left, right + 1);
+    if (left < n) {
+      backtrack(str + '(', left + 1, right);
+    }
+    if (right < left) {
+      backtrack(str + ')', left, right + 1);
+    }
   }
 }
 // @lc code=end

@@ -1,4 +1,4 @@
-export class TreeNodeT<T> {
+export class TreeNodeT<T = number> {
   public val: T;
   public left: TreeNodeT<T> | null;
   public right: TreeNodeT<T> | null;
@@ -16,10 +16,10 @@ export type ArrayElement<T> = T | 'null';
 /**
  * Encodes a tree to a single string.
  */
-export function serialize<T>(root: TreeNodeT<T>): string {
+function serialize<T>(root: TreeNodeT<T> | null): string {
   if (!root) return '';
   const arr: Array<ArrayElement<T>> = [];
-  const queue = [root];
+  const queue: Array<TreeNodeT<T> | null> = [root];
   while (queue.length) {
     const node = queue.shift();
     if (!node) {
@@ -41,38 +41,65 @@ export function serialize<T>(root: TreeNodeT<T>): string {
 /**
  * Decodes your encoded data to tree.
  */
-export function deserialize<T>(data: string | Array<T>): TreeNodeT<T> {
-  let arr = null;
+function deserialize<T>(data: string | Array<T>): TreeNodeT<T> | null {
+  let arr: Array<ArrayElement<T>>;
   if (data instanceof Array) {
     if (data.length < 1) return null;
-    arr = data;
+    arr = data as Array<ArrayElement<T>>;
   } else if (typeof data === 'string') {
     if (data === '') return null;
-    arr = JSON.parse(data);
+    arr = JSON.parse(data) as Array<ArrayElement<T>>;
+    if (arr.length < 1) return null;
   } else {
     return null;
   }
 
   // 根节点不可能为 'null'
+  if (arr[0] === 'null' || arr[0] === null) return null;
   const root = new TreeNodeT(arr[0] as T);
-  const queue = [root];
+  const queue: TreeNodeT<T>[] = [root];
   for (let i = 1; i < arr.length; i += 2) {
     const node = queue.shift();
+    if (!node) break;
 
     const leftNumber: ArrayElement<T> = arr[i];
     if (leftNumber !== 'null' && leftNumber !== null) {
-      node.left = new TreeNodeT(leftNumber);
-      queue.push(node.left);
+      const leftNode = new TreeNodeT(leftNumber);
+      node.left = leftNode;
+      queue.push(leftNode);
     }
 
     const rightNumber: ArrayElement<T> = arr[i + 1];
     if (i + 1 < arr.length && rightNumber !== 'null' && rightNumber !== null) {
-      node.right = new TreeNodeT(rightNumber);
-      queue.push(node.right);
+      const rightNode = new TreeNodeT(rightNumber);
+      node.right = rightNode;
+      queue.push(rightNode);
     }
   }
   return root;
 }
+
+class TreeUtils<T = number> {
+  public serialize(root: TreeNodeT<T> | null): string {
+    return serialize(root);
+  }
+
+  public deserialize(data: string | Array<T | null>): TreeNodeT<T> | null {
+    return deserialize<T | null>(data) as TreeNodeT<T> | null;
+  }
+}
+
+const Tree = new TreeUtils();
+
+const treeGlobal = globalThis as typeof globalThis & {
+  TreeNodeT?: typeof TreeNodeT;
+  TreeNode?: typeof TreeNode;
+  Tree?: typeof Tree;
+};
+
+treeGlobal.TreeNodeT = TreeNodeT;
+treeGlobal.TreeNode = TreeNode;
+treeGlobal.Tree = Tree;
 
 // // 测试
 // const a = new TreeNode(1);
