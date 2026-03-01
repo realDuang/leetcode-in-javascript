@@ -1,8 +1,8 @@
-import { readdirSync, statSync } from 'fs';
-import { join, basename, relative } from 'path';
+import { readdirSync, readFileSync, statSync } from 'fs';
+import { join, basename } from 'path';
 import type { DefaultTheme } from 'vitepress';
 
-const titleMap: Record<string, string> = {
+const categoryTitleMap: Record<string, string> = {
   docs: '题库',
   list: '📖 题解',
   topic: '📖 专题',
@@ -31,8 +31,22 @@ const titleMap: Record<string, string> = {
   unknown: '未分类'
 };
 
-function getTitle(name: string): string {
-  return titleMap[name] || name;
+function getCategoryTitle(name: string): string {
+  return categoryTitleMap[name] || name;
+}
+
+/**
+ * Extract the first `# heading` from a markdown file as its display title.
+ * Falls back to the filename (without extension) if no heading is found.
+ */
+function extractTitleFromMd(filePath: string, fallback: string): string {
+  try {
+    const content = readFileSync(filePath, 'utf-8');
+    const match = content.match(/^#\s+(.+)$/m);
+    return match ? match[1].trim() : fallback;
+  } catch {
+    return fallback;
+  }
 }
 
 function getNumber(filename: string): number {
@@ -41,7 +55,7 @@ function getNumber(filename: string): number {
 
 function getMarkdownFiles(dir: string): string[] {
   return readdirSync(dir)
-    .filter(f => f.endsWith('.md') && f !== 'README.md')
+    .filter(f => f.endsWith('.md') && f !== 'README.md' && f !== 'index.md')
     .sort((a, b) => getNumber(a) - getNumber(b));
 }
 
@@ -55,12 +69,16 @@ function generateSidebarForList(docsRoot: string): DefaultTheme.SidebarItem[] {
     const catDir = join(listDir, cat);
     const files = getMarkdownFiles(catDir);
     return {
-      text: getTitle(cat),
+      text: getCategoryTitle(cat),
       collapsed: true,
-      items: files.map(f => ({
-        text: basename(f, '.md'),
-        link: `/docs/list/${cat}/${basename(f, '.md')}`
-      }))
+      items: files.map(f => {
+        const filePath = join(catDir, f);
+        const slug = basename(f, '.md');
+        return {
+          text: extractTitleFromMd(filePath, slug),
+          link: `/docs/list/${cat}/${slug}`
+        };
+      })
     };
   });
 }
@@ -69,10 +87,14 @@ function generateSidebarForTopic(docsRoot: string): DefaultTheme.SidebarItem[] {
   const topicDir = join(docsRoot, 'docs', 'topic');
   const files = getMarkdownFiles(topicDir);
 
-  return files.map(f => ({
-    text: basename(f, '.md'),
-    link: `/docs/topic/${basename(f, '.md')}`
-  }));
+  return files.map(f => {
+    const filePath = join(topicDir, f);
+    const slug = basename(f, '.md');
+    return {
+      text: extractTitleFromMd(filePath, slug),
+      link: `/docs/topic/${slug}`
+    };
+  });
 }
 
 export function generateSidebar(docsRoot: string): DefaultTheme.Sidebar {

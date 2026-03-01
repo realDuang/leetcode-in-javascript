@@ -10,8 +10,8 @@ const docsRoot = resolve(__dirname, '..');
 const sidebar = generateSidebar(docsRoot);
 
 export default defineConfig({
-  title: 'Leetcode-in-JavaScript',
-  description: '使用 JavaScript 的 Leetcode 题解仓库',
+  title: 'LeetCode 通关手册',
+  description: '框架通解 · 举一反三 —— LeetCode 题解与算法专题笔记',
   lang: 'zh-CN',
 
   head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
@@ -29,7 +29,7 @@ export default defineConfig({
 
     outline: {
       level: [2, 3],
-      label: '页面导航'
+      label: '章节导航'
     },
 
     search: {
@@ -39,6 +39,20 @@ export default defineConfig({
     footer: {
       message: 'MIT LICENSE',
       copyright: 'Copyright © 2019-present by Duang'
+    },
+
+    docFooter: {
+      prev: '上一篇',
+      next: '下一篇'
+    },
+    returnToTopLabel: '返回顶部',
+    sidebarMenuLabel: '菜单',
+    darkModeSwitchLabel: '主题'
+  },
+
+  markdown: {
+    headers: {
+      level: [2, 3]
     }
   }
 });
