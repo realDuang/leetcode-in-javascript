@@ -135,8 +135,8 @@ class Heap {
     let i = 0;
     // 如果当前节点存在子节点（非叶子节点）
     while (i * 2 + 1 < heap.length) {
-      let left = i * 2 + 1;
-      let right = i * 2 + 2;
+      const left = i * 2 + 1;
+      const right = i * 2 + 2;
       // 如果左右子节点都存在，则选择左右子节点中较小(大)的一个
       let child = left;
       if (right < heap.length && this.compare(heap[right], heap[left])) {

@@ -94,9 +94,9 @@ function rightSideView(root: TreeNode | null): number[] {
 
     let len = queue.length;
     while (len--) {
-      let node = queue.shift();
-      node.left && queue.push(node.left);
-      node.right && queue.push(node.right);
+      const node = queue.shift();
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
     }
   }
   return res;
