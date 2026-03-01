@@ -16,7 +16,7 @@ export type ArrayElement<T> = T | 'null';
 /**
  * Encodes a tree to a single string.
  */
-function serialize<T>(root: TreeNodeT<T> | null): string {
+export function serialize<T>(root: TreeNodeT<T> | null): string {
   if (!root) return '';
   const arr: Array<ArrayElement<T>> = [];
   const queue: Array<TreeNodeT<T> | null> = [root];
@@ -41,7 +41,7 @@ function serialize<T>(root: TreeNodeT<T> | null): string {
 /**
  * Decodes your encoded data to tree.
  */
-function deserialize<T>(data: string | Array<T>): TreeNodeT<T> | null {
+export function deserialize<T>(data: string | Array<T>): TreeNodeT<T> | null {
   let arr: Array<ArrayElement<T>>;
   if (data instanceof Array) {
     if (data.length < 1) return null;
