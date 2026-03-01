@@ -78,7 +78,7 @@ function makeConnected(n: number, connections: number[][]): number {
   const visited: boolean[] = Array(n).fill(false);
   const map: number[][] = Array(n)
     .fill(0)
-    .map(x => []);
+    .map((): number[] => []);
   let graphCnt = 0;
 
   for (const [a, b] of connections) {
