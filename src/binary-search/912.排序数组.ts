@@ -55,43 +55,34 @@ function sortArray(nums: number[]): number[] {
       return;
     }
     // 对 [left, right] 进行一次快排
-    // 使得 nums[left, index-1] <= nums[index] < nums[p+1, right]
+    // 使得所有 nums[left, index-1] <= nums[index] < nums[p+1, right]
     const index = partition(left, right);
     // 之后对左右两侧的数组递归进行快排
     sort(left, index - 1);
     sort(index + 1, right);
   }
 
+  // 一次快排能够达到的效果是，将数组其中一个值(pivot)的位置归位
   function partition(left: number, right: number) {
-    const flag = nums[left];
-    let l = left + 1;
-    let r = right;
-    while (l <= r) {
-      while (l < right && nums[l] <= flag) {
-        l += 1;
-      }
-      while (r > left && nums[r] > flag) {
-        r -= 1;
-      }
-      // 此时 [left, l) 所有元素都小于 flag，(r, right] 所有元素都大于 flag
-      if (l >= r) {
-        break;
-      }
-      // 此时存在 nums[l] > flag, nums[r] <= flag，因此将两者数值进行交换
-      // 使得[left, l+1) 所有元素都小于 flag，(r-1, right] 所有元素都大于 flag
-      swap(l, r);
-    }
-    // 此时l = r + 1。r 的左侧元素都小于 flag，右侧元素都大于 flag
-    // 因此，r 的位置为 flag 排序后应当在的位置，做一次交换
-    swap(left, r);
-    // 返回元素有序的位置
-    return r;
-  }
+    // 随便选取一个基准值
+    const pivot = nums[left];
 
-  function swap(i: number, j: number) {
-    const temp = nums[i];
-    nums[i] = nums[j];
-    nums[j] = temp;
+    let i = left + 1;
+    let j = right;
+
+    while (i <= j) {
+      // 从左侧遍历，找到比基准值大的数，从右侧找比基准值小的数
+      while (i <= right && nums[i] <= pivot) i++;
+      while (j > left && nums[j] >= pivot) j--;
+
+      // 此时交换两边的数，使得[left,i]都比pivot小，[j,right]都比pivot大；
+      if (i < j) [nums[i], nums[j]] = [nums[j], nums[i]];
+    }
+    // 多次重复循环使得最终i=j+1，此时交换基准值和nums[j]。
+    [nums[left], nums[j]] = [nums[j], nums[left]];
+    // 从而满足：基准值pivot左侧的值都比它小，右侧的值都比它大。即 **pivot已经完全归位**。
+    // 返回已经排好序的值的位置，这个值已经不需要调整位置了，接下来从它两侧继续递归
+    return j;
   }
 }
 // @lc code=end
@@ -141,6 +132,5 @@ function sortArray(nums: number[]): number[] {
   //     }
   //   }
   // }
-  const nums = [5, 1, 1, 2, 0, 0];
-  console.log(sortArray(nums));
+  LCT.func(sortArray).auto();
 })();
