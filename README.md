@@ -18,25 +18,24 @@ LeetCode 题解仓库，收录 **300+ 道题目**的 JavaScript / TypeScript 解
 
 ## 📖 专题目录
 
-以下 15 篇专题覆盖了 LeetCode 最核心的算法知识体系，建议按顺序阅读：
+以下专题覆盖了 LeetCode 最核心的算法知识体系，建议按顺序阅读：
 
-| #   | 专题                                                                                                                              | 关键内容                                               |
-| --- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| 0   | [前言](https://realduang.github.io/leetcode-in-javascript/docs/topic/0.introduction.html)                                         | 写给工程师的算法学习观：提炼思想，拓展视野，而非做题家 |
-| 1   | [重新认识递归](https://realduang.github.io/leetcode-in-javascript/docs/topic/1.recursive.html)                                    | 递归的本质、思维方式与代码模板——一切高级算法的基石     |
-| 2   | [二叉树遍历算法](https://realduang.github.io/leetcode-in-javascript/docs/topic/2.tree.html)                                       | 前/中/后序遍历框架，理解"遍历"与"分解问题"两种思路     |
-| 3   | [二叉搜索树](https://realduang.github.io/leetcode-in-javascript/docs/topic/3.binary-search-tree.html)                             | BST 的性质利用、增删查改操作框架                       |
-| 4   | [排序算法](https://realduang.github.io/leetcode-in-javascript/docs/topic/4.sort.html)                                             | 经典排序算法对比与实现，理解分治与交换的思想           |
-| 5   | [双指针问题](https://realduang.github.io/leetcode-in-javascript/docs/topic/5.two-pointers.html)                                   | 快慢指针、左右指针、滑动窗口——线性结构问题的利器       |
-| 6   | [二分搜索专题](https://realduang.github.io/leetcode-in-javascript/docs/topic/6.binary-search.html)                                | 统一二分搜索框架，彻底搞定边界问题                     |
-| 7   | [回溯问题](https://realduang.github.io/leetcode-in-javascript/docs/topic/7.backtrack.html)                                        | 排列/组合/子集的通用回溯框架，一套模板解决一类问题     |
-| 8   | [深度优先搜索 (DFS)](https://realduang.github.io/leetcode-in-javascript/docs/topic/8.depth-first-search.html)                     | 岛屿问题、连通分量、FloodFill 的 DFS 通解              |
-| 9   | [广度优先搜索 (BFS)](https://realduang.github.io/leetcode-in-javascript/docs/topic/9.breadth-first-search.html)                   | 最短路径、层序遍历的 BFS 框架与变体                    |
-| 10  | [动态规划 - 问题推导](https://realduang.github.io/leetcode-in-javascript/docs/topic/10.dynamic-programming-normal.html)           | DP 的思维推导过程：状态定义 → 转移方程 → 边界处理      |
-| 11  | [动态规划 - 背包问题](https://realduang.github.io/leetcode-in-javascript/docs/topic/11.dynamic-programming-backpack.html)         | 0-1 背包、完全背包的通用框架与空间优化                 |
-| 12  | [动态规划 - 子序列问题](https://realduang.github.io/leetcode-in-javascript/docs/topic/12.%20dynamic-programming-subsequence.html) | LCS、LIS 等经典子序列 DP 模型                          |
-| 13  | [图遍历算法](https://realduang.github.io/leetcode-in-javascript/docs/topic/13.graph.html)                                         | 图的表示、遍历、环检测与拓扑排序                       |
-| 14  | [单调栈算法](https://realduang.github.io/leetcode-in-javascript/docs/topic/14.monotonic-stack.html)                               | 单调栈框架：下一个更大元素、柱状图等问题的通解         |
+| #   | 专题                                                                                                                              | 关键内容                                                              |
+| --- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| 0   | [前言](https://realduang.github.io/leetcode-in-javascript/docs/topic/0.introduction.html)                                         | 写给工程师的算法学习观：提炼思想，拓展视野，而非做题家                |
+| 1   | [重新认识递归](https://realduang.github.io/leetcode-in-javascript/docs/topic/1.recursive.html)                                    | 递归的本质、思维方式与代码模板——一切高级算法的基石                    |
+| 2   | [二叉树遍历算法](https://realduang.github.io/leetcode-in-javascript/docs/topic/2.tree.html)                                       | 前/中/后序遍历框架（含 BST 中序应用），理解"遍历"与"分解问题"两种思路 |
+| 3   | [排序算法](https://realduang.github.io/leetcode-in-javascript/docs/topic/4.sort.html)                                             | 经典排序算法对比与实现，理解分治与交换的思想                          |
+| 4   | [双指针问题](https://realduang.github.io/leetcode-in-javascript/docs/topic/5.two-pointers.html)                                   | 快慢指针、左右指针、滑动窗口——线性结构问题的利器                      |
+| 5   | [二分搜索专题](https://realduang.github.io/leetcode-in-javascript/docs/topic/6.binary-search.html)                                | 统一二分搜索框架，彻底搞定边界问题                                    |
+| 6   | [回溯问题](https://realduang.github.io/leetcode-in-javascript/docs/topic/7.backtrack.html)                                        | 排列/组合/子集的通用回溯框架，一套模板解决一类问题                    |
+| 7   | [深度优先搜索 (DFS)](https://realduang.github.io/leetcode-in-javascript/docs/topic/8.depth-first-search.html)                     | 岛屿问题、连通分量、FloodFill 的 DFS 通解                             |
+| 8   | [广度优先搜索 (BFS)](https://realduang.github.io/leetcode-in-javascript/docs/topic/9.breadth-first-search.html)                   | 最短路径、层序遍历的 BFS 框架与变体                                   |
+| 9   | [动态规划 - 问题推导](https://realduang.github.io/leetcode-in-javascript/docs/topic/10.dynamic-programming-normal.html)           | DP 的思维推导过程：状态定义 → 转移方程 → 边界处理                     |
+| 10  | [动态规划 - 背包问题](https://realduang.github.io/leetcode-in-javascript/docs/topic/11.dynamic-programming-backpack.html)         | 0-1 背包、完全背包的通用框架与空间优化                                |
+| 11  | [动态规划 - 子序列问题](https://realduang.github.io/leetcode-in-javascript/docs/topic/12.%20dynamic-programming-subsequence.html) | LCS、LIS 等经典子序列 DP 模型                                         |
+| 12  | [图遍历算法](https://realduang.github.io/leetcode-in-javascript/docs/topic/13.graph.html)                                         | 图的表示、遍历、环检测与拓扑排序                                      |
+| 13  | [单调栈算法](https://realduang.github.io/leetcode-in-javascript/docs/topic/14.monotonic-stack.html)                               | 单调栈框架：下一个更大元素、柱状图等问题的通解                        |
 
 > 📌 **推荐学习路径**：递归 → 二叉树 → 回溯 → DFS/BFS → 动态规划 → 其他专题
 
