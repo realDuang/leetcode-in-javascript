@@ -49,10 +49,16 @@ function moveZeroes(nums: number[]): void {
 // @lc code=end
 
 (() => {
-  LCT.inPlace(moveZeroes).cases(
-    [[[0, 1, 0, 3, 12]], [1, 3, 12, 0, 0]],
-    [[[4, 2, 4, 0, 0, 3, 0, 5, 1, 0]], [4, 2, 4, 3, 5, 1, 0, 0, 0, 0]]
-  );
+  LCT.inPlace(moveZeroes).cases([
+    {
+      input: [[0, 1, 0, 3, 12]],
+      output: [1, 3, 12, 0, 0]
+    },
+    {
+      input: [[4, 2, 4, 0, 0, 3, 0, 5, 1, 0]],
+      output: [4, 2, 4, 3, 5, 1, 0, 0, 0, 0]
+    }
+  ]);
 
   // function moveZeroes(nums: number[]): void {
   //   const len = nums.length;

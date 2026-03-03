@@ -74,18 +74,18 @@ function twoSum(nums: number[], target: number): number[] {
 // @lc code=end
 
 (() => {
-  LCT.func(twoSum).cases(
-    [
-      [[2, 7, 11, 15], 9],
-      [0, 1]
-    ],
-    [
-      [[3, 2, 4], 6],
-      [1, 2]
-    ],
-    [
-      [[3, 3], 6],
-      [0, 1]
-    ]
-  );
+  LCT.func(twoSum).cases([
+    {
+      input: [[2, 7, 11, 15], 9],
+      output: [0, 1]
+    },
+    {
+      input: [[3, 2, 4], 6],
+      output: [1, 2]
+    },
+    {
+      input: [[3, 3], 6],
+      output: [0, 1]
+    }
+  ]);
 })();

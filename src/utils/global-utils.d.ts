@@ -31,34 +31,46 @@ declare global {
   // ── LCT (LeetCode Test) ─────────────────────────────────────────────
 
   const LCT: {
-    /** Test a pure function: `LCT.func(fn).cases([args, expected], ...)` or `LCT.func(fn).auto()` */
+    /** Test a pure function: `LCT.func(fn).cases([{ input, output }, ...], options?)` or `LCT.func(fn).auto()` */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     func<F extends (...args: any[]) => any>(
       solution: F
     ): {
       cases(
-        ...cases: ReadonlyArray<
-          readonly [Readonly<Parameters<F>>, ReturnType<F> | ((actual: ReturnType<F>) => boolean)]
-        >
+        cases: ReadonlyArray<{
+          input: unknown | ReadonlyArray<unknown>;
+          output: unknown;
+        }>,
+        options?: {
+          input?: ((value: any) => unknown) | Array<((value: any) => unknown) | undefined>;
+          output?: ((actual: unknown) => unknown) | Array<((actual: unknown) => unknown) | undefined>;
+        }
       ): void;
       /** Auto-parse test cases from the file's comment block */
       auto(options?: {
-        input?: Array<((value: any) => unknown) | undefined>;
-        output?: (actual: unknown) => unknown;
+        input?: ((value: any) => unknown) | Array<((value: any) => unknown) | undefined>;
+        output?: ((actual: unknown) => unknown) | Array<((actual: unknown) => unknown) | undefined>;
       }): void;
     };
-    /** Test an in-place mutation function: `LCT.inPlace(fn).cases([args, expected], ...)` or `.auto()` */
+    /** Test an in-place mutation function: `LCT.inPlace(fn).cases([{ input, output }, ...], options?)` or `.auto()` */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     inPlace<F extends (...args: any[]) => any>(
       solution: F
     ): {
       cases(
-        ...cases: ReadonlyArray<readonly [Readonly<Parameters<F>>, unknown | ((actual: unknown) => boolean)]>
+        cases: ReadonlyArray<{
+          input: unknown | ReadonlyArray<unknown>;
+          output: unknown;
+        }>,
+        options?: {
+          input?: ((value: any) => unknown) | Array<((value: any) => unknown) | undefined>;
+          output?: ((actual: unknown) => unknown) | Array<((actual: unknown) => unknown) | undefined>;
+        }
       ): void;
       /** Auto-parse test cases from the file's comment block */
       auto(options?: {
-        input?: Array<((value: any) => unknown) | undefined>;
-        output?: (actual: unknown) => unknown;
+        input?: ((value: any) => unknown) | Array<((value: any) => unknown) | undefined>;
+        output?: ((actual: unknown) => unknown) | Array<((actual: unknown) => unknown) | undefined>;
       }): void;
     };
     /** Test a class (design problems): `LCT.cls(Ctor).calls(methods, inputs, expected)` or `.auto()` */
@@ -73,9 +85,13 @@ declare global {
       ): void;
       /** Auto-parse test cases from the file's comment block */
       auto(options?: {
-        ctorInput?: Array<((value: any) => unknown) | undefined>;
-        callInput?: Partial<Record<number, Array<((value: any) => unknown) | undefined>>>;
-        callOutput?: Partial<Record<number, (actual: unknown) => unknown>>;
+        ctorInput?: ((value: any) => unknown) | Array<((value: any) => unknown) | undefined>;
+        callInput?: Partial<
+          Record<number, ((value: any) => unknown) | Array<((value: any) => unknown) | undefined>>
+        >;
+        callOutput?: Partial<
+          Record<number, ((actual: unknown) => unknown) | Array<((actual: unknown) => unknown) | undefined>>
+        >;
       }): void;
     };
   };

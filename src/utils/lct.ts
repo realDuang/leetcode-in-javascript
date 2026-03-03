@@ -11,16 +11,22 @@ type ExpectedOrTester<T> = T | ((actual: T) => boolean);
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type TransformFn = (value: any) => unknown;
 type TransformList = Array<TransformFn | undefined>;
+type TransformSpec = TransformFn | TransformList;
 
 type AutoFuncOptions = {
-  input?: TransformList;
-  output?: TransformFn;
+  input?: TransformSpec;
+  output?: TransformSpec;
 };
 
 type AutoClassOptions = {
-  ctorInput?: TransformList;
-  callInput?: Partial<Record<number, TransformList>>;
-  callOutput?: Partial<Record<number, TransformFn>>;
+  ctorInput?: TransformSpec;
+  callInput?: Partial<Record<number, TransformSpec>>;
+  callOutput?: Partial<Record<number, TransformSpec>>;
+};
+
+type CaseData = {
+  input: unknown | ReadonlyArray<unknown>;
+  output: unknown;
 };
 
 /**
@@ -61,17 +67,39 @@ class LCT {
     }
   }
 
-  private applyTransforms(values: ReadonlyArray<unknown>, transforms?: TransformList): unknown[] {
+  private applyTransforms(values: ReadonlyArray<unknown>, transforms?: TransformSpec): unknown[] {
     if (!transforms) return [...values];
+    if (typeof transforms === 'function') {
+      if (values.length === 0) return [];
+      const [first, ...rest] = values;
+      return [transforms(first), ...rest];
+    }
     return values.map((value, idx) => {
       const transform = transforms[idx];
       return transform ? transform(value) : value;
     });
   }
 
-  private buildAutoExpected(expected: unknown, outputTransform?: TransformFn): ExpectedOrTester<unknown> {
+  private applyOutputTransform(value: unknown, transforms?: TransformSpec): unknown {
+    if (!transforms) return value;
+    if (typeof transforms === 'function') return transforms(value);
+    if (Array.isArray(value)) {
+      return value.map((item, idx) => {
+        const transform = transforms[idx];
+        return transform ? transform(item) : item;
+      });
+    }
+    const transform = transforms[0];
+    return transform ? transform(value) : value;
+  }
+
+  private normalizeInput(input: unknown | ReadonlyArray<unknown>): unknown[] {
+    return Array.isArray(input) ? [...input] : [input];
+  }
+
+  private buildAutoExpected(expected: unknown, outputTransform?: TransformSpec): ExpectedOrTester<unknown> {
     if (!outputTransform) return expected;
-    return (actual: unknown) => this.isDeepEqual(outputTransform(actual), expected);
+    return (actual: unknown) => this.isDeepEqual(this.applyOutputTransform(actual, outputTransform), expected);
   }
 
   private runOne(
@@ -246,17 +274,19 @@ class LCT {
   /**
    * Test a pure function with return value.
    * @example
-   * LCT.func(twoSum).cases(
-   *   [[[2,7,11,15], 9], [0,1]],
-   *   [[[3,2,4], 6],     [1,2]],
-   * );
+   * LCT.func(twoSum).cases([
+   *   { input: [[2,7,11,15], 9], output: [0,1] },
+   *   { input: [[3,2,4], 6], output: [1,2] },
+   * ]);
    */
   public func<F extends AnyFunc>(solution: F) {
     return {
-      cases: (...cases: ReadonlyArray<readonly [Readonly<Parameters<F>>, ExpectedOrTester<ReturnType<F>>]>) => {
+      cases: (cases: ReadonlyArray<CaseData>, options?: AutoFuncOptions) => {
         let passed = 0;
         let failed = 0;
-        for (const [i, [input, expected]] of cases.entries()) {
+        for (const [i, item] of cases.entries()) {
+          const input = this.applyTransforms(this.normalizeInput(item.input), options?.input);
+          const expected = this.buildAutoExpected(item.output, options?.output);
           if (this.runOne('case', i, input, expected, () => Reflect.apply(solution, undefined, input))) {
             passed++;
           } else {
@@ -294,17 +324,18 @@ class LCT {
   /**
    * Test an in-place mutation function (returns void, modifies first argument).
    * @example
-   * LCT.inPlace(moveZeroes).cases(
-   *   [[[0,1,0,3,12]], [1,3,12,0,0]],
-   * );
+   * LCT.inPlace(moveZeroes).cases([
+   *   { input: [[0,1,0,3,12]], output: [1,3,12,0,0] },
+   * ]);
    */
   public inPlace<F extends AnyFunc>(solution: F) {
     return {
-      cases: (...cases: ReadonlyArray<readonly [Readonly<Parameters<F>>, ExpectedOrTester<unknown>]>) => {
+      cases: (cases: ReadonlyArray<CaseData>, options?: AutoFuncOptions) => {
         let passed = 0;
         let failed = 0;
-        for (const [i, [input, expected]] of cases.entries()) {
-          const args = [...input];
+        for (const [i, item] of cases.entries()) {
+          const args = this.applyTransforms(this.normalizeInput(item.input), options?.input);
+          const expected = this.buildAutoExpected(item.output, options?.output);
           if (
             this.runOne('case', i, args, expected, () => {
               Reflect.apply(solution, undefined, args);
