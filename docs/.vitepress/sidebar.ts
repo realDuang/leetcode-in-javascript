@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync, statSync } from 'fs';
+import { readdirSync, readFileSync, statSync, existsSync } from 'fs';
 import { join, basename } from 'path';
 import type { DefaultTheme } from 'vitepress';
 
@@ -30,6 +30,36 @@ const categoryTitleMap: Record<string, string> = {
   'two-pointers': '双指针',
   unknown: '未分类'
 };
+
+/**
+ * Topic display order.
+ * To add a new topic: create the .md file and add its slug here.
+ * To reorder: just move lines around.
+ */
+const topicOrder: string[] = [
+  // 基础篇
+  'introduction',
+  'recursive',
+  'tree',
+  // 数组技巧篇
+  'sort',
+  'two-pointers',
+  'binary-search',
+  'slide-window',
+  'partial-sum',
+  // 搜索与穷举篇
+  'backtrack',
+  'depth-first-search',
+  'breadth-first-search',
+  'graph',
+  // 贪心与动态规划篇
+  'greedy',
+  'dynamic-programming-normal',
+  'dynamic-programming-backpack',
+  'dynamic-programming-subsequence',
+  // 进阶数据结构篇
+  'monotonic-stack',
+];
 
 function getCategoryTitle(name: string): string {
   return categoryTitleMap[name] || name;
@@ -83,16 +113,16 @@ function generateSidebarForList(docsRoot: string): DefaultTheme.SidebarItem[] {
 
 function generateSidebarForTopic(docsRoot: string): DefaultTheme.SidebarItem[] {
   const topicDir = join(docsRoot, 'docs', 'topic');
-  const files = getMarkdownFiles(topicDir);
 
-  return files.map(f => {
-    const filePath = join(topicDir, f);
-    const slug = basename(f, '.md');
-    return {
-      text: extractTitleFromMd(filePath, slug),
-      link: `/docs/topic/${slug}`
-    };
-  });
+  return topicOrder
+    .filter(slug => existsSync(join(topicDir, `${slug}.md`)))
+    .map(slug => {
+      const filePath = join(topicDir, `${slug}.md`);
+      return {
+        text: extractTitleFromMd(filePath, slug),
+        link: `/docs/topic/${slug}`
+      };
+    });
 }
 
 export function generateSidebar(docsRoot: string): DefaultTheme.Sidebar {
