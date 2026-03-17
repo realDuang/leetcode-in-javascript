@@ -1,184 +1,323 @@
-# 动态规划-问题推导过程
+# 动态规划：入门与线性/坐标模型
 
-我们先以一道题为例：`[64] 最小路径和`。
+动态规划最容易让人误解的地方，是把它当成一堆题型结论去背。
 
-这道题是一道计算二维数组最短路径的问题。
+其实 DP 真正训练的是两件事：
 
-## 从回溯算法开始
+1. 能不能把原问题拆成更小的子问题。
+2. 能不能让这些子问题按某种顺序复用答案。
 
-经过了回溯算法洗礼的我们看到路径问题，首先想到的就是直接做暴力 DFS。每一步都有两个选择，进行递归，计算以右侧或下侧节点为起始点的最小路径和，取较小值加上当前节点值，即可得到最短路径和。
+如果暴力递归里出现了**重复计算**，就应该开始怀疑：这题是不是可以改写成动态规划。
 
-递归终止条件为，当路径起点为右下角时，最短路径就是和就是自身。
+这一篇先解决最基础也最常见的两大类：
 
-```ts
-function minPathSum(grid: number[][]): number {
-  const rowLen = grid.length;
-  const colLen = grid[0].length;
+1. **线性 DP**：状态沿着数组下标、时间、台阶编号向前推进。
+2. **坐标 DP**：状态定义在二维网格、矩阵、三角形等坐标系上。
 
-  const res = backtrack(0, 0);
-  return res;
+## 解题决策树
 
-  function backtrack(row: number, col: number): number {
-    // 越界，返回非法值，由于本题求最小值，因此设置为 MAX_VALUE
-    if (row >= rowLen || col >= colLen) return Number.MAX_VALUE;
-
-    // 当前节点值
-    const val = grid[row][col];
-
-    // 递归终止条件，当路径起点为右下角时，最短路径就是和就是自身
-    if (row === rowLen - 1 && col === colLen - 1) return val;
-
-    // 做选择，分别求出右侧与下侧节点的最小路径和
-    const sum1 = backtrack(row + 1, col);
-    const sum2 = backtrack(row, col + 1);
-
-    // 返回当前节点的最小路径和
-    return Math.min(sum1, sum2) + val;
-  }
-}
+```text
+拿到一道“最优值 / 方案数”问题
+│
+├─ 暴力递归是否有重复子问题？
+│  └─ 是 → 可以考虑动态规划
+│
+├─ 状态只和前面几个位置有关？
+│  └─ 是 → 线性 DP ............................ → 见「一」
+│
+├─ 状态定义在网格 / 矩阵 / 三角形坐标上？
+│  └─ 是 → 坐标 DP ............................ → 见「二」
+│
+└─ 状态不是一条线也不是二维坐标？
+   └─ 继续判断：背包 / 双序列 / 状态机 / 区间划分
 ```
 
-但直接这样提交是会 TLE 的，说明题目需要我们对其中的情况进行剪枝优化。
+## 一、线性 DP
 
-## 建立缓存空间进行重叠子问题结果存储
+**判断关键词**：第 `i` 项、前 `i` 项、走到第 `i` 阶、到第 `i` 天、以 `i` 结尾、前缀最优值。
 
-说到回溯问题的优化，我们立刻会想到是否存在重叠子问题，因为这决定我们是否能够使用动态规划，通过空间来换时间。
+线性 DP 的核心是：
 
-经过思考，本题是存在重叠子问题的。原因是，`grid[i][j]` 的最小路径和的递归计算，会被进行两次计算，从上方 `grid[i-1][j]` 与左方 `grid[i][j-1]`。当 grid 规模较大时，这里进行递归的重复计算就会以指数级上升。
+1. 状态通常写成 `dp[i]`。
+2. `dp[i]` 只依赖前面有限个状态，或者依赖前缀中的某些最优值。
+3. 计算顺序通常是从左到右。
 
-因此，我们需要将 `grid[i][j]` 的最小路径和缓存下来，当第二次需要获取时，不再进行递归计算，而是直接从缓存中取值返回。这样就节省了重复的递归计算，提升了时间效率。
-
-```ts
-function minPathSum(grid: number[][]): number {
-  const rowLen = grid.length;
-  const colLen = grid[0].length;
-
-  const dp: number[][] = Array(rowLen)
-    .fill(0)
-    .map(x => Array(colLen).fill(0));
-
-  const res = backtrack(0, 0);
-  return res;
-
-  function backtrack(row: number, col: number): number {
-    // 越界，返回非法值，由于本题求最小值，因此设置为 MAX_VALUE
-    if (row >= rowLen || col >= colLen) return Number.MAX_VALUE;
-    // 当前节点值
-    const val = grid[row][col];
-
-    // 递归终止条件，当路径起点为右下角时，最短路径就是和就是自身
-    if (row === rowLen - 1 && col === colLen - 1) return val;
-
-    // 先查 memo，看是否已经计算过
-    if (dp[row][col] > 0) {
-      return dp[row][col];
-    }
-
-    // 做选择
-    const sum1 = backtrack(row + 1, col);
-    const sum2 = backtrack(row, col + 1);
-
-    dp[row][col] = Math.min(sum1, sum2) + val;
-    return dp[row][col];
-  }
-}
-```
-
-这就是动态规划最朴素的思路：处理回溯问题时，若发现重叠子问题，则将子问题的结果进行缓存，从而实现以空间换时间的优化。
-
-## 以自底向上的思路组织代码
-
-这时有同学可能会发现，欸这种形态的解法用到了递归，怎么与我平时见到的动态规划的题解不太一样呢？
-
-这是由于，我们采用的是回溯法的思路，自顶向下的解决问题。由于当前问题的解依赖了子问题的解，自然需要用到递归，这样也比较符合人类的思维模式。
-
-而如果使用自底向上的思想呢？即先从最小情况开始求解，一步一步倒着计算回来。我们再来看看这个问题。
-
-我们设 `dp[i][j]` 为从 (0, 0) 开始到该点的最小路径和。那么有，该点的最小路径和为其上侧 `dp[i-1][j]` 与左侧节点 `dp[i][j-1]` 的最短路径和的较小值加上当前值。
-
-接下来我们梳理出 base case，当当路径起点为左上角时，最短路径就是和就是自身。
-
-最后推导得出右下角的 dp 值，即起始点到终点的最小路径和，并返回。由此我们可以写出代码：
+### 1.1 最朴素模板
 
 ```ts
-function minPathSum(grid: number[][]): number {
-  const rowLen = grid.length;
-  const colLen = grid[0].length;
-
-  const dp: number[][] = Array(rowLen + 1)
-    .fill(0)
-    .map(x => Array(colLen + 1).fill(0));
+function linearDp(nums: number[]): number {
+  const n = nums.length;
+  const dp = Array(n).fill(0);
 
   // base case
-  for (let i = 0; i <= rowLen; i++) {
-    dp[i][0] = Number.MAX_VALUE;
-  }
-  for (let j = 0; j <= colLen; j++) {
-    dp[0][j] = Number.MAX_VALUE;
+  dp[0] = initialValue(nums[0]);
+
+  for (let i = 1; i < n; i++) {
+    dp[i] = transition(dp, nums, i);
   }
 
-  for (let i = 1; i <= rowLen; i++) {
-    for (let j = 1; j <= colLen; j++) {
-      // base case, 当路径终点为左上角时，最短路径和就是自身
-      if (i === 1 && j === 1) {
-        dp[i][j] = grid[i - 1][j - 1];
-        continue;
-      }
-      dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + grid[i - 1][j - 1];
-    }
-  }
-  return dp[rowLen][colLen];
+  return dp[n - 1];
 }
 ```
 
-这样，看着是不是就有平常的动态规划的题解形式那味儿了呢？
+真正要填的只有 3 个位置：
 
-这里有一些特点需要说明一下，例如我们为什么要将 dp 数组维护分别扩大一格呢？这是由于 `dp[i][j]` 的结果依赖 `dp[i-1][j]` 与 `dp[i][j-1]`，当 i 或 j 为 0 时会造成数组越界。当然我们也可以在遍历中进行判断与跳过处理。例如在 for 循环中，我们可以这样写：
+1. `dp[i]` 表示什么。
+2. `dp[i]` 怎么从更小状态转移来。
+3. base case 是什么。
+
+### 1.2 常见状态定义方式
+
+#### A. `dp[i]` 表示“到达位置 i 的最优值 / 方案数”
+
+这类题最像递推。
 
 ```ts
-      // base case, 当路径终点为左上角时，最短路径和就是自身
-      if (i === 1 && j === 1) {
-        dp[i][j] = grid[i - 1][j - 1];
-        continue;
-      }
-      // 指针越界，越界值无效
-      const pathSum1 = i === 0 ? Number.MAX_VALUE : dp[i - 1][j];
-      const pathSum2 = j === 0 ? Number.MAX_VALUE : dp[i][j - 1];
+function climbStairs(n: number): number {
+  const dp = Array(n + 1).fill(0);
+  dp[0] = 1;
+  dp[1] = 1;
 
-      dp[i][j] = Math.min(pathSum1, pathSum2) + grid[i][j];
+  for (let i = 2; i <= n; i++) {
+    dp[i] = dp[i - 1] + dp[i - 2];
+  }
+
+  return dp[n];
+}
 ```
 
-这样就可以省去处理 base case 的两次 O(N) 循环，可以让 dp 数组大小不用+1。但会让 dp 数组之间的关系看上去没那么清晰，显得复杂。因此可读性更高的办法就是提前处理好 base case。
+题型参考：
 
-## 空间压缩
+| 题目 | 状态含义 |
+| ---- | -------- |
+| `[70] 爬楼梯` | `dp[i]` = 到达第 `i` 阶的方法数。 |
+| `[91] 解码方法` | `dp[i]` = 前 `i` 个字符的解码方案数。 |
+| `[343] 整数拆分` | `dp[i]` = 整数 `i` 拆分后的最大乘积。 |
 
-这是动态规划中最常用的优化技巧，旨在判断 dp 遍历求值的过程中是否有对相对位置的固定依赖，从而确定一些空间在遍历到某位置过后就不会再被使用，可以被丢弃或覆盖。
+#### B. `dp[i]` 表示“以 i 结尾的最优值”
 
-在本题中，我们可以轻易发现，`dp[i][j]` 的求值仅与 `dp[i-1][j]` 和 `dp[i][j-1]` 两个变量有关，因此，我们可以仅用一个一维数组作为缓存，并在遍历过程中不断更新缓存内容，即可在不影响算法正确性的前提下优化空间复杂度。
+这类状态常用于“必须选到当前位置”的问题。
+
+```ts
+function maxSubArray(nums: number[]): number {
+  const dp = Array(nums.length).fill(0);
+  dp[0] = nums[0];
+  let ans = dp[0];
+
+  for (let i = 1; i < nums.length; i++) {
+    dp[i] = Math.max(nums[i], dp[i - 1] + nums[i]);
+    ans = Math.max(ans, dp[i]);
+  }
+
+  return ans;
+}
+```
+
+题型参考：
+
+| 题目 | 状态含义 |
+| ---- | -------- |
+| `[53] 最大子数组和` | `dp[i]` = 以 `i` 结尾的最大子数组和。 |
+| `[152] 乘积最大子数组` | 同时维护以 `i` 结尾的最大积和最小积。 |
+| `[413] 等差数列划分` | `dp[i]` = 以 `i` 结尾的等差子数组数量。 |
+
+#### C. `dp[i]` 表示“前 i 个位置的最优值”
+
+当当前位置可以选或不选时，这种定义很常见。
+
+```ts
+function rob(nums: number[]): number {
+  const n = nums.length;
+  const dp = Array(n + 1).fill(0);
+  dp[1] = nums[0];
+
+  for (let i = 2; i <= n; i++) {
+    dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i - 1]);
+  }
+
+  return dp[n];
+}
+```
+
+题型参考：
+
+| 题目 | 状态含义 |
+| ---- | -------- |
+| `[198] 打家劫舍` | `dp[i]` = 前 `i` 间房能偷到的最大值。 |
+| `[740] 删除并获得点数` | 先聚合数值，再转成打家劫舍模型。 |
+| `[139] 单词拆分` | `dp[i]` = 前 `i` 个字符是否可拆分。 |
+
+## 二、坐标 DP
+
+**判断关键词**：网格、矩阵、三角形、从左上到右下、路径数、路径最值。
+
+坐标 DP 的核心是：
+
+1. 状态通常写成 `dp[i][j]`。
+2. `dp[i][j]` 表示到某个格子时的最优值 / 方案数。
+3. 转移只来自固定方向，例如上、左、左上。
+
+### 2.1 通用模板
+
+```ts
+function gridDp(grid: number[][]): number {
+  const m = grid.length;
+  const n = grid[0].length;
+  const dp = Array.from({ length: m }, () => Array(n).fill(0));
+
+  // base case
+  dp[0][0] = initialValue(grid[0][0]);
+
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      if (i === 0 && j === 0) continue;
+      dp[i][j] = transition(dp, grid, i, j);
+    }
+  }
+
+  return dp[m - 1][n - 1];
+}
+```
+
+### 2.2 两类最常见坐标状态
+
+#### A. 方案数型
+
+```ts
+function uniquePaths(m: number, n: number): number {
+  const dp = Array.from({ length: m }, () => Array(n).fill(1));
+
+  for (let i = 1; i < m; i++) {
+    for (let j = 1; j < n; j++) {
+      dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+    }
+  }
+
+  return dp[m - 1][n - 1];
+}
+```
+
+题型参考：
+
+| 题目 | 状态含义 |
+| ---- | -------- |
+| `[62] 不同路径` | `dp[i][j]` = 到 `(i, j)` 的路径数。 |
+| `[63] 不同路径 II` | 遇到障碍时路径数为 `0`。 |
+| `[576] 出界的路径数` | 需要引入步数维度。 |
+
+#### B. 最优值型
 
 ```ts
 function minPathSum(grid: number[][]): number {
-  const rowLen = grid.length;
-  const colLen = grid[0].length;
+  const m = grid.length;
+  const n = grid[0].length;
+  const dp = Array.from({ length: m }, () => Array(n).fill(0));
 
-  const dp: number[] = Array(colLen).fill(0);
+  dp[0][0] = grid[0][0];
 
-  // base case，先初始化好第一行的情况，当路径终点为 grid[0][j] 时，只会有从左侧过来的路径这一种可能
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      if (i === 0 && j === 0) continue;
+
+      const fromUp = i > 0 ? dp[i - 1][j] : Number.MAX_SAFE_INTEGER;
+      const fromLeft = j > 0 ? dp[i][j - 1] : Number.MAX_SAFE_INTEGER;
+      dp[i][j] = Math.min(fromUp, fromLeft) + grid[i][j];
+    }
+  }
+
+  return dp[m - 1][n - 1];
+}
+```
+
+题型参考：
+
+| 题目 | 状态含义 |
+| ---- | -------- |
+| `[64] 最小路径和` | `dp[i][j]` = 到 `(i, j)` 的最小路径和。 |
+| `[120] 三角形最小路径和` | 每个点只依赖上一层相邻位置。 |
+| `[221] 最大正方形` | `dp[i][j]` = 以 `(i, j)` 为右下角的最大正方形边长。 |
+| `[174] 地下城游戏` | 也可反向定义状态，从终点倒推所需最小血量。 |
+
+## 三、从递归到 DP 的统一视角
+
+很多 DP 题直接看递推式会很抽象，但先写成递归就清楚了。
+
+统一思路可以这样走：
+
+1. 先写暴力递归，确认子问题是什么。
+2. 看同一个子问题是否会被反复计算。
+3. 有重复子问题就加 `memo`，得到记忆化搜索。
+4. 再把递归调用顺序翻译成迭代顺序，得到自底向上的 DP。
+
+也就是说：
+
+- 递归是“你怎么想”。
+- DP 表是“你怎么高效地算”。
+
+## 四、空间压缩怎么判断
+
+线性 / 坐标 DP 经常能做空间压缩，判断方法很简单：
+
+1. `dp[i]` 只依赖前几个固定位置，例如 `i - 1`、`i - 2`。
+2. 或者 `dp[i][j]` 只依赖上一行和当前行左边。
+
+如果某些旧状态后面再也不会被访问，就可以压缩。
+
+### 4.1 线性 DP 压缩
+
+```ts
+function climbStairs(n: number): number {
+  let prev2 = 1;
+  let prev1 = 1;
+
+  for (let i = 2; i <= n; i++) {
+    const cur = prev1 + prev2;
+    prev2 = prev1;
+    prev1 = cur;
+  }
+
+  return prev1;
+}
+```
+
+### 4.2 坐标 DP 压缩
+
+```ts
+function minPathSum(grid: number[][]): number {
+  const m = grid.length;
+  const n = grid[0].length;
+  const dp = Array(n).fill(0);
+
   dp[0] = grid[0][0];
-  for (let j = 1; j < colLen; j++) {
+  for (let j = 1; j < n; j++) {
     dp[j] = dp[j - 1] + grid[0][j];
   }
 
-  for (let i = 1; i < rowLen; i++) {
-    for (let j = 0; j < colLen; j++) {
-      // 数组越界，当路径终点为 grid[i][0] 时，只会有从上方下来的路径这一种可能
-      if (j === 0) {
-        dp[j] = dp[j] + grid[i][j];
-        continue;
-      }
+  for (let i = 1; i < m; i++) {
+    dp[0] += grid[i][0];
+    for (let j = 1; j < n; j++) {
       dp[j] = Math.min(dp[j], dp[j - 1]) + grid[i][j];
     }
   }
-  return dp[colLen - 1];
+
+  return dp[n - 1];
 }
 ```
+
+## 易错点清单
+
+1. `dp[i]` 的含义没定义清楚，就直接写转移式。
+2. base case 漏掉，导致后面全错。
+3. 把“以 `i` 结尾”与“前 `i` 个元素”两种状态混在一起。
+4. 坐标 DP 没处理边界，导致 `i - 1`、`j - 1` 越界。
+5. 明明只依赖上一层，却没想到做空间压缩。
+
+## 总结：解题速查表
+
+| 题目特征 | 优先 DP 模型 | 关键状态 |
+| ---- | ---- | ---- |
+| 台阶、天数、数组前缀 | 线性 DP | `dp[i]` |
+| 以当前位置结尾的最值 | 线性 DP | `dp[i]` = 以 `i` 结尾 |
+| 网格路径数 / 路径最值 | 坐标 DP | `dp[i][j]` |
+| 三角形 / 矩阵局部依赖 | 坐标 DP | `dp[i][j]` |
+| 先能写递归、但重复计算很多 | 记忆化搜索 -> DP | 子问题缓存 |
