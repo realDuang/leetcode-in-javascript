@@ -57,6 +57,8 @@ const topicOrder: string[] = [
   'dynamic-programming-normal',
   'dynamic-programming-backpack',
   'dynamic-programming-subsequence',
+  'dynamic-programming-state-machine',
+  'dynamic-programming-interval',
   // 进阶数据结构篇
   'monotonic-stack',
 ];

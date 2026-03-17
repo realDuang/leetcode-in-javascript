@@ -51,17 +51,20 @@ function mySqrt(x: number): number {
   if (x === 0) return 0;
   if (x === 1) return 1;
 
-  let l = 0,
-    r = x;
-  let ans = -1;
+  let l = 0;
+  let r = x;
+  let ans = 0;
 
   while (l <= r) {
-    const mid = Math.floor((l + r) / 2);
-    if (mid * mid > x) {
-      r = mid - 1;
-    } else {
+    const mid = (l + r) >> 1;
+    const temp = mid * mid;
+    if (temp === x) {
+      return mid;
+    } else if (temp < x) {
       ans = mid;
       l = mid + 1;
+    } else {
+      r = mid - 1;
     }
   }
 
@@ -70,6 +73,5 @@ function mySqrt(x: number): number {
 // @lc code=end
 
 (() => {
-  const x = 82;
-  console.log(mySqrt(x));
+  LCT.func(mySqrt).auto();
 })();

@@ -238,7 +238,7 @@ class LCT {
   private parseClsExample(): [string[], unknown[][], unknown[]] | null {
     const lines = this.getCommentLines();
     for (let i = 0; i < lines.length; i++) {
-      if (!/^输入\s*$/.test(lines[i])) continue;
+      if (!/^输入(?:[：:]\s*)?$/.test(lines[i])) continue;
       const inputLines: string[] = [];
       let j = i + 1;
       for (; j < lines.length; j++) {

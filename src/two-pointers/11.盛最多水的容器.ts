@@ -66,24 +66,23 @@
 function maxArea(height: number[]): number {
   let res = 0;
 
-  let left = 0;
-  let right = height.length - 1;
-  while (left < right) {
-    // 面积 = 短边高度 * 指针距离
-    const temp = Math.min(height[left], height[right]) * (right - left);
+  let l = 0;
+  let r = height.length - 1;
+
+  while (l < r) {
+    // 此时最大面积是，短板高度*宽度
+    const temp = Math.min(height[l], height[r]) * (r - l);
     res = Math.max(res, temp);
-    // 这里注意，要移动较短边的指针，才有可能找到更大值的情况
-    if (height[left] < height[right]) {
-      left += 1;
-    } else {
-      right -= 1;
-    }
+
+    // 移动短板指针，目的是为了找到更大的面积（因为宽度会进一步减小，如果短板高度不变大的话就不可能让面积再变大了）
+    if (height[l] > height[r]) r--;
+    else l++;
   }
+
   return res;
 }
 // @lc code=end
 
 (() => {
-  const height = [1, 8, 6, 2, 5, 4, 8, 3, 7];
-  console.log(maxArea(height));
+  LCT.func(maxArea).auto();
 })();

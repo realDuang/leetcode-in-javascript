@@ -97,7 +97,18 @@ function hasCycle(head: ListNode | null): boolean {
 // @lc code=end
 
 (() => {
-  const head = List.deserialize([3, 2, 0, -4], 1);
-
-  console.log(hasCycle(head));
+  LCT.func(hasCycle).cases([
+    {
+      input: List.deserialize([3, 2, 0, -4], 1),
+      output: true
+    },
+    {
+      input: List.deserialize([1, 2], 0),
+      output: true
+    },
+    {
+      input: List.deserialize([1], -1),
+      output: false
+    }
+  ]);
 })();

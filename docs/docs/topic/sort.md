@@ -1,6 +1,6 @@
 # 排序算法
 
-排序题的核心不是背算法，而是先做算法选择：你到底需要原地、稳定、最坏复杂度保证，还是只需要 TopK / 第 K 大这类部分有序。
+面对排序题，第一步先明确目标约束：你到底需要原地、稳定、最坏复杂度保证，还是只需要 TopK / 第 K 大这类部分有序。
 
 ## 解题决策树
 
@@ -34,7 +34,7 @@
 ### 关键片段
 
 ```ts
-function partition(nums: number[], left: number, right: number): number {
+function partition(left: number, right: number): number {
   const pivot = nums[left];
   let i = left + 1;
   let j = right;
@@ -52,7 +52,7 @@ function partition(nums: number[], left: number, right: number): number {
 // quicksort 形式，partition 后递归左右两侧
 function sort(l: number, r: number): void {
   if (l >= r) return;
-  const index = partition(nums, l, r);
+  const index = partition(l, r);
   sort(l, index - 1);
   sort(index + 1, r);
 }
@@ -60,7 +60,7 @@ function sort(l: number, r: number): void {
 // quickselect 形式，其实就是快速排序，但只取一侧排序
 function quickSelect(l: number, r: number): number {
   if (l >= r) return nums[l];
-  const index = partition(nums, l, r);
+  const index = partition(l, r);
 
   if (index < target) {
     return quickSelect(index + 1, r);
@@ -89,7 +89,7 @@ function quickSelect(l: number, r: number): number {
 ### 关键片段
 
 ```ts
-function merge(nums: number[], left: number, mid: number, right: number): void {
+function merge(left: number, mid: number, right: number): void {
   const temp: number[] = [];
   let i = left;
   let j = mid + 1;
@@ -149,24 +149,55 @@ function sort(l: number, r: number) {
 ### 关键片段
 
 ```ts
-function heapifyDown(nums: number[], i: number, heapSize: number): void {
+// 从 i 位置自顶向下调整堆，保持大顶堆性质（即对于每一个子树，父节点都不小于子节点）
+// 下沉调整，适用于堆顶元素被替换后恢复堆性质
+// 其实就是每次将当前节点与左右子节点比较，找到最大的交换，并从交换子节点继续向下调整，直到满足堆性质或到达叶子节点
+function heapifyDown(i: number, heapSize: number): void {
   while (true) {
     const left = i * 2 + 1;
     const right = left + 1;
     let largest = i;
 
+    // 变体：如果是小顶堆，比较条件改为 < 即可
     if (left < heapSize && nums[left] > nums[largest]) largest = left;
     if (right < heapSize && nums[right] > nums[largest]) largest = right;
     if (largest === i) break;
-
     [nums[i], nums[largest]] = [nums[largest], nums[i]];
     i = largest;
   }
 }
 
-// TopK 伪代码：
-// 维护一个大小为 k 的最小堆
-// 遍历元素 x：若 x > heapTop 则替换并下沉
+function sort(): void {
+  // 建堆，从最后一个非叶子节点开始自底向上调整，最后一个非叶节点可以通过最后一个节点的父节点找出
+  // parent = (child - 1) >> 1, lastChild = nums.length - 1
+  for (let i = (nums.length - 2) >> 1; i >= 0; i--) {
+    heapifyDown(i, nums.length);
+  }
+
+  // 堆排序：每次把堆顶交换到末尾，并缩小堆大小
+  // 变体：TopK 场景下，不用完整排序，只需要比较前k次即可
+  for (let i = nums.length - 1; i > 0; i--) {
+    // 遍历元素 x：若 x > 堆顶换则替换并下沉
+    [nums[0], nums[i]] = [nums[i], nums[0]];
+    heapifyDown(0, i);
+  }
+}
+
+// 如果是将新元素放到堆尾，一路比较上浮，使得变成大顶堆，使用 heapifyUp 函数
+// 上浮调整，适用于新元素加入堆尾后恢复堆性质
+// 每次将当前节点与父节点比较，如果当前节点更大（对于大顶堆），则交换，并继续向上调整，直到满足堆性质或到达根节点
+function heapifyUp(i: number): void {
+  while (i > 0) {
+    const parent = (i - 1) >> 1;
+    // 如果已满足大顶堆条件
+    // 变体：如果是小顶堆，比较条件改为 >= 即可
+    if (nums[i] <= nums[parent]) break;
+
+    [nums[i], nums[parent]] = [nums[parent], nums[i]];
+    i = parent;
+  }
+}
+
 ```
 
 题型参考（框架微调）：

@@ -48,51 +48,54 @@
 
 // @lc code=start
 function trap(height: number[]): number {
-  let left = 0,
-    right = height.length - 1;
-  let leftMax = 0,
-    rightMax = 0;
-
   let res = 0;
-  while (left < right) {
-    leftMax = Math.max(leftMax, height[left]);
-    rightMax = Math.max(rightMax, height[right]);
 
-    // 如果左侧的最高柱子小于右侧，则左侧的柱子一定是短板，最多能接平齐 leftMax 的水
-    // 因此在该列上，能接水的格子数为 上底高度 - 下底高度 个
-    if (leftMax < rightMax) {
-      res += leftMax - height[left];
-      left++;
+  // 这种首尾指针的思想，看的是对于每一格，其纵向的储水量是多少。将这一个的储水量计入到总和res中。
+  let l = 0;
+  let r = height.length - 1;
+  let lmax = 0;
+  let rmax = 0;
+
+  while (l < r) {
+    lmax = Math.max(lmax, height[l]);
+    rmax = Math.max(rmax, height[r]);
+
+    // 如果左侧的最高柱子小于右侧，则左侧的柱子一定是短板，因此该格储水的最大高度就是 lmax
+    // 那么该格能储存多少水呢，能储存lmax - 该格自身高度(height[l]) 的水
+    // 该格计算完成后，指针移向下一格
+    if (lmax < rmax) {
+      res += lmax - height[l];
+      l++;
     } else {
-      // 反之则右侧的柱子一定是短板，则计算右侧能接水的格子数量
-      res += rightMax - height[right];
-      right--;
+      res += rmax - height[r];
+      r--;
     }
   }
+
   return res;
 }
 // @lc code=end
 
 (() => {
-  // function trap(height: number[]): number {
-  //     let res = 0;
-  //     for (let i = 0; i < height.length; i++) {
-  //         let lMax = 0;
-  //         let rMax = 0;
-  //         for (let l = 0; l < i; l++) {
-  //             if (height[l] > lMax) {
-  //                 lMax = height[l];
-  //             }
-  //         }
-  //         for (let r = i + 1; r < height.length; r++) {
-  //             if (height[r] > rMax) {
-  //                 rMax = height[r];
-  //             }
-  //         }
-  //         res += Math.max(Math.min(lMax, rMax) - height[i], 0);
-  //     }
-  //     return res;
-  // };
-  const height = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1];
-  console.log(trap(height));
+  LCT.func(trap).auto();
 })();
+
+// function trap(height: number[]): number {
+//     let res = 0;
+//     for (let i = 0; i < height.length; i++) {
+//         let lMax = 0;
+//         let rMax = 0;
+//         for (let l = 0; l < i; l++) {
+//             if (height[l] > lMax) {
+//                 lMax = height[l];
+//             }
+//         }
+//         for (let r = i + 1; r < height.length; r++) {
+//             if (height[r] > rMax) {
+//                 rMax = height[r];
+//             }
+//         }
+//         res += Math.max(Math.min(lMax, rMax) - height[i], 0);
+//     }
+//     return res;
+// };
