@@ -64,57 +64,54 @@
 
 // @lc code=start
 function minWindow(s: string, t: string): string {
-  const initRes = s + ' ';
-  let res = initRes;
-
-  const needs: Record<string, number> = {};
-  for (let i = 0; i < t.length; i++) {
-    const ch = t[i];
-    needs[ch] = needs[ch] ? needs[ch] + 1 : 1;
-  }
-  const needsLength = Object.keys(needs).length;
+  let l = 0;
+  let r = 0;
+  let start = 0;
+  let minLen = Infinity;
+  let validCount = 0;
 
   const window: Record<string, number> = {};
-  let left = 0;
-  let right = 0;
-  let validCount = 0;
-  while (right < s.length) {
-    // 扩右边界
-    const ch = s[right];
-    right++;
+
+  const needs: Record<string, number> = {};
+  for (let ch of t) {
+    needs[ch] = (needs[ch] ?? 0) + 1;
+  }
+  const target = Object.keys(needs).length;
+
+  while (r < s.length) {
+    // 向右扩大窗口，将元素加入窗口
+    const ch = s[r];
+    r++;
 
     if (needs[ch]) {
-      // 更新滑动窗口元素内容以及合法指标判断
-      window[ch] = window[ch] ? window[ch] + 1 : 1;
-      if (window[ch] === needs[ch]) {
-        validCount += 1;
-      }
+      window[ch] = (window[ch] ?? 0) + 1;
+      // 计算匹配个数，方便查询是否达成目标
+      if (window[ch] === needs[ch]) validCount++;
     }
 
-    while (validCount === needsLength) {
-      // 若当前滑动窗口中字串长度小于res，则更新res字串
-      if (right - left < res.length) {
-        res = s.substring(left, right);
+    while (validCount === target) {
+      // 处在合法区间，更新最终目标，更新要在收缩之前
+      if (r - l < minLen) {
+        minLen = r - l;
+        start = l;
       }
 
-      // 缩左边界
-      const dropCh = s[left];
-      left++;
+      // 之后逐步缩小窗口，踢出窗口外元素
+      const dropCh = s[l];
+      l++;
 
-      // 更新滑动窗口元素内容以及合法指标判断
-      if (needs[dropCh] && needs[dropCh] > 0) {
-        if (window[dropCh] === needs[ch]) validCount -= 1;
-        window[dropCh] -= 1;
+      if (needs[dropCh]) {
+        // 注意顺序，先判断丢弃的字符在窗口中的数量是否满足要求，再进行丢弃
+        if (window[dropCh] === needs[dropCh]) validCount--;
+        window[dropCh]--;
       }
     }
   }
 
-  return res === initRes ? '' : res;
+  return minLen === Infinity ? '' : s.substring(start, start + minLen);
 }
 // @lc code=end
 
 (() => {
-  const s = 'ADOBECODEBANC',
-    t = 'ABC';
-  console.log(minWindow(s, t));
+  LCT.func(minWindow).auto();
 })();
