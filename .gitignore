@@ -3,8 +3,10 @@ node_modules/
 docs/.vuepress/dist/
 docs/.vitepress/dist/
 docs/.vitepress/cache/
+src/.lcpr_data/
 dist/
 coverage/
 *.log
 pnpm-debug.log*
 .idea/
+/training-system/progress/
