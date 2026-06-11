@@ -85,7 +85,7 @@ function shipWithinDays(weights: number[], days: number): number {
 
     let nowDay = 1;
     let nowLoad = 0;
-    for (let weight of weights) {
+    for (const weight of weights) {
       if (nowLoad + weight > target) {
         nowLoad = 0;
         nowDay += 1;

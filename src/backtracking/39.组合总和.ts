@@ -3,14 +3,14 @@
  *
  * [39] 组合总和
  *
- * https://leetcode-cn.com/problems/combination-sum/description/
+ * https://leetcode.cn/problems/combination-sum/description/
  *
  * algorithms
- * Medium (72.75%)
- * Likes:    1727
+ * Medium (74.06%)
+ * Likes:    3191
  * Dislikes: 0
- * Total Accepted:    398.3K
- * Total Submissions: 547.5K
+ * Total Accepted:    1.5M
+ * Total Submissions: 2M
  * Testcase Example:  '[2,3,6,7]\n7'
  *
  * 给你一个 无重复元素 的整数数组 candidates 和一个目标整数 target ，找出 candidates 中可以使数字和为目标数 target
@@ -51,9 +51,9 @@
  *
  *
  * 1 <= candidates.length <= 30
- * 1 <= candidates[i] <= 200
- * candidate 中的每个元素都 互不相同
- * 1 <= target <= 500
+ * 2 <= candidates[i] <= 40
+ * candidates 的所有元素 互不相同
+ * 1 <= target <= 40
  *
  *
  */
@@ -61,37 +61,28 @@
 // @lc code=start
 function combinationSum(candidates: number[], target: number): number[][] {
   const res: number[][] = [];
-  let currSum = 0;
-  backtrack([], 0);
-  return res;
-
-  function backtrack(path: number[], start: number) {
-    // 满足要求，输出
-    if (currSum === target) {
+  candidates.sort((a, b) => a - b);
+  function backtrack(path: number[], rest: number, start: number) {
+    if (rest === 0) {
       res.push([...path]);
-      return;
-    }
-    // 当前和已经大于 target，则直接剪枝
-    if (currSum > target) {
       return;
     }
 
     for (let i = start; i < candidates.length; i++) {
-      // 做选择
-      currSum += candidates[i];
+      const curr = rest - candidates[i];
+      if (curr < 0) break;
+
       path.push(candidates[i]);
-      // 回溯
-      backtrack(path, i);
-      // 撤销选择
-      currSum -= candidates[i];
+      backtrack(path, curr, i);
       path.pop();
     }
   }
+
+  backtrack([], target, 0);
+  return res;
 }
 // @lc code=end
 
 (() => {
-  const candidates = [3, 2, 6, 7],
-    target = 7;
-  console.log(combinationSum(candidates, target));
+  LCT.func(combinationSum).auto();
 })();

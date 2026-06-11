@@ -119,9 +119,17 @@ function pathSum(root: TreeNode | null, targetSum: number): number[][] {
 // @lc code=end
 
 (() => {
-  LCT.func(pathSum).auto({
-    input: [Tree.deserialize]
-  });
+  LCT.func(pathSum).cases([
+    {
+      input: [Tree.deserialize([5, 4, 8, 11, null, 13, 4, 7, 2, null, null, 5, 1]), 22],
+      output: [
+        [5, 4, 11, 2],
+        [5, 8, 4, 5]
+      ]
+    },
+    { input: [Tree.deserialize([1, 2, 3]), 5], output: [] },
+    { input: [Tree.deserialize([1, 2]), 0], output: [] }
+  ]);
 })();
 
 // function pathSum(root: TreeNode | null, targetSum: number): number[][] {

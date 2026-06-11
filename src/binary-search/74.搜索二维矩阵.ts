@@ -74,11 +74,28 @@ function searchMatrix(matrix: number[][], target: number): boolean {
 (() => {
   // 从矩阵特性中，我们很容易看出，矩阵就是用一个升序数组从左至右一行一行排列而来的。
   // 那么，问题显然就变成了在有序数组中寻找目标值的问题。考虑使用二分查找来解
-  const matrix = [
-      [1, 3, 5, 7],
-      [10, 11, 16, 20],
-      [23, 30, 34, 60]
-    ],
-    target = 3;
-  console.log(searchMatrix(matrix, target));
+  LCT.func(searchMatrix).cases([
+    {
+      input: [
+        [
+          [1, 3, 5, 7],
+          [10, 11, 16, 20],
+          [23, 30, 34, 60]
+        ],
+        3
+      ],
+      output: true
+    },
+    {
+      input: [
+        [
+          [1, 3, 5, 7],
+          [10, 11, 16, 20],
+          [23, 30, 34, 60]
+        ],
+        13
+      ],
+      output: false
+    }
+  ]);
 })();
