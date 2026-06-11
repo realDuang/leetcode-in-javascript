@@ -3,14 +3,14 @@
  *
  * [1449] 数位成本和为目标值的最大数字
  *
- * https://leetcode-cn.com/problems/form-largest-integer-with-digits-that-add-up-to-target/description/
+ * https://leetcode.cn/problems/form-largest-integer-with-digits-that-add-up-to-target/description/
  *
  * algorithms
- * Hard (62.58%)
- * Likes:    139
+ * Hard (62.97%)
+ * Likes:    214
  * Dislikes: 0
- * Total Accepted:    17.3K
- * Total Submissions: 27.6K
+ * Total Accepted:    25.7K
+ * Total Submissions: 40.8K
  * Testcase Example:  '[4,3,2,5,6,7,2,5,5]\n9'
  *
  * 给你一个整数数组 cost 和一个整数 target 。请你返回满足如下规则可以得到的 最大 整数：
@@ -83,44 +83,36 @@
 
 // @lc code=start
 function largestNumber(cost: number[], target: number): string {
-  const len = cost.length;
-  const dp = Array(target + 1).fill(null);
-  dp[0] = '';
-  for (let i = 0; i < len; i++) {
-    const curCost = cost[i];
+  // 设 dp[i]为 target 为 i 时，能够获取的最大整数的位数（为什么不存整数，因为整数可能很大，存位数到时候用贪心法还原整数）
+  const dp = Array(target + 1).fill(-Infinity);
+  dp[0] = 0;
 
-    for (let j = 1; j <= target; j++) {
-      // 之前的背包无法组成物品，丢弃
-      if (j < curCost || dp[j - curCost] === null) continue;
-
-      // 大的数字一定在前面，最终结果才最大
-      const cur = String(i + 1) + dp[j - curCost];
-
-      dp[j] = compare(cur, dp[j]) ? cur : dp[j];
+  for (let i = 0; i < cost.length; i++) {
+    const weight = cost[i];
+    for (let j = weight; j <= target; j++) {
+      dp[j] = Math.max(dp[j], dp[j - weight] + 1);
     }
   }
 
-  return dp[target] === null ? '0' : dp[target];
+  // 获取了最大位数，接下来就是用贪心法还原整数值了
+  if (dp[target] === -Infinity) return '0';
 
-  function compare(a: string, b: string) {
-    if (b === null) return true;
-    const n = a.length,
-      m = b.length;
-    if (n > m) return true;
-    if (m > n) return false;
-
-    for (let i = 0; i < n; i++) {
-      if (a.charAt(i) > b.charAt(i)) return true;
-      else if (a.charAt(i) < b.charAt(i)) return false;
+  let res = '';
+  let remain = target;
+  for (let i = 0; i < dp[target]; i++) {
+    for (let d = 8; d >= 0; d--) {
+      if (remain >= cost[d] && dp[remain - cost[d]] === dp[target] - i - 1) {
+        res += (d + 1).toString();
+        remain -= cost[d];
+        break;
+      }
     }
-
-    return true;
   }
+
+  return res;
 }
 // @lc code=end
 
 (() => {
-  const cost = [4, 3, 2, 5, 6, 7, 2, 5, 5],
-    target = 9;
-  console.log(largestNumber(cost, target));
+  LCT.func(largestNumber).auto();
 })();

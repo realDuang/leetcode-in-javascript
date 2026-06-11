@@ -3,14 +3,14 @@
  *
  * [153] 寻找旋转排序数组中的最小值
  *
- * https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array/description/
+ * https://leetcode.cn/problems/find-minimum-in-rotated-sorted-array/description/
  *
  * algorithms
- * Medium (56.76%)
- * Likes:    650
+ * Medium (59.14%)
+ * Likes:    1353
  * Dislikes: 0
- * Total Accepted:    239.8K
- * Total Submissions: 421.7K
+ * Total Accepted:    811.5K
+ * Total Submissions: 1.4M
  * Testcase Example:  '[3,4,5,1,2]'
  *
  * 已知一个长度为 n 的数组，预先按照升序排列，经由 1 到 n 次 旋转 后，得到输入数组。例如，原数组 nums = [0,1,2,4,5,6,7]
@@ -24,6 +24,8 @@
  * ..., a[n-2]] 。
  *
  * 给你一个元素值 互不相同 的数组 nums ，它原来是一个升序排列的数组，并按上述情形进行了多次旋转。请你找出并返回数组中的 最小元素 。
+ *
+ * 你必须设计一个时间复杂度为 O(log n) 的算法解决此问题。
  *
  *
  *
@@ -57,8 +59,8 @@
  *
  *
  * n == nums.length
- * 1
- * -5000
+ * 1 <= n <= 5000
+ * -5000 <= nums[i] <= 5000
  * nums 中的所有整数 互不相同
  * nums 原来是一个升序排序的数组，并进行了 1 至 n 次旋转
  *
@@ -67,29 +69,23 @@
 
 // @lc code=start
 function findMin(nums: number[]): number {
-  let left = 0;
-  let right = nums.length;
-  while (left < right) {
-    const mid = Math.floor((left + right) / 2);
-    // 当前值比后一个值大，说明找到了分界处
-    if (nums[mid] > nums[mid + 1]) {
-      return nums[mid + 1];
+  let l = 0;
+  let r = nums.length - 1;
+
+  while (l < r) {
+    const mid = (l + r) >> 1;
+
+    if (nums[mid] > nums[r]) {
+      l = mid + 1;
     } else {
-      // 说明此时在左侧递增序列
-      if (nums[mid] > nums[left]) {
-        left = mid + 1;
-      } else {
-        right = mid;
-      }
+      r = mid;
     }
   }
 
-  // 所有情况下都找不到前一个值比后一个值大的情况，说明当前数组单调递增，最小值为第一个
-  return nums[0];
+  return nums[l];
 }
 // @lc code=end
 
 (() => {
-  const nums = [4, 5, 1, 2, 3];
-  console.log(findMin(nums));
+  LCT.func(findMin).auto();
 })();

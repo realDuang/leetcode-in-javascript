@@ -45,13 +45,13 @@ class Trie {
 (() => {
   const trie = new Trie();
   trie.insert('apple');
-  console.log('search apple:', trie.search('apple'));        // true
-  console.log('search app:', trie.search('app'));            // false
-  console.log('startsWith app:', trie.startsWith('app'));    // true
+  console.log('search apple:', trie.search('apple')); // true
+  console.log('search app:', trie.search('app')); // false
+  console.log('startsWith app:', trie.startsWith('app')); // true
   trie.insert('app');
-  console.log('search app:', trie.search('app'));            // true
-  console.log('search banana:', trie.search('banana'));      // false
-  console.log('startsWith ban:', trie.startsWith('ban'));    // false
+  console.log('search app:', trie.search('app')); // true
+  console.log('search banana:', trie.search('banana')); // false
+  console.log('startsWith ban:', trie.startsWith('ban')); // false
   trie.insert('');
-  console.log('search empty:', trie.search(''));             // true
+  console.log('search empty:', trie.search('')); // true
 })();

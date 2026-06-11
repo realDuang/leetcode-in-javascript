@@ -73,7 +73,7 @@ function minWindow(s: string, t: string): string {
   const window: Record<string, number> = {};
 
   const needs: Record<string, number> = {};
-  for (let ch of t) {
+  for (const ch of t) {
     needs[ch] = (needs[ch] ?? 0) + 1;
   }
   const target = Object.keys(needs).length;

@@ -3,14 +3,14 @@
  *
  * [322] 零钱兑换
  *
- * https://leetcode-cn.com/problems/coin-change/description/
+ * https://leetcode.cn/problems/coin-change/description/
  *
  * algorithms
- * Medium (44.73%)
- * Likes:    1617
+ * Medium (52.76%)
+ * Likes:    3243
  * Dislikes: 0
- * Total Accepted:    338K
- * Total Submissions: 754.9K
+ * Total Accepted:    1.4M
+ * Total Submissions: 2.6M
  * Testcase Example:  '[1,2,5]\n11'
  *
  * 给你一个整数数组 coins ，表示不同面额的硬币；以及一个整数 amount ，表示总金额。
@@ -41,51 +41,35 @@
  * 输出：0
  *
  *
- * 示例 4：
- *
- *
- * 输入：coins = [1], amount = 1
- * 输出：1
- *
- *
- * 示例 5：
- *
- *
- * 输入：coins = [1], amount = 2
- * 输出：2
- *
- *
  *
  *
  * 提示：
  *
  *
- * 1
- * 1
- * 0
+ * 1 <= coins.length <= 12
+ * 1 <= coins[i] <= 2^31 - 1
+ * 0 <= amount <= 10^4
  *
  *
  */
 
 // @lc code=start
 function coinChange(coins: number[], amount: number): number {
-  const dp = Array(amount + 1).fill(Number.MAX_SAFE_INTEGER);
+  // dp[i] 表示 获取总金额为 i 时所需的最少硬币个数
+  const dp: number[] = Array(amount + 1).fill(Infinity);
   dp[0] = 0;
 
-  // Sn = MIN(S[n-coin] + 1)
-  for (let i = 1; i <= amount; i++) {
-    coins.forEach(coin => {
-      if (i - coin >= 0) {
-        dp[i] = Math.min(dp[i], dp[i - coin] + 1);
-      }
-    });
+  for (let i = 0; i < coins.length; i++) {
+    const weight = coins[i];
+    for (let j = weight; j <= amount; j++) {
+      dp[j] = Math.min(dp[j], dp[j - weight] + 1);
+    }
   }
-  return dp[amount] === Number.MAX_SAFE_INTEGER ? -1 : dp[amount];
+
+  return dp[amount] === Infinity ? -1 : dp[amount];
 }
 // @lc code=end
 
 (() => {
-  const nums = [1];
-  const amount = 1;
-  console.log(coinChange(nums, amount));
+  LCT.func(coinChange).auto();
 })();

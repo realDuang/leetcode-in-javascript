@@ -3,14 +3,14 @@
  *
  * [146] LRU 缓存
  *
- * https://leetcode-cn.com/problems/lru-cache/description/
+ * https://leetcode.cn/problems/lru-cache/description/
  *
  * algorithms
- * Medium (52.72%)
- * Likes:    2155
+ * Medium (55.44%)
+ * Likes:    3796
  * Dislikes: 0
- * Total Accepted:    341K
- * Total Submissions: 646.9K
+ * Total Accepted:    1.1M
+ * Total Submissions: 2M
  * Testcase Example:  '["LRUCache","put","put","get","put","get","put","get","get","get"]\n' +
   '[[2],[1,1],[2,2],[1],[3,3],[2],[4,4],[1],[3],[4]]'
  *
@@ -70,40 +70,67 @@
 
 // @lc code=start
 class LRUCache {
-  cache: Map<number, number>;
   capacity: number;
+
+  lastNode: DoublyListNode<{ key: number; val: number }>;
+  dummy: DoublyListNode<{ key: number; val: number }>;
+  hash: Map<number, DoublyListNode<{ key: number; val: number }>>;
+
   constructor(capacity: number) {
     this.capacity = capacity;
-    this.cache = new Map<number, number>();
+
+    this.dummy = new DoublyListNode({ key: -1, val: -1 });
+    this.lastNode = this.dummy;
+    this.hash = new Map();
   }
 
   get(key: number): number {
-    // 若未匹配值，则返回 -1
-    if (!this.cache.has(key)) {
-      return -1;
-    }
+    const node = this.hash.get(key);
+    if (!node) return -1;
 
-    const value = this.cache.get(key);
-    // 由于进行了一次查询，更新 LRU 列表到队尾
-    this.cache.delete(key);
-    this.cache.set(key, value);
+    // 删掉原有位置的 node
+    node.prev!.next = node.next;
+    if (node.next) node.next.prev = node.prev;
+    else this.lastNode = node.prev!;
 
-    return value;
+    // 将当前 node 挪到链表尾部
+    node.prev = this.lastNode;
+    node.next = null;
+    this.lastNode.next = node;
+    this.lastNode = node;
+
+    return node.val.val;
   }
 
   put(key: number, value: number): void {
-    // 若 LRU 中已经存在 key，则需要先进行删除
-    if (this.cache.has(key)) {
-      this.cache.delete(key);
-    }
-    this.cache.set(key, value);
+    // 如果之前有就删掉
+    const node = this.hash.get(key);
+    if (node) {
+      node.val.val = value;
+      node.prev!.next = node.next;
+      if (node.next) node.next.prev = node.prev;
+      else this.lastNode = node.prev!;
 
-    // 若超出 LRU 队列长度，删去队头最久未被访问的记录
-    if (this.cache.size > this.capacity) {
-      // map.keys() 返回一个迭代器，迭代器调用 next() 方法，返回下一个值到 value 中
-      // 即表示获取 map 的第一个 key
-      const firstKey = this.cache.keys().next().value;
-      this.cache.delete(firstKey);
+      // 挪到尾部
+      node.prev = this.lastNode;
+      node.next = null;
+      this.lastNode.next = node;
+      this.lastNode = node;
+      return;
+    }
+
+    // 增加节点到尾部
+    const newNode = new DoublyListNode({ key, val: value }, this.lastNode, null);
+    this.lastNode.next = newNode;
+    this.lastNode = newNode;
+    this.hash.set(key, newNode);
+
+    // 超长了，就删掉最久没被访问的头结点
+    if (this.hash.size > this.capacity) {
+      const lru = this.dummy.next!;
+      this.hash.delete(lru.val.key);
+      this.dummy.next = lru.next;
+      if (lru.next) lru.next.prev = this.dummy;
     }
   }
 }
@@ -117,5 +144,9 @@ class LRUCache {
 // @lc code=end
 
 (() => {
-  LCT.cls(LRUCache).auto();
+  LCT.cls(LRUCache).calls(
+    ['LRUCache', 'put', 'put', 'get', 'put', 'get', 'put', 'get', 'get', 'get'],
+    [[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]],
+    [null, null, null, 1, null, -1, null, -1, 3, 4]
+  );
 })();

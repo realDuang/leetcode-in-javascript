@@ -3,21 +3,19 @@
  *
  * [55] 跳跃游戏
  *
- * https://leetcode-cn.com/problems/jump-game/description/
+ * https://leetcode.cn/problems/jump-game/description/
  *
  * algorithms
- * Medium (43.36%)
- * Likes:    1528
+ * Medium (44.84%)
+ * Likes:    3249
  * Dislikes: 0
- * Total Accepted:    367.3K
- * Total Submissions: 846.9K
+ * Total Accepted:    1.5M
+ * Total Submissions: 3.4M
  * Testcase Example:  '[2,3,1,1,4]'
  *
- * 给定一个非负整数数组 nums ，你最初位于数组的 第一个下标 。
+ * 给你一个非负整数数组 nums ，你最初位于数组的 第一个下标 。数组中的每个元素代表你在该位置可以跳跃的最大长度。
  *
- * 数组中的每个元素代表你在该位置可以跳跃的最大长度。
- *
- * 判断你是否能够到达最后一个下标。
+ * 判断你是否能够到达最后一个下标，如果可以，返回 true ；否则，返回 false 。
  *
  *
  *
@@ -42,45 +40,29 @@
  * 提示：
  *
  *
- * 1
- * 0
+ * 1 <= nums.length <= 10^4
+ * 0 <= nums[i] <= 10^5
  *
  *
  */
 
 // @lc code=start
 function canJump(nums: number[]): boolean {
-  let furtherest = 0;
+  const target = nums.length - 1;
+  let maxReach = 0;
 
-  for (let i = 0; i < nums.length; i++) {
-    if (i > furtherest) return false;
-    furtherest = Math.max(furtherest, i + nums[i]);
+  for (let i = 0; i < nums.length - 1; i++) {
+    if (maxReach < i) return false;
+
+    maxReach = Math.max(maxReach, i + nums[i]);
+
+    if (maxReach >= target) return true;
   }
-  return true;
+
+  return maxReach >= target;
 }
 // @lc code=end
 
 (() => {
-  const nums = [3, 2, 1, 0, 4];
-  console.log(canJump(nums));
+  LCT.func(canJump).auto();
 })();
-
-// function canJump(nums: number[]): boolean {
-//   const len = nums.length;
-//   if (len === 1) return true;
-
-//   const dp: boolean[] = Array(len).fill(false);
-//   dp[0] = true;
-
-//   for (let i = 0; i < len - 1; i++) {
-//     if (dp[i]) {
-//       let jump = nums[i];
-
-//       for (let j = i + 1; j <= i + jump && j < len; j++) {
-//         dp[j] = true;
-//       }
-//     }
-//   }
-
-//   return dp[len - 1];
-// }

@@ -3,14 +3,14 @@
  *
  * [198] 打家劫舍
  *
- * https://leetcode-cn.com/problems/house-robber/description/
+ * https://leetcode.cn/problems/house-robber/description/
  *
  * algorithms
- * Medium (51.96%)
- * Likes:    1775
+ * Medium (56.39%)
+ * Likes:    3507
  * Dislikes: 0
- * Total Accepted:    426.4K
- * Total Submissions: 820.7K
+ * Total Accepted:    1.6M
+ * Total Submissions: 2.8M
  * Testcase Example:  '[1,2,3,1]'
  *
  *
@@ -50,25 +50,18 @@
 
 // @lc code=start
 function rob(nums: number[]): number {
-  const len = nums.length;
-  if (len === 1) return nums[0];
+  // 设 dp[i] 为前 i 间房屋能偷到的最大金额
+  const dp = Array(nums.length + 1).fill(0);
+  dp[1] = nums[0];
 
-  let interval = 0;
-  let prev = nums[0];
-  // 从第二间房开始判断，当前房间是否抢：
-  // 不抢，结果等于抢邻房间时的最大值 + 0；
-  // 抢，结果等于隔间房间的最大值 + 当前房间金额
-  // 状态转移方程：Sn = Math.max(Sn-1, Sn-2 + nums[n])
-  for (let i = 1; i < len; i++) {
-    const curr = Math.max(interval + nums[i], prev);
-    interval = prev;
-    prev = curr;
+  for (let i = 2; i <= nums.length; i++) {
+    dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i - 1]);
   }
-  return prev;
+
+  return dp[nums.length];
 }
 // @lc code=end
 
 (() => {
-  const nums = [2, 7, 9, 3, 1];
-  console.log(rob(nums));
+  LCT.func(rob).auto();
 })();
