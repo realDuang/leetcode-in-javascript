@@ -60,7 +60,7 @@ const topicOrder: string[] = [
   'dynamic-programming-state-machine',
   'dynamic-programming-interval',
   // 进阶数据结构篇
-  'monotonic-stack',
+  'monotonic-stack'
 ];
 
 function getCategoryTitle(name: string): string {

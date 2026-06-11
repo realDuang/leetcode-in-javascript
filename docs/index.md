@@ -37,27 +37,27 @@ footer: false
 
 以下专题覆盖了 LeetCode 最核心的算法知识体系，建议按顺序阅读：
 
-| # | 专题 | 关键内容 |
-| --- | --- | --- |
-| 0 | [前言](/docs/topic/introduction) | 写给工程师的算法学习观 |
-| 1 | [重新认识递归](/docs/topic/recursive) | 递归的本质、思维方式与代码模板 |
-| 2 | [二叉树遍历算法](/docs/topic/tree) | 前/中/后序遍历框架（含 BST 中序应用） |
-| 3 | [排序算法](/docs/topic/sort) | 经典排序算法对比与实现 |
-| 4 | [双指针问题](/docs/topic/two-pointers) | 快慢指针、左右指针 |
-| 5 | [二分搜索专题](/docs/topic/binary-search) | 统一二分搜索框架 |
-| 6 | [滑动窗口算法](/docs/topic/slide-window) | 定长/不定长窗口的通用模板 |
-| 7 | [前缀和算法](/docs/topic/partial-sum) | 区间求和与差分数组 |
-| 8 | [回溯算法](/docs/topic/backtrack) | 排列/组合/子集的通用回溯框架 |
-| 9 | [深度优先搜索](/docs/topic/depth-first-search) | 岛屿问题、连通分量的 DFS 通解 |
-| 10 | [广度优先搜索](/docs/topic/breadth-first-search) | 最短路径、多源 BFS、状态空间搜索 |
-| 11 | [图论算法](/docs/topic/graph) | 环检测、拓扑排序、二分图、Dijkstra |
-| 12 | [贪心算法](/docs/topic/greedy) | 贪心选择性质、与 DP 的边界判断 |
-| 13 | [动态规划：入门与线性/坐标模型](/docs/topic/dynamic-programming-normal) | 线性递推、网格路径、空间压缩 |
-| 14 | [动态规划：背包模型](/docs/topic/dynamic-programming-backpack) | 0-1 背包、完全背包、多维背包 |
-| 15 | [动态规划：序列与双序列模型](/docs/topic/dynamic-programming-subsequence) | LIS、LCS、编辑距离、匹配 DP |
-| 16 | [动态规划：状态机模型](/docs/topic/dynamic-programming-state-machine) | 股票问题与阶段状态转移 |
-| 17 | [动态规划：区间与划分模型](/docs/topic/dynamic-programming-interval) | 回文、切分、博弈类区间 DP |
-| 18 | [单调栈算法](/docs/topic/monotonic-stack) | 下一个更大元素、柱状图的通解 |
+| #   | 专题                                                                      | 关键内容                              |
+| --- | ------------------------------------------------------------------------- | ------------------------------------- |
+| 0   | [前言](/docs/topic/introduction)                                          | 写给工程师的算法学习观                |
+| 1   | [重新认识递归](/docs/topic/recursive)                                     | 递归的本质、思维方式与代码模板        |
+| 2   | [二叉树遍历算法](/docs/topic/tree)                                        | 前/中/后序遍历框架（含 BST 中序应用） |
+| 3   | [排序算法](/docs/topic/sort)                                              | 经典排序算法对比与实现                |
+| 4   | [双指针问题](/docs/topic/two-pointers)                                    | 快慢指针、左右指针                    |
+| 5   | [二分搜索专题](/docs/topic/binary-search)                                 | 统一二分搜索框架                      |
+| 6   | [滑动窗口算法](/docs/topic/slide-window)                                  | 定长/不定长窗口的通用模板             |
+| 7   | [前缀和算法](/docs/topic/partial-sum)                                     | 区间求和与差分数组                    |
+| 8   | [回溯算法](/docs/topic/backtrack)                                         | 排列/组合/子集的通用回溯框架          |
+| 9   | [深度优先搜索](/docs/topic/depth-first-search)                            | 岛屿问题、连通分量的 DFS 通解         |
+| 10  | [广度优先搜索](/docs/topic/breadth-first-search)                          | 最短路径、多源 BFS、状态空间搜索      |
+| 11  | [图论算法](/docs/topic/graph)                                             | 环检测、拓扑排序、二分图、Dijkstra    |
+| 12  | [贪心算法](/docs/topic/greedy)                                            | 贪心选择性质、与 DP 的边界判断        |
+| 13  | [动态规划：入门与线性/坐标模型](/docs/topic/dynamic-programming-normal)   | 线性递推、网格路径、空间压缩          |
+| 14  | [动态规划：背包模型](/docs/topic/dynamic-programming-backpack)            | 0-1 背包、完全背包、多维背包          |
+| 15  | [动态规划：序列与双序列模型](/docs/topic/dynamic-programming-subsequence) | LIS、LCS、编辑距离、匹配 DP           |
+| 16  | [动态规划：状态机模型](/docs/topic/dynamic-programming-state-machine)     | 股票问题与阶段状态转移                |
+| 17  | [动态规划：区间与划分模型](/docs/topic/dynamic-programming-interval)      | 回文、切分、博弈类区间 DP             |
+| 18  | [单调栈算法](/docs/topic/monotonic-stack)                                 | 下一个更大元素、柱状图的通解          |
 
 ## 📂 题解分类
 
