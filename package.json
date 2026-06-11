@@ -12,14 +12,19 @@
     "doc": "docs"
   },
   "devDependencies": {
-    "@eslint/js": "^9.38.0",
-    "@types/node": "^24.5.2",
-    "eslint": "^9.38.0",
-    "prettier": "^3.6.2",
+    "@eslint/js": "^9.39.4",
+    "@types/node": "^24.13.2",
+    "eslint": "^9.39.4",
+    "prettier": "^3.8.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.46.1",
-    "vitepress": "^1.6.3"
+    "typescript-eslint": "^8.61.0",
+    "vitepress": "^1.6.4"
+  },
+  "pnpm": {
+    "overrides": {
+      "vite": "6.4.2"
+    }
   },
   "scripts": {
     "docs:dev": "vitepress dev docs",
