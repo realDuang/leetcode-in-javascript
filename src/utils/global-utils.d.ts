@@ -16,6 +16,13 @@ declare global {
     constructor(val?: T, next?: ListNode<T> | null);
   }
 
+  class DoublyListNode<T = number> {
+    val: T;
+    prev: DoublyListNode<T> | null;
+    next: DoublyListNode<T> | null;
+    constructor(val?: T, prev?: DoublyListNode<T> | null, next?: DoublyListNode<T> | null);
+  }
+
   const Tree: {
     serialize(root: TreeNodeT<number> | null): string;
     deserialize(data: string | Array<number | null>): TreeNodeT<number> | null;
@@ -28,50 +35,45 @@ declare global {
     hasCycle(head: ListNode<number> | null): boolean;
   };
 
+  const DoublyList: {
+    serialize(head: DoublyListNode<number> | null): Array<number>;
+    deserialize(data: string | Array<number>): DoublyListNode<number> | null;
+    getNode(head: DoublyListNode<number> | null, index: number): DoublyListNode<number> | null;
+  };
+
   // ── LCT (LeetCode Test) ─────────────────────────────────────────────
 
+  /** Options for a test suite; `judge` overrides the default deep-equality comparison. */
+  type LCTOptions = {
+    /** Params are `any` so each call site can annotate its own actual/expected types without casts. */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    judge?: (actual: any, expected: any) => boolean;
+  };
+
   const LCT: {
-    /** Test a pure function: `LCT.func(fn).cases([{ input, output }, ...], options?)` or `LCT.func(fn).auto()` */
+    /** Test a pure function: `LCT.func(fn).cases([{ input, output }, ...], options?)` or `.auto(options?)` */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     func<F extends (...args: any[]) => any>(
       solution: F
     ): {
       cases(
-        cases: ReadonlyArray<{
-          input: unknown | ReadonlyArray<unknown>;
-          output: unknown;
-        }>,
-        options?: {
-          input?: ((value: any) => unknown) | Array<((value: any) => unknown) | undefined>;
-          output?: ((actual: unknown) => unknown) | Array<((actual: unknown) => unknown) | undefined>;
-        }
+        cases: ReadonlyArray<{ input: unknown | ReadonlyArray<unknown>; output: unknown }>,
+        options?: LCTOptions
       ): void;
       /** Auto-parse test cases from the file's comment block */
-      auto(options?: {
-        input?: ((value: any) => unknown) | Array<((value: any) => unknown) | undefined>;
-        output?: ((actual: unknown) => unknown) | Array<((actual: unknown) => unknown) | undefined>;
-      }): void;
+      auto(options?: LCTOptions): void;
     };
-    /** Test an in-place mutation function: `LCT.inPlace(fn).cases([{ input, output }, ...], options?)` or `.auto()` */
+    /** Test an in-place mutation function: `LCT.inPlace(fn).cases([{ input, output }, ...], options?)` or `.auto(options?)` */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     inPlace<F extends (...args: any[]) => any>(
       solution: F
     ): {
       cases(
-        cases: ReadonlyArray<{
-          input: unknown | ReadonlyArray<unknown>;
-          output: unknown;
-        }>,
-        options?: {
-          input?: ((value: any) => unknown) | Array<((value: any) => unknown) | undefined>;
-          output?: ((actual: unknown) => unknown) | Array<((actual: unknown) => unknown) | undefined>;
-        }
+        cases: ReadonlyArray<{ input: unknown | ReadonlyArray<unknown>; output: unknown }>,
+        options?: LCTOptions
       ): void;
       /** Auto-parse test cases from the file's comment block */
-      auto(options?: {
-        input?: ((value: any) => unknown) | Array<((value: any) => unknown) | undefined>;
-        output?: ((actual: unknown) => unknown) | Array<((actual: unknown) => unknown) | undefined>;
-      }): void;
+      auto(options?: LCTOptions): void;
     };
     /** Test a class (design problems): `LCT.cls(Ctor).calls(methods, inputs, expected)` or `.auto()` */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -84,15 +86,7 @@ declare global {
         expected: ReadonlyArray<unknown>
       ): void;
       /** Auto-parse test cases from the file's comment block */
-      auto(options?: {
-        ctorInput?: ((value: any) => unknown) | Array<((value: any) => unknown) | undefined>;
-        callInput?: Partial<
-          Record<number, ((value: any) => unknown) | Array<((value: any) => unknown) | undefined>>
-        >;
-        callOutput?: Partial<
-          Record<number, ((actual: unknown) => unknown) | Array<((actual: unknown) => unknown) | undefined>>
-        >;
-      }): void;
+      auto(): void;
     };
   };
 }
