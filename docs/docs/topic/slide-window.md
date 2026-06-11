@@ -2,7 +2,7 @@
 
 滑动窗口真正要训练的，不是记住几段代码，而是先把题目改写成：
 
-1. 维护一个连续区间 `[left, right]` 或 `[left, right)`。
+1. 维护一个连续区间 `[left, right)`（左闭右开）。
 2. 用少量状态描述这个区间是否满足要求。
 3. 每次只让一个元素进窗口、一个元素出窗口。
 4. 在移动过程中更新答案。
@@ -47,18 +47,24 @@
 ```ts
 function fixedWindow(nums: number[], k: number): void {
   let left = 0;
+  let right = 0;
   const state = initState();
 
-  for (let right = 0; right < nums.length; right++) {
-    add(state, nums[right]);
+  while (right < nums.length) {
+    // expand: add right element
+    const el = nums[right];
+    right++;
 
-    if (right - left + 1 > k) {
+    add(state, el);
+
+    // shrink: window exceeds k
+    if (right - left > k) {
       remove(state, nums[left]);
       left++;
     }
 
-    if (right - left + 1 === k) {
-      // 变体插桩：更新答案
+    // update: window size equals k
+    if (right - left === k) {
       updateAnswer(left, right, state);
     }
   }
@@ -88,19 +94,25 @@ function fixedWindow(nums: number[], k: number): void {
 ```ts
 function longestWindow(nums: number[]): number {
   let left = 0;
+  let right = 0;
   let ans = 0;
   const state = initState();
 
-  for (let right = 0; right < nums.length; right++) {
-    add(state, nums[right]);
+  while (right < nums.length) {
+    // expand: add right element
+    const el = nums[right];
+    right++;
 
+    add(state, el);
+
+    // shrink: window is invalid
     while (needShrink(state)) {
       remove(state, nums[left]);
       left++;
     }
 
-    // 此时窗口重新合法
-    ans = Math.max(ans, right - left + 1);
+    // update: window is valid again
+    ans = Math.max(ans, right - left);
   }
 
   return ans;
@@ -137,16 +149,22 @@ function longestWindow(nums: number[]): number {
 ```ts
 function minWindowTemplate(s: string): string {
   let left = 0;
+  let right = 0;
   let bestLeft = 0;
   let bestLen = Infinity;
   const state = initState();
 
-  for (let right = 0; right < s.length; right++) {
-    add(state, s[right]);
+  while (right < s.length) {
+    // expand: add right element
+    const ch = s[right];
+    right++;
 
+    add(state, ch);
+
+    // shrink: window is valid, keep compressing
     while (isValid(state)) {
-      if (right - left + 1 < bestLen) {
-        bestLen = right - left + 1;
+      if (right - left < bestLen) {
+        bestLen = right - left;
         bestLeft = left;
       }
 
@@ -192,27 +210,33 @@ function minWindowTemplate(s: string): string {
 ```ts
 function countAtMost(nums: number[], k: number): number {
   let left = 0;
+  let right = 0;
   let ans = 0;
   const state = initState();
 
-  for (let right = 0; right < nums.length; right++) {
-    add(state, nums[right]);
+  while (right < nums.length) {
+    // expand: add right element
+    const el = nums[right];
+    right++;
 
+    add(state, el);
+
+    // shrink: window is invalid
     while (needShrink(state)) {
       remove(state, nums[left]);
       left++;
     }
 
-    // 以 right 结尾的合法窗口共有 right - left + 1 个
-    ans += right - left + 1;
+    // count: all valid windows ending at right - 1
+    ans += right - left;
   }
 
   return ans;
 }
 ```
 
-为什么是 `right - left + 1`？
-因为合法窗口为：`[left, right]`、`[left + 1, right]`、...、`[right, right]`。
+为什么是 `right - left`？
+因为 `right` 已经自增，当前窗口为 `[left, right)`，合法窗口为：`[left, right)`、`[left + 1, right)`、...、`[right - 1, right)`，共 `right - left` 个。
 
 常见技巧：
 
@@ -242,7 +266,7 @@ exactly(k) = atMost(k) - atMost(k - 1)
 | 题目 | 在模板上的插桩点 |
 | ---- | ---------------- |
 | `[1358] 包含所有三种字符的子字符串数目` | 一旦窗口包含 `a`、`b`、`c`，当前 `left` 之前的起点都可贡献答案。 |
-| `[713] 乘积小于 K 的子数组` | 本质可看成“至多型计数”，合法后同样累加 `right - left + 1`。 |
+| `[713] 乘积小于 K 的子数组` | 本质可看成"至多型计数"，合法后同样累加 `right - left`。 |
 
 ## 五、滑动窗口真正要想清楚的 3 个问题
 
@@ -264,11 +288,11 @@ exactly(k) = atMost(k) - atMost(k - 1)
 
 ## 易错点清单
 
-1. 区间定义不统一：`[left, right]` 和 `[left, right)` 混着写。
+1. 区间定义不统一：模板统一使用 `[left, right)` 左闭右开，`right` 先自增再操作，窗口大小为 `right - left`。
 2. 扩窗和缩窗时忘记同步更新 `state`。
 3. 更新答案的时机不对，导致少算或多算。
 4. 把“最长合法窗口”和“最短覆盖窗口”的缩窗逻辑写反。
-5. 计数题不知道为什么能一次加上 `right - left + 1`。
+5. 计数题不知道为什么能一次加上 `right - left`。
 6. 用对象统计频次时，字符减到 `0` 后忘记处理，导致种类数判断错误。
 
 ## 总结：解题速查表
