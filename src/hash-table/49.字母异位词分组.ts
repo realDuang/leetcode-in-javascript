@@ -74,5 +74,11 @@ function groupAnagrams(strs: string[]): string[][] {
 // @lc code=end
 
 (() => {
-  LCT.func(groupAnagrams).auto({ unordered: true });
+  const normalize = (groups: string[][]): string[][] =>
+    groups.map(group => [...group].sort()).sort((a, b) => (a.join(',') < b.join(',') ? -1 : 1));
+
+  LCT.func(groupAnagrams).auto({
+    judge: (actual: string[][], expected: string[][]) =>
+      JSON.stringify(normalize(actual)) === JSON.stringify(normalize(expected))
+  });
 })();
