@@ -47,15 +47,21 @@ function generateParenthesis(n: number): string[] {
   backtrack('', 0, 0);
   return res;
 
-  function backtrack(str: string, left: number, right: number) {
-    if (left === n && right === n) {
+  // str存已放入的括号串，l, r 表示已经放入左括号和右括号的数量
+  function backtrack(str: string, l: number, r: number) {
+    if (l === n && r === n) {
       res.push(str);
+      return;
     }
-    if (left < n) {
-      backtrack(str + '(', left + 1, right);
+
+    // 选择放左括号，条件是还剩左括号可以放
+    if (l < n) {
+      backtrack(str + '(', l + 1, r);
     }
-    if (right < left) {
-      backtrack(str + ')', left, right + 1);
+    // 选择放右括号, 条件是还剩右括号可以放且子串里已经有多余的左括号了（即右括号比左括号少）
+    // r<n && r<l 但由于l < n，所以可以简化
+    if (r < l) {
+      backtrack(str + ')', l, r + 1);
     }
   }
 }
@@ -65,3 +71,21 @@ function generateParenthesis(n: number): string[] {
   const n = 3;
   console.log(generateParenthesis(n));
 })();
+
+// function generateParenthesis(n: number): string[] {
+//   const res: string[] = [];
+//   backtrack('', 0, 0);
+//   return res;
+
+//   function backtrack(str: string, left: number, right: number) {
+//     if (left === n && right === n) {
+//       res.push(str);
+//     }
+//     if (left < n) {
+//       backtrack(str + '(', left + 1, right);
+//     }
+//     if (right < left) {
+//       backtrack(str + ')', left, right + 1);
+//     }
+//   }
+// }

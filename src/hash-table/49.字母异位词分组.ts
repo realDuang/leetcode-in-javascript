@@ -52,38 +52,27 @@
 
 // @lc code=start
 function groupAnagrams(strs: string[]): string[][] {
-  const res: string[][] = [];
-  const hashMap: string[][] = [];
+  const map: Map<string, string[]> = new Map();
 
   for (const str of strs) {
     const temp = Array(26).fill(0);
-    for (let i = 0; i < str.length; i++) {
-      const index = str.charCodeAt(i) - 97;
+    for (const ch of str) {
+      const index = ch.charCodeAt(0) - 97;
       temp[index] += 1;
     }
-
-    let noMatch = true;
-    for (let i = 0; i < hashMap.length; i++) {
-      const isSame = hashMap[i].every((val, index) => val === temp[index]);
-      if (isSame) {
-        res[i].push(str);
-        noMatch = false;
-        break;
-      }
-    }
-
-    if (noMatch) {
-      hashMap.push(temp);
-      res.push([str]);
+    const key = temp.join(',');
+    const group = map.get(key);
+    if (group) {
+      group.push(str);
+    } else {
+      map.set(key, [str]);
     }
   }
 
-  return res;
+  return Array.from(map.values());
 }
 // @lc code=end
 
 (() => {
-  const strs = ['eat', 'tea', 'tan', 'ate', 'nat', 'bat'];
-  console.log(groupAnagrams(strs));
-  console.log(groupAnagrams(['']));
+  LCT.func(groupAnagrams).auto({ unordered: true });
 })();
