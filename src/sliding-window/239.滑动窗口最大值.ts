@@ -98,25 +98,38 @@ function maxSlidingWindow(nums: number[], k: number): number[] {
   ]);
 })();
 
-//   let l = 0;
-//   let r = 0;
-//   while (r < nums.length) {
-//     while (queue.length > 0 && nums[r] > queue[queue.length - 1]) {
-//       queue.pop();
+// 另一种实现：单调队列存值（先填满窗口，再逐个滑动）
+// function maxSlidingWindow(nums: number[], k: number): number[] {
+//   if (nums.length == 0 || k == 0) return [];
+//   const dequeue = [];
+//   const res: number[] = [];
+//   // 初始化窗口
+//   for (let i = 0; i < k; i++) {
+//     // 保持单调队列的单调递减
+//     while (dequeue.length !== 0 && dequeue[dequeue.length - 1] < nums[i]) {
+//       dequeue.pop();
 //     }
-//     queue.push(nums[r]);
-//     r++;
+//     // 加入窗口右边界的值
+//     dequeue.push(nums[i]);
+//   }
+//   // 由于滑动窗口中元素单调递减，队头一定是当前滑动窗口的最大值
+//   res.push(dequeue[0]);
 
-//     // 窗口满足要求
-//     if (r - l >= k) {
-//       res.push(queue[0]);
-
-//       // 收缩左侧
-//       if (nums[l] === queue[0]) {
-//         queue.shift();
-//       }
-//       l++;
+//   for (let i = k; i < nums.length; i++) {
+//     // i - k 为窗口的左边界
+//     const left = i - k;
+//     // 如果这个元素在单调队列中，则直接删除
+//     if (dequeue[0] === nums[left]) {
+//       dequeue.shift();
 //     }
+
+//     // 保持单调队列的单调递减
+//     while (dequeue.length !== 0 && dequeue[dequeue.length - 1] < nums[i]) {
+//       dequeue.pop();
+//     }
+//     dequeue.push(nums[i]);
+
+//     res.push(dequeue[0]);
 //   }
 //   return res;
 // }

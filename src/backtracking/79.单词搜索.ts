@@ -66,7 +66,6 @@
 function exist(board: string[][], word: string): boolean {
   const m = board.length;
   const n = board[0].length;
-  const wordLen = word.length;
   const visited: number[][] = Array(m)
     .fill(0)
     .map(x => Array(n).fill(0));
@@ -74,36 +73,27 @@ function exist(board: string[][], word: string): boolean {
   for (let i = 0; i < m; i++) {
     for (let j = 0; j < n; j++) {
       const flag = backtrack(i, j, 0);
-      // 剪枝：当找到了一次匹配时，不继续进行遍历了
       if (flag) return true;
     }
   }
   return false;
 
   function backtrack(i: number, j: number, index: number): boolean {
-    // 剪枝：数组越界或者被访问过，直接 return
     if (i < 0 || i >= m || j < 0 || j >= n || visited[i][j] !== 0) return false;
-    // 剪枝：当前节点与目标不匹配，直接 return
+
     if (board[i][j] !== word[index]) return false;
 
-    // 已经比对到 word 最后一个字符，且当前节点与目标匹配，则说明找到了答案，直接返回true。
-    if (index === wordLen - 1) {
-      return true;
-    }
+    if (index === word.length - 1) return true;
 
     // 做选择
     visited[i][j] = 1;
-    // 递归
-    // 剪枝：当发现其中一条路径已经走通，则不进行下面的递归了。
-    const result =
-      backtrack(i + 1, j, index + 1) ||
-      backtrack(i - 1, j, index + 1) ||
+    const res =
       backtrack(i, j + 1, index + 1) ||
-      backtrack(i, j - 1, index + 1);
-    // 撤销选择
+      backtrack(i, j - 1, index + 1) ||
+      backtrack(i + 1, j, index + 1) ||
+      backtrack(i - 1, j, index + 1);
     visited[i][j] = 0;
-
-    return result;
+    return res;
   }
 }
 // @lc code=end
@@ -117,3 +107,47 @@ function exist(board: string[][], word: string): boolean {
     word = 'ABCB';
   console.log(exist(board, word));
 })();
+
+// function exist(board: string[][], word: string): boolean {
+//   const m = board.length;
+//   const n = board[0].length;
+//   const wordLen = word.length;
+//   const visited: number[][] = Array(m)
+//     .fill(0)
+//     .map(x => Array(n).fill(0));
+
+//   for (let i = 0; i < m; i++) {
+//     for (let j = 0; j < n; j++) {
+//       const flag = backtrack(i, j, 0);
+//       // 剪枝：当找到了一次匹配时，不继续进行遍历了
+//       if (flag) return true;
+//     }
+//   }
+//   return false;
+
+//   function backtrack(i: number, j: number, index: number): boolean {
+//     // 剪枝：数组越界或者被访问过，直接 return
+//     if (i < 0 || i >= m || j < 0 || j >= n || visited[i][j] !== 0) return false;
+//     // 剪枝：当前节点与目标不匹配，直接 return
+//     if (board[i][j] !== word[index]) return false;
+
+//     // 已经比对到 word 最后一个字符，且当前节点与目标匹配，则说明找到了答案，直接返回true。
+//     if (index === wordLen - 1) {
+//       return true;
+//     }
+
+//     // 做选择
+//     visited[i][j] = 1;
+//     // 递归
+//     // 剪枝：当发现其中一条路径已经走通，则不进行下面的递归了。
+//     const result =
+//       backtrack(i + 1, j, index + 1) ||
+//       backtrack(i - 1, j, index + 1) ||
+//       backtrack(i, j + 1, index + 1) ||
+//       backtrack(i, j - 1, index + 1);
+//     // 撤销选择
+//     visited[i][j] = 0;
+
+//     return result;
+//   }
+// }
