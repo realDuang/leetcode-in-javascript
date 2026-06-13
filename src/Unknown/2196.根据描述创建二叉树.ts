@@ -110,16 +110,16 @@ function createBinaryTree(descriptions: number[][]): TreeNode | null {
   }
   return null;
 }
-
-function normalizeTreeOutput(root: TreeNode | null): Array<number | null> {
-  return JSON.parse(Tree.serialize(root)).map((value: number | string | null) =>
-    value === 'null' || value === null ? null : value
-  );
-}
 // @lc code=end
 
 (() => {
+  const normalize = (root: TreeNode | null): Array<number | null> =>
+    JSON.parse(Tree.serialize(root)).map((value: number | string | null) =>
+      value === 'null' || value === null ? null : value
+    );
+
   LCT.func(createBinaryTree).auto({
-    output: normalizeTreeOutput
+    judge: (actual: TreeNode | null, expected: Array<number | null>) =>
+      JSON.stringify(normalize(actual)) === JSON.stringify(expected)
   });
 })();
