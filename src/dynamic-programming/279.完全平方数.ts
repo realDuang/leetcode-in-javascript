@@ -45,48 +45,69 @@
 
 // @lc code=start
 function numSquares(n: number): number {
-  const maxFactor = Math.floor(Math.pow(n, 0.5));
-  const maxNum = Number.MAX_SAFE_INTEGER;
+  const max = Math.floor(Math.sqrt(n));
 
-  const dp = Array(n + 1).fill(maxNum);
+  // dp[i]表示组成整数 i 的完全平方数的最小数量
+  const dp: number[] = Array(n + 1).fill(Infinity);
   dp[0] = 0;
 
-  for (let i = 1; i <= maxFactor; i++) {
-    const square = Math.pow(i, 2);
-    for (let j = 1; j <= n; j++) {
-      if (j >= square) {
-        dp[j] = Math.min(dp[j], dp[j - square] + 1);
+  for (let i = 1; i <= n; i++) {
+    for (let j = 1; j <= max; j++) {
+      const rest = i - j * j;
+      if (rest >= 0 && dp[rest] !== Infinity) {
+        dp[i] = Math.min(dp[i], dp[rest] + 1);
       }
     }
   }
-
   return dp[n];
 }
 // @lc code=end
 
 (() => {
-  // function numSquares(n: number): number {
-  //   const maxFactor = Math.floor(Math.pow(n, 0.5));
-  //   const maxNum = Number.MAX_SAFE_INTEGER;
-
-  //   const dp = Array(maxFactor + 1)
-  //     .fill(0)
-  //     .map(x => Array(n + 1).fill(maxNum));
-
-  //   for (let i = 1; i <= maxFactor; i++) {
-  //     dp[i][0] = 0;
-  //     const square = Math.pow(i, 2);
-
-  //     for (let j = 1; j <= n; j++) {
-  //       dp[i][j] = dp[i - 1][j];
-  //       if (j >= square) {
-  //         dp[i][j] = Math.min(dp[i][j], dp[i][j - square] + 1);
-  //       }
-  //     }
-  //   }
-
-  //   return dp[maxFactor][n];
-  // }
-  const n = 13;
-  console.log(numSquares(n));
+  LCT.func(numSquares).auto();
+  LCT.func(numSquares).cases([{
+    input: [1],
+    output: 1
+  }])
 })();
+
+// function numSquares(n: number): number {
+//   const maxFactor = Math.floor(Math.pow(n, 0.5));
+//   const maxNum = Number.MAX_SAFE_INTEGER;
+
+//   const dp = Array(n + 1).fill(maxNum);
+//   dp[0] = 0;
+
+//   for (let i = 1; i <= maxFactor; i++) {
+//     const square = Math.pow(i, 2);
+//     for (let j = 1; j <= n; j++) {
+//       if (j >= square) {
+//         dp[j] = Math.min(dp[j], dp[j - square] + 1);
+//       }
+//     }
+//   }
+//   return dp[n];
+// }
+
+// function numSquares(n: number): number {
+//   const maxFactor = Math.floor(Math.pow(n, 0.5));
+//   const maxNum = Number.MAX_SAFE_INTEGER;
+
+//   const dp = Array(maxFactor + 1)
+//     .fill(0)
+//     .map(x => Array(n + 1).fill(maxNum));
+
+//   for (let i = 1; i <= maxFactor; i++) {
+//     dp[i][0] = 0;
+//     const square = Math.pow(i, 2);
+
+//     for (let j = 1; j <= n; j++) {
+//       dp[i][j] = dp[i - 1][j];
+//       if (j >= square) {
+//         dp[i][j] = Math.min(dp[i][j], dp[i][j - square] + 1);
+//       }
+//     }
+//   }
+
+//   return dp[maxFactor][n];
+// }
