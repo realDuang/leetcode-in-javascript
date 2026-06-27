@@ -45,6 +45,8 @@ declare global {
 
   /** Options for a test suite; `judge` overrides the default deep-equality comparison. */
   type LCTOptions = {
+    /** Compare array outputs without considering the order of their top-level elements. */
+    ignoreArrayOrder?: boolean;
     /** Params are `any` so each call site can annotate its own actual/expected types without casts. */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     judge?: (actual: any, expected: any) => boolean;

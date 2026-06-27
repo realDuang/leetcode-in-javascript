@@ -10,6 +10,8 @@ type AnyConstructor = new (...args: any[]) => any;
 type Judge = (actual: unknown, expected: unknown) => boolean;
 
 type Options = {
+  /** Compare array outputs without considering the order of their top-level elements. */
+  ignoreArrayOrder?: boolean;
   /**
    * Custom check between the actual result and the expected value (overrides deep equality).
    * Params are `any` so each call site can annotate its own actual/expected types without casts.
@@ -91,6 +93,13 @@ class LCT {
     }
   };
 
+  private arrayOrderInsensitiveEqual: Judge = (actual, expected) => {
+    if (!Array.isArray(actual) || !Array.isArray(expected)) return false;
+
+    const normalize = (rows: unknown[]) => rows.map(row => this.formatValue(row)).sort();
+    return this.deepEqual(normalize(actual), normalize(expected));
+  };
+
   /**
    * The single execution core: run every row, printing its input/actual/expect
    * and a PASS/FAIL/ERROR line, then print a summary.
@@ -135,7 +144,7 @@ class LCT {
    * value comes from `getActual`, and expose `.cases()` / `.auto()`.
    */
   private runner(getActual: (input: unknown[]) => unknown) {
-    const exec = (examples: ReadonlyArray<Example>, judge?: Judge) =>
+    const exec = (examples: ReadonlyArray<Example>, options?: Options) =>
       this.run(
         examples.map((example, index) => ({
           tag: this.tag('case', index),
@@ -144,7 +153,7 @@ class LCT {
           hasExpected: example.hasExpected,
           call: () => getActual(example.input)
         })),
-        judge
+        options?.judge ?? (options?.ignoreArrayOrder ? this.arrayOrderInsensitiveEqual : undefined)
       );
     return {
       cases: (cases: ReadonlyArray<CaseData>, options?: Options) =>
@@ -156,7 +165,7 @@ class LCT {
               hasExpected: true
             })
           ),
-          options?.judge
+          options
         ),
       auto: (options?: Options) => {
         const examples = this.parseFuncExamples();
@@ -164,7 +173,7 @@ class LCT {
           console.log('⚠️ No examples found in comment or LCPR blocks');
           return;
         }
-        exec(examples, options?.judge);
+        exec(examples, options);
       }
     };
   }
